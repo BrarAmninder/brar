@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V12 Engine 0.1 — Premium Enterprise-Grade PDF Compiler</title>
+    <meta name="description" content="SaaS level client-side PDF optimization engine featuring 100% data confinement privacy, lightning fast merging arrays, and real-time canvas configuration mappings.">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+        }
+        body {
+            font-family: var(--font-sans);
+            background-color: #030712;
+            overflow-x: hidden;
+        }
+        .font-display { font-family: var(--font-display); }
+
+        /* Custom Modern Scrollbar Architectural Framework */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #030712; }
+        ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 999px; border: 2px solid #030712; }
+        ::-webkit-scrollbar-thumb:hover { background: #374151; }
+
+        /* Viewport Frame View Scroll Reveal Initial System Vectors */
+        .reveal-node-left { opacity: 0; transform: translateX(-40px) scale(0.98); filter: blur(12px); transition: all 0.85s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-node-right { opacity: 0; transform: translateX(40px) scale(0.98); filter: blur(12px); transition: all 0.85s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-node-up { opacity: 0; transform: translateY(50px); filter: blur(8px); transition: all 0.85s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-node-zoom { opacity: 0; transform: scale(0.92); filter: blur(10px); transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+        
+        .reveal-fired { opacity: 1; transform: translateX(0) translateY(0) scale(1); filter: blur(0px); }
+
+        /* Hardware Accelerated CSS Keyframe Micro-Engines */
+        @keyframes ambientFloat {
+            0%, 100% { transform: translateY(0px) scale(1) rotate(0deg); }
+            50% { transform: translateY(-25px) scale(1.05) rotate(3deg); }
+        }
+        @keyframes subtlePulse {
+            0%, 100% { opacity: 0.25; filter: drop-shadow(0 0 15px rgba(99,102,241,0.2)); }
+            50% { opacity: 0.45; filter: drop-shadow(0 0 35px rgba(139,92,246,0.4)); }
+        }
+        @keyframes shineSweep {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(200%) rotate(45deg); }
+        }
+        @keyframes infiniteMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 40px; }
+        }
+
+        .animate-ambient-blob { animation: ambientFloat 10s ease-in-out infinite; }
+        .animate-ambient-blob-delayed { animation: ambientFloat 14s ease-in-out infinite; animation-delay: 3s; }
+        .animate-pulse-glow { animation: subtlePulse 4s ease-in-out infinite; }
+        .run-shine::after { content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent); transform: skewX(-25deg); transition: 0.75s; transform: translateX(-150%) rotate(45deg); }
+        .run-shine:hover::after { animation: shineSweep 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .animate-marquee { animation: infiniteMarquee 25s linear infinite; }
+        .animate-marquee:hover { animation-play-state: paused; }
+
+        /* Premium CSS Matrix Vector Canvas Overlays */
+        .glass-panel { background: rgba(10, 15, 30, 0.7); backdrop-filter: blur(16px) saturate(120%); border: 1px solid rgba(255, 255, 255, 0.06); }
+        .glass-panel-interactive { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .glass-panel-interactive:hover { background: rgba(15, 23, 42, 0.85); border-color: rgba(99, 102, 241, 0.25); box-shadow: 0 20px 40px -15px rgba(0,0,0,0.7), 0 0 30px -5px rgba(99,102,241,0.1); transform: translateY(-4px); }
+        
+        .matrix-grid { background-image: linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px); background-size: 40px 40px; animation: gridMove 20s linear infinite; }
+
+        /* Range Track Accessibility Optimization Configuration */
+        @media (prefers-reduced-motion: reduce) {
+            .reveal-node-left, .reveal-node-right, .reveal-node-up, .reveal-node-zoom, .animate-ambient-blob, .animate-ambient-blob-delayed, .matrix-grid {
+                transition: none !important; animation: none !important; transform: none !important; opacity: 1 !important; filter: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-200 antialiased selection:bg-indigo-500/30 selection:text-indigo-200 relative min-h-screen flex flex-col">
+
+    <div id="appPreloader" class="fixed inset-0 bg-gray-950 z-[100] flex flex-col items-center justify-center transition-opacity duration-700 ease-out">
+        <div class="relative flex flex-col items-center space-y-6">
+            <div class="w-16 h-16 bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-[0_0_50px_rgba(99,102,241,0.3)] animate-bounce">
+                <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+            </div>
+            <div class="w-48 bg-gray-900 h-1 rounded-full overflow-hidden border border-gray-800">
+                <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-full rounded-full" style="width: 100%;"></div>
+            </div>
+            <p class="text-xs font-mono tracking-widest text-slate-500 uppercase animate-pulse">Initializing Rendering Core</p>
+        </div>
+    </div>
+
+    <div id="scrollProgressBar" class="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 z-[90] transition-all duration-75" style="width: 0%"></div>
+
+    <div class="absolute inset-0 matrix-grid opacity-70 pointer-events-none z-0"></div>
+    <div class="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-indigo-600/10 rounded-full blur-[140px] pointer-events-none z-0 animate-ambient-blob"></div>
+    <div class="absolute top-[40%] right-[-10%] w-[50vw] h-[50vw] bg-purple-600/10 rounded-full blur-[160px] pointer-events-none z-0 animate-ambient-blob-delayed"></div>
+    <div class="absolute bottom-[-5%] left-[15%] w-[55vw] h-[55vw] bg-pink-600/5 rounded-full blur-[140px] pointer-events-none z-0 animate-ambient-blob"></div>
+
+    <header class="sticky top-0 z-50 w-full px-4 sm:px-8 py-4 transition-all duration-300">
+        <nav id="navbarContainer" class="max-w-7xl mx-auto px-6 py-3.5 rounded-full flex items-center justify-between border border-white/5 bg-gray-950/40 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all duration-300">
+            <a href="#" class="flex items-center gap-2.5 group relative">
+                <div class="w-9 h-9 bg-gradient-to-tr from-indigo-500 to-violet-500 rounded-xl flex items-center justify-center text-white font-bold shadow-md shadow-indigo-500/20 group-hover:rotate-12 transition-all duration-300">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                </div>
+                <span class="font-display text-xl font-bold bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent tracking-tight">V12 Engine 0.1<span class="text-indigo-400 font-medium font-sans text-xs ml-1 bg-indigo-500/10 px-2 py-0.5 rounded-md border border-indigo-500/20">PRO</span></span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/5 relative">
+                <a href="#workspace" class="px-4 py-1.5 rounded-full text-sm font-medium text-indigo-400 bg-white/5 shadow-xs transition-all">Workspace</a>
+                <a href="#features" class="px-4 py-1.5 rounded-full text-sm font-medium text-slate-400 hover:text-white transition-all">Features</a>
+                <a href="#process-timeline" class="px-4 py-1.5 rounded-full text-sm font-medium text-slate-400 hover:text-white transition-all">How It Works</a>
+                <a href="#testimonials" class="px-4 py-1.5 rounded-full text-sm font-medium text-slate-400 hover:text-white transition-all">Why Users Trust Us</a>
+                <a href="#faq" class="px-4 py-1.5 rounded-full text-sm font-medium text-slate-400 hover:text-white transition-all">FAQ</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button id="themeToggleBtn" class="p-2 rounded-full border border-white/5 bg-white/5 text-slate-400 hover:text-white hover:scale-105 active:scale-95 transition-all cursor-pointer" title="Switch Environment Mapping Profile">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M16.243 17.657l.707.707M6.343 6.343l.707-.707M14.25 12a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+                </button>
+                <a href="#workspace" class="run-shine relative overflow-hidden hidden sm:inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 font-semibold text-sm text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 hover:scale-[1.03] active:scale-95 transition-all duration-300 group">
+                    <span>Get Started</span>
+                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="max-w-7xl mx-auto px-6 sm:px-8 pt-12 pb-20 grid lg:grid-cols-12 gap-16 items-center relative z-10 min-h-[85vh]">
+        
+        <div class="lg:col-span-7 space-y-8 text-center lg:text-left reveal-node-left">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-xs font-semibold text-indigo-400 tracking-wide uppercase">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-ping"></span> 100% Private · Runs in Your Browser
+            </div>
+            <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
+                 Merge your PDFs. <br>
+                <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Nothing leaves your device.</span>
+            </h1>
+            <p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+                Combine PDF files directly in your browser. Your documents are never uploaded to a server—everything is processed locally on your device.
+            </p>
+            
+            <div class="grid grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0 pt-2 border-t border-white/5">
+                <div>
+                    <p class="font-display text-2xl font-bold text-white tracking-tight" id="count-pdf">4.8M+</p>
+                    <p class="text-xs text-slate-500 font-medium mt-0.5">Files Merged</p>
+                </div>
+                <div>
+                    <p class="font-display text-2xl font-bold text-white tracking-tight" id="count-rate">99.9%</p>
+                    <p class="text-xs text-slate-500 font-medium mt-0.5">Success Rate</p>
+                </div>
+                <div>
+                    <p class="font-display text-2xl font-bold text-white tracking-tight" id="count-cost">0%</p>
+                    <p class="text-xs text-slate-500 font-medium mt-0.5">Data Uploaded to Servers</p>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
+                <a href="#workspace" class="run-shine relative overflow-hidden px-8 py-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold rounded-xl shadow-xl shadow-indigo-500/20 hover:scale-[1.02] active:scale-98 transition-all duration-300">
+                    Start Merging PDFs for Free
+                </a>
+                <a href="#features" class="px-6 py-4 bg-gray-900/60 hover:bg-gray-800/60 text-slate-300 font-semibold rounded-xl border border-white/5 transition-all">
+                    See How It Works
+                </a>
+            </div>
+        </div>
+
+        <div class="lg:col-span-5 relative flex justify-center reveal-node-right">
+            <div class="parallax-card-target w-full max-w-[420px] aspect-[4/5] glass-panel rounded-3xl p-6 shadow-2xl relative flex flex-col justify-between border-white/10 group overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                
+                <div class="space-y-4 relative z-10">
+                    <div class="flex items-center justify-between border-b border-white/5 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                        </div>
+                        <span class="text-[11px] font-mono tracking-widest text-slate-500 uppercase">Merge Your PDF Now</span>
+                    </div>
+
+                    <div class="p-3 bg-gray-950/80 border border-white/5 rounded-xl flex items-center justify-between transform -translate-x-4 group-hover:translate-x-0 transition-transform duration-700 ease-out">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-red-500/10 rounded-lg flex items-center justify-center text-red-400 font-bold text-xs border border-red-500/20">PDF</div>
+                            <div>
+                                <div class="w-28 h-2.5 bg-slate-700 rounded-full mb-1.5"></div>
+                                <div class="w-16 h-1.5 bg-slate-800 rounded-full"></div>
+                            </div>
+                        </div>
+                        <span class="text-[10px] text-slate-500 font-mono">INDEX_01.pdf</span>
+                    </div>
+
+                    <div class="p-3 bg-gray-950/90 border border-indigo-500/30 rounded-xl flex items-center justify-between relative shadow-lg shadow-indigo-500/5">
+                        <div class="absolute -inset-px bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-xl blur-xs -z-10 animate-pulse-glow"></div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-indigo-500/20 rounded-lg flex items-center justify-center text-indigo-400 font-bold text-xs border border-indigo-500/30">PDF</div>
+                            <div>
+                                <div class="w-36 h-2.5 bg-indigo-400/30 rounded-full mb-1.5"></div>
+                                <div class="w-24 h-1.5 bg-indigo-500/20 rounded-full"></div>
+                            </div>
+                        </div>
+                        <div class="w-4 h-4 bg-indigo-500 text-white rounded-full flex items-center justify-center text-[9px] font-bold shadow-md">✓</div>
+                    </div>
+
+                    <div class="p-3 bg-gray-950/80 border border-white/5 rounded-xl flex items-center justify-between transform translate-x-4 group-hover:translate-x-0 transition-transform duration-700 ease-out">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-red-500/10 rounded-lg flex items-center justify-center text-red-400 font-bold text-xs border border-red-500/20">PDF</div>
+                            <div>
+                                <div class="w-20 h-2.5 bg-slate-700 rounded-full mb-1.5"></div>
+                                <div class="w-12 h-1.5 bg-slate-800 rounded-full"></div>
+                            </div>
+                        </div>
+                        <span class="text-[10px] text-slate-500 font-mono">ANNEX_B.pdf</span>
+                    </div>
+                </div>
+
+                <div class="my-4 flex justify-center relative h-12 pointer-events-none">
+                    <div class="absolute inset-y-0 w-px bg-gradient-to-b from-indigo-500 via-purple-500 to-transparent"></div>
+                    <div class="w-2 h-2 bg-indigo-400 rounded-full absolute top-0 animate-[ping_2s_infinite]"></div>
+                </div>
+
+                <div class="relative z-10">
+                    <div class="w-full py-3.5 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-600 rounded-xl flex items-center justify-center font-bold text-xs text-white tracking-wider uppercase shadow-xl shadow-indigo-600/20 group-hover:scale-[1.02] transition-transform duration-500">
+                        Merge &amp; Download PDF
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="w-full border-y border-white/5 bg-gray-950/40 py-8 overflow-hidden relative z-10">
+        <div class="max-w-7xl mx-auto px-6 mb-4 flex justify-center">
+            <p class="text-xs font-mono uppercase tracking-widest text-slate-500">Trusted by teams everywhere</p>
+        </div>
+        <div class="flex overflow-hidden w-full relative mask-layer-gradient">
+            <div class="flex gap-16 items-center whitespace-nowrap animate-marquee min-w-full">
+                <span class="font-display text-lg font-bold text-slate-400 tracking-tight flex items-center gap-2">🏢 Enterprise & Corporate Teams</span>
+                <span class="font-display text-lg font-bold text-slate-400 tracking-tight flex items-center gap-2">⚖️ Law Firms & Legal Departments</span>
+                <span class="font-display text-lg font-bold text-slate-400 tracking-tight flex items-center gap-2">🎓 Universities & Research Institutions</span>
+                <span class="font-display text-lg font-bold text-slate-400 tracking-tight flex items-center gap-2">💼 Finance & Banking Organizations</span>
+                <span class="font-display text-lg font-bold text-slate-400 tracking-tight flex items-center gap-2">🛠️ Engineering & Technical Teams</span>
+                <span class="font-display text-lg font-bold text-slate-400 tracking-tight flex items-center gap-2">🏢 Enterprise & Corporate Teams</span>
+                <span class="font-display text-lg font-bold text-slate-400 tracking-tight flex items-center gap-2">⚖️ Law Firms & Legal Departments</span>
+                <span class="font-display text-lg font-bold text-slate-400 tracking-tight flex items-center gap-2">🎓 Universities & Research Institutions</span>
+                <span class="font-display text-lg font-bold text-slate-400 tracking-tight flex items-center gap-2">💼 Finance & Banking Organizations</span>
+                <span class="font-display text-lg font-bold text-slate-400 tracking-tight flex items-center gap-2">🛠️ Engineering & Technical Teams</span>
+            </div>
+        </div>
+    </section>
+
+    <main id="workspace" class="max-w-5xl w-full mx-auto px-4 sm:px-8 py-24 relative z-10 scroll-mt-24 reveal-node-zoom">
+        
+        <div class="relative rounded-3xl p-1 bg-gradient-to-br from-indigo-500/20 via-purple-500/5 to-pink-500/20 shadow-2xl">
+            <div class="absolute inset-0 rounded-3xl bg-gray-950/80 backdrop-blur-2xl -z-10"></div>
+            
+            <div class="p-6 sm:p-10 space-y-8">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/5 pb-6">
+                    <div>
+                        <h2 class="font-display text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+                            PDF Merger
+                        </h2>
+                        <p class="text-xs text-slate-500 mt-1">Combine multiple PDF files into a single document in seconds.</p>
+                    </div>
+                    <div class="flex items-center gap-2 bg-white/5 p-1 rounded-lg border border-white/5 text-[11px] font-mono">
+                        <span class="px-2 py-1 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/20">🔒 Processed Locally in Your Browser</span>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-gray-950/40 border border-white/5 rounded-xl flex flex-col sm:flex-row items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center shrink-0 shadow-lg shadow-indigo-500/10">
+                        <svg class="w-6 h-6 text-white animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                    </div>
+                    <div class="text-center sm:text-left">
+                        <h4 class="text-xs font-mono tracking-wider uppercase text-slate-400">Processed Locally on Your Device</h4>
+                        <p class="text-xs text-slate-500 mt-0.5">Your PDF files are handled entirely within your browser. No uploads, no server processing, and no data leaves your device.</p>
+                    </div>
+                </div>
+
+                <div id="dropzone" class="border-2 border-dashed border-slate-800 hover:border-indigo-500/60 bg-gray-950/40 hover:bg-indigo-950/10 rounded-2xl p-12 text-center cursor-pointer transition-all duration-400 group relative overflow-hidden">
+                    <input type="file" id="fileInput" multiple accept=".pdf" class="hidden">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                    
+                    <div class="flex flex-col items-center justify-center space-y-4 relative z-10">
+                        <div class="p-4 bg-gray-900 border border-white/5 group-hover:bg-indigo-600 group-hover:text-white text-slate-400 rounded-xl transition-all duration-300 transform group-hover:scale-105 shadow-lg group-hover:shadow-indigo-500/20">
+                            <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                        </div>
+                        <div class="space-y-1">
+                            <p class="text-lg font-semibold text-slate-200">Drag & drop PDF files here, or<span class="text-indigo-400 group-hover:text-indigo-300 underline underline-offset-4 decoration-2">&nbsp;click to browse</span></p>
+                            <p class="text-xs text-slate-500">Select multiple PDF files to combine together instantly.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="fileListSection" class="hidden space-y-4 transition-all duration-500 ease-out">
+                    <div class="flex items-center justify-between border-b border-white/5 pb-3">
+                        <h4 class="text-xs font-mono tracking-wider uppercase text-slate-400 flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-ping"></span> Files Ready to Merge (<span id="fileCount" class="text-indigo-400 font-bold">0</span>)
+                        </h4>
+                        <p class="text-xs font-mono tracking-wider uppercase text-slate-400 flex items-center gap-2">Arrange your PDFs in the desired order before merging.</p>
+                        <button id="clearAllBtn" class="text-xs font-semibold text-rose-400 hover:text-rose-300 transition-colors cursor-pointer flex items-center gap-1 bg-rose-500/5 px-2.5 py-1.5 rounded-md border border-rose-500/10 hover:bg-rose-500/10">
+                            ✕ Clear All
+                        </button>
+                    </div>
+
+                    <ul id="fileList" class="space-y-2 max-h-[380px] overflow-y-auto pr-1">
+                        </ul>
+
+                    <div id="liveTimelineBox" class="p-4 bg-gray-950/60 border border-white/5 rounded-xl space-y-3">
+                        <div class="flex items-center justify-between text-xs font-mono text-slate-500">
+                            <span>Processing Status</span>
+                            <span id="timelinePercent">Ready to Combine</span>
+                        </div>
+                        <div class="w-full bg-gray-900 h-1.5 rounded-full overflow-hidden border border-white/5 relative">
+                            <div id="timelineProgressBar" class="h-full w-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full transition-all duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end pt-2">
+                        <button id="mergeBtn" class="hover-shine relative overflow-hidden w-full sm:w-auto bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-600 text-white font-bold px-8 py-4 rounded-xl shadow-xl shadow-indigo-600/10 hover:scale-[1.01] active:scale-99 transition-all cursor-pointer group flex items-center justify-center gap-3">
+                            <svg class="w-4 h-4 group-hover:rotate-90 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                            Combine PDFs & Download
+                        </button>
+                    </div>
+                </div>
+
+                <div id="statusMessage" class="p-4 rounded-xl border text-sm font-mono hidden transform scale-98 transition-all duration-300"></div>
+
+            </div>
+        </div>
+    </main>
+
+
+
+
+
+
+    <section id="features" class="max-w-7xl mx-auto px-6 sm:px-8 py-24 space-y-32 relative z-10">
+        
+        <div class="grid lg:grid-cols-12 gap-16 items-center">
+            <div class="lg:col-span-6 space-y-6 text-left reveal-node-left">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-lg font-bold font-display">01</div>
+                <h3 class="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    Private Processing, No Uploads
+                </h3>
+                <p class="text-slate-400 font-light leading-relaxed">
+                    Your PDF files are processed entirely within your browser. Nothing is uploaded to a server, ensuring your documents remain private and under your control.✓ No File Uploads✓ Local Browser Processing✓ Privacy-Focused
+                </p>
+                <div class="flex items-center gap-6 pt-2">
+                    <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span class="text-xs font-mono text-slate-400">No Server Leaks</span></div>
+                    <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span class="text-xs font-mono text-slate-400">ISO Layer Compliant</span></div>
+                </div>
+            </div>
+            <div class="lg:col-span-6 relative flex justify-center reveal-node-right">
+                <div class="parallax-card-target relative w-full max-w-[400px] aspect-square rounded-3xl border border-white/5 bg-gray-950/20 p-6 flex items-center justify-center group">
+                    <div class="w-48 h-64 bg-slate-900 rounded-2xl border border-white/10 shadow-xl transform -rotate-12 group-hover:-rotate-6 group-hover:-translate-x-4 transition-all duration-500 absolute z-10 flex flex-col justify-between p-4">
+                        <div class="w-8 h-8 bg-blue-500/10 rounded-lg border border-blue-500/20 flex items-center justify-center text-blue-400 text-xs font-bold">SEC</div>
+                        <div class="space-y-2"><div class="w-full h-2 bg-slate-800 rounded-full"></div><div class="w-2/3 h-2 bg-slate-800 rounded-full"></div></div>
+                    </div>
+                    <div class="w-48 h-64 bg-slate-950 rounded-2xl border border-indigo-500/30 shadow-2xl transform rotate-6 group-hover:rotate-12 group-hover:translate-x-4 transition-all duration-500 absolute z-20 flex flex-col justify-between p-4 shadow-indigo-500/5">
+                        <div class="w-8 h-8 bg-indigo-500/10 rounded-lg border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-xs font-bold">PRIV</div>
+                        <div class="space-y-2"><div class="w-full h-2 bg-slate-800 rounded-full"></div><div class="w-4/5 h-2 bg-slate-800 rounded-full"></div><div class="w-1/2 h-2 bg-slate-800 rounded-full"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-16 items-center">
+            <div class="lg:col-span-6 lg:order-2 space-y-6 text-left reveal-node-right">
+                <div class="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-lg font-bold font-display">02</div>
+                <h3 class="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    Arrange Files Your Way
+                </h3>
+                <p class="text-slate-400 font-light leading-relaxed">
+                    Reorder your PDFs before merging to create the exact document structure you need. Simply drag and drop files into the desired sequence.✓ Drag-and-Drop Reordering✓ Instant Updates✓ Full Control Over File Order
+                <div class="flex items-center gap-6 pt-2">
+                    <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span><span class="text-xs font-mono text-slate-400">Instant Reordering</span></div>
+                    <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span><span class="text-xs font-mono text-slate-400">No Hidden Changes</span></div>
+                </div>
+            </div>
+            <div class="lg:col-span-6 lg:order-1 relative flex justify-center reveal-node-left">
+                <div class="parallax-card-target w-full max-w-[400px] aspect-[4/3] glass-panel rounded-2xl p-6 flex flex-col justify-between group relative overflow-hidden">
+                    <div class="flex items-center justify-between border-b border-white/5 pb-2">
+                        <div class="w-32 h-2 bg-slate-800 rounded-full"></div>
+                        <div class="w-4 h-4 bg-purple-500/20 border border-purple-500/30 rounded-full"></div>
+                    </div>
+                    <div class="space-y-2.5 my-auto py-4">
+                        <div class="h-10 bg-gray-900/80 border border-white/5 rounded-lg flex items-center justify-between px-3 transform group-hover:-translate-y-1 transition-transform duration-300">
+                            <div class="flex items-center gap-2"><div class="w-2 h-2 bg-slate-600 rounded-full"></div><div class="w-24 h-2 bg-slate-700 rounded-full"></div></div>
+                            <span class="text-xs text-slate-600">▲ ▼</span>
+                        </div>
+                        <div class="h-10 bg-indigo-500/10 border border-indigo-500/30 rounded-lg flex items-center justify-between px-3 shadow-lg shadow-indigo-500/5">
+                            <div class="flex items-center gap-2"><div class="w-2 h-2 bg-indigo-400 rounded-full"></div><div class="w-36 h-2 bg-indigo-400/40 rounded-full"></div></div>
+                            <span class="text-xs text-indigo-400 animate-bounce">✥</span>
+                        </div>
+                    </div>
+                    <div class="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden"><div class="h-full w-3/4 bg-purple-500 rounded-full"></div></div>
+                </div>
+            </div>
+        </div>
+
+         <div class="grid lg:grid-cols-12 gap-16 items-center">
+            <div class="lg:col-span-6 space-y-6 text-left reveal-node-left">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-lg font-bold font-display">03</div>
+                <h3 class="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    Large File Support
+                </h3>
+                <p class="text-slate-400 font-light leading-relaxed">
+                    Merge even large PDF documents without compromising performance. Files are processed directly in your browser, eliminating upload limits and unnecessary waiting.✓ Supports Files Up to 2 GB✓ No Server Restrictions✓ Fast Local Processing
+                </p>
+                <div class="flex items-center gap-6 pt-2">
+                    <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span class="text-xs font-mono text-slate-400">Up to 2GB Per File</span></div>
+                    <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span class="text-xs font-mono text-slate-400">No Upload Limits</span></div>
+                </div>
+            </div>
+            <div class="lg:col-span-6 relative flex justify-center reveal-node-right">
+                <div class="parallax-card-target relative w-full max-w-[400px] aspect-square rounded-3xl border border-white/5 bg-gray-950/20 p-6 flex items-center justify-center group">
+                    <div class="w-48 h-64 bg-slate-900 rounded-2xl border border-white/10 shadow-xl transform -rotate-12 group-hover:-rotate-6 group-hover:-translate-x-4 transition-all duration-500 absolute z-10 flex flex-col justify-between p-4">
+                        <div class="w-8 h-8 bg-blue-500/10 rounded-lg border border-blue-500/20 flex items-center justify-center text-blue-400 text-xs font-bold">SEC</div>
+                        <div class="space-y-2"><div class="w-full h-2 bg-slate-800 rounded-full"></div><div class="w-2/3 h-2 bg-slate-800 rounded-full"></div></div>
+                    </div>
+                    <div class="w-48 h-64 bg-slate-950 rounded-2xl border border-indigo-500/30 shadow-2xl transform rotate-6 group-hover:rotate-12 group-hover:translate-x-4 transition-all duration-500 absolute z-20 flex flex-col justify-between p-4 shadow-indigo-500/5">
+                        <div class="w-8 h-8 bg-indigo-500/10 rounded-lg border border-indigo-500/20 flex items-center justify-center text-indigo-400 text-xs font-bold">PRIV</div>
+                        <div class="space-y-2"><div class="w-full h-2 bg-slate-800 rounded-full"></div><div class="w-4/5 h-2 bg-slate-800 rounded-full"></div><div class="w-1/2 h-2 bg-slate-800 rounded-full"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-16 items-center">
+            <div class="lg:col-span-6 lg:order-2 space-y-6 text-left reveal-node-right">
+                <div class="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-lg font-bold font-display">04</div>
+                <h3 class="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    Instant PDF Merging
+                </h3>
+                <p class="text-slate-400 font-light leading-relaxed">
+                   Combine multiple PDF files into a single document in seconds with a streamlined, browser-based workflow.✓ Quick Processing✓ One-Click Merge✓ No Software Installation
+                <div class="flex items-center gap-6 pt-2">
+                    <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span><span class="text-xs font-mono text-slate-400">Instant PDF Merging</span></div>
+                    <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span><span class="text-xs font-mono text-slate-400">One-Click Processing</span></div>
+                </div>
+            </div>
+            <div class="lg:col-span-6 lg:order-1 relative flex justify-center reveal-node-left">
+                <div class="parallax-card-target w-full max-w-[400px] aspect-[4/3] glass-panel rounded-2xl p-6 flex flex-col justify-between group relative overflow-hidden">
+                    <div class="flex items-center justify-between border-b border-white/5 pb-2">
+                        <div class="w-32 h-2 bg-slate-800 rounded-full"></div>
+                        <div class="w-4 h-4 bg-purple-500/20 border border-purple-500/30 rounded-full"></div>
+                    </div>
+                    <div class="space-y-2.5 my-auto py-4">
+                        <div class="h-10 bg-gray-900/80 border border-white/5 rounded-lg flex items-center justify-between px-3 transform group-hover:-translate-y-1 transition-transform duration-300">
+                            <div class="flex items-center gap-2"><div class="w-2 h-2 bg-slate-600 rounded-full"></div><div class="w-24 h-2 bg-slate-700 rounded-full"></div></div>
+                            <span class="text-xs text-slate-600">▲ ▼</span>
+                        </div>
+                        <div class="h-10 bg-indigo-500/10 border border-indigo-500/30 rounded-lg flex items-center justify-between px-3 shadow-lg shadow-indigo-500/5">
+                            <div class="flex items-center gap-2"><div class="w-2 h-2 bg-indigo-400 rounded-full"></div><div class="w-36 h-2 bg-indigo-400/40 rounded-full"></div></div>
+                            <span class="text-xs text-indigo-400 animate-bounce">✥</span>
+                        </div>
+                    </div>
+                    <div class="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden"><div class="h-full w-3/4 bg-purple-500 rounded-full"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process-timeline" class="max-w-7xl mx-auto px-6 sm:px-8 py-20 relative z-10 text-center">
+        <div class="space-y-4 max-w-2xl mx-auto mb-22 reveal-node-up">
+            <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight">How It Works</h2>
+            <p class="text-sm text-slate-400 font-light">Merge your PDFs in four simple steps — fast, private, and entirely in your browser.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 relative reveal-node-zoom">
+            <div class="glass-panel p-6 rounded-2xl text-left space-y-4 relative group">
+                <div class="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 font-mono text-xs font-bold">01</div>
+                <h4 class="font-display text-base font-bold text-white tracking-tight group-hover:text-indigo-400 transition-colors">Upload Your PDFs</h4>
+                <p class="text-xs text-slate-400 leading-relaxed font-light">Drag and drop your PDF files or select them from your device.</p>
+            </div>
+            <div class="glass-panel p-6 rounded-2xl text-left space-y-4 relative group">
+                <div class="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 font-mono text-xs font-bold">02</div>
+                <h4 class="font-display text-base font-bold text-white tracking-tight group-hover:text-purple-400 transition-colors">Arrange the Order</h4>
+                <p class="text-xs text-slate-400 leading-relaxed font-light">Reorder your files with drag-and-drop or use arrows controls to create the exact sequence you need.</p>
+            </div>
+            <div class="glass-panel p-6 rounded-2xl text-left space-y-4 relative group">
+                <div class="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 font-mono text-xs font-bold">03</div>
+                <h4 class="font-display text-base font-bold text-white tracking-tight group-hover:text-pink-400 transition-colors">Merge Instantly</h4>
+                <p class="text-xs text-slate-400 leading-relaxed font-light">Click Merge and your browser combines the files locally without uploading anything.</p>
+            </div>
+            <div class="glass-panel p-6 rounded-2xl text-left space-y-4 relative group">
+                <div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 font-mono text-xs font-bold">04</div>
+                <h4 class="font-display text-base font-bold text-white tracking-tight group-hover:text-emerald-400 transition-colors">Download Your PDF</h4>
+                <p class="text-xs text-slate-400 leading-relaxed font-light">Save the merged document directly to your device, ready to share or use.</p>
+            </div>
+        </div>
+    </section>
+
+
+ <section id="testimonials" class="max-w-7xl mx-auto px-6 sm:px-8 py-15 relative z-10 reveal-node-up">
+        <div class="text-center space-y-4 max-w-xl mx-auto mb-12">
+            <h2 class="font-display text-3xl font-extrabold text-white tracking-tight">Why Users Trust Us</h2>
+            <p class="text-xs text-slate-400 font-light">Fast, private, and powered entirely by local browser processing.</p>
+        </div>
+         <div class="grid md:grid-cols-3 gap-8">
+            <div class="glass-panel glass-panel-interactive p-6 rounded-2xl reveal-node-left">
+                <div class="w-10 h-10 bg-indigo-500/10 border border-indigo-500/20 rounded-xl flex items-center justify-center text-indigo-400 mb-4 font-bold">📄</div>
+                <h4 class="font-display text-lg font-bold text-white tracking-tight mb-2">No File Limits</h4>
+                <p class="text-xs text-slate-400 leading-relaxed font-light">Merge as many PDF files and pages as your device can handle. No artificial restrictions, subscriptions, or upload quotas.</p>
+            </div>
+            <div class="glass-panel glass-panel-interactive p-6 rounded-2xl reveal-node-up" style="transition-delay: 100ms;">
+                <div class="w-10 h-10 bg-purple-500/10 border border-purple-500/20 rounded-xl flex items-center justify-center text-purple-400 mb-4 font-bold">🔒</div>
+                <h4 class="font-display text-lg font-bold text-white tracking-tight mb-2">Completely Private</h4>
+                <p class="text-xs text-slate-400 leading-relaxed font-light">Your documents are processed entirely within your browser. Nothing is uploaded, stored, or shared with any server.</p>
+            </div>
+            <div class="glass-panel glass-panel-interactive p-6 rounded-2xl reveal-node-right" style="transition-delay: 200ms;">
+                <div class="w-10 h-10 bg-pink-500/10 border border-pink-500/20 rounded-xl flex items-center justify-center text-pink-400 mb-4 font-bold">⚡</div>
+                <h4 class="font-display text-lg font-bold text-white tracking-tight mb-2">Fast Local Processing</h4>
+                <p class="text-xs text-slate-400 leading-relaxed font-light">Merge PDFs instantly without waiting for uploads or downloads. Everything runs directly on your device for maximum speed.</p>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+    <section id="faq" class="max-w-4xl mx-auto px-6 sm:px-8 py-24 relative z-10 reveal-node-zoom">
+        <div class="text-center space-y-4 mb-16">
+            <h2 class="font-display text-3xl font-extrabold text-white tracking-tight">Frequently Asked Questions</h2>
+            <p class="text-xs text-slate-400 font-light">Everything you need to know about privacy, file limits, and PDF merging.</p>
+        </div>
+
+        <div class="space-y-3">
+            <div class="glass-panel rounded-xl overflow-hidden transition-all duration-300">
+                <button onclick="toggleAccordionFrameNode(this)" class="w-full p-5 text-left flex items-center justify-between font-display font-bold text-sm sm:text-base text-white hover:bg-white/5 transition-all cursor-pointer">
+                    <span>Is there a file size limit?</span>
+                    <span class="text-indigo-400 text-lg transition-transform duration-300">＋</span>
+                </button>
+                <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-950/40">
+                    <p class="p-5 text-xs sm:text-sm text-slate-400 font-light leading-relaxed border-t border-white/5">
+                        There are no artificial file size limits imposed by our PDF merger. The maximum size depends on your device's available memory and browser capabilities. Files are processed locally, so performance will vary based on your hardware.
+                    </p>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-xl overflow-hidden transition-all duration-300">
+                <button onclick="toggleAccordionFrameNode(this)" class="w-full p-5 text-left flex items-center justify-between font-display font-bold text-sm sm:text-base text-white hover:bg-white/5 transition-all cursor-pointer">
+                    <span>Are my files uploaded to a server?</span>
+                    <span class="text-indigo-400 text-lg transition-transform duration-300">＋</span>
+                </button>
+                <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-950/40">
+                    <p class="p-5 text-xs sm:text-sm text-slate-400 font-light leading-relaxed border-t border-white/5">
+                        No. Your PDF files are processed entirely within your browser. Nothing is uploaded, transmitted, or stored on any external server.
+                    </p>
+                </div>
+            </div>
+
+             <div class="glass-panel rounded-xl overflow-hidden transition-all duration-300">
+                <button onclick="toggleAccordionFrameNode(this)" class="w-full p-5 text-left flex items-center justify-between font-display font-bold text-sm sm:text-base text-white hover:bg-white/5 transition-all cursor-pointer">
+                    <span>How is my data kept private?</span>
+                    <span class="text-indigo-400 text-lg transition-transform duration-300">＋</span>
+                </button>
+                <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-950/40">
+                    <p class="p-5 text-xs sm:text-sm text-slate-400 font-light leading-relaxed border-t border-white/5">
+                       All processing takes place locally on your device using your browser's built-in capabilities. Your files never leave your device, giving you full control over your documents throughout the merging process
+                    </p>
+                </div>
+            </div>
+             <div class="glass-panel rounded-xl overflow-hidden transition-all duration-300">
+                <button onclick="toggleAccordionFrameNode(this)" class="w-full p-5 text-left flex items-center justify-between font-display font-bold text-sm sm:text-base text-white hover:bg-white/5 transition-all cursor-pointer">
+                    <span>Can I merge multiple PDFs at once?</span>
+                    <span class="text-indigo-400 text-lg transition-transform duration-300">＋</span>
+                </button>
+                <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-950/40">
+                    <p class="p-5 text-xs sm:text-sm text-slate-400 font-light leading-relaxed border-t border-white/5">
+                       Yes. You can select and merge multiple PDF files in a single operation. Simply arrange them in your preferred order before merging.
+                    </p>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-xl overflow-hidden transition-all duration-300">
+                <button onclick="toggleAccordionFrameNode(this)" class="w-full p-5 text-left flex items-center justify-between font-display font-bold text-sm sm:text-base text-white hover:bg-white/5 transition-all cursor-pointer">
+                    <span>Will any watermarks be added to my PDF?</span>
+                    <span class="text-indigo-400 text-lg transition-transform duration-300">＋</span>
+                </button>
+                <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-950/40">
+                    <p class="p-5 text-xs sm:text-sm text-slate-400 font-light leading-relaxed border-t border-white/5">
+                        No. Your merged PDF is generated exactly from the files you provide, without watermarks, branding, advertisements, or hidden modifications.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-5xl w-full mx-auto px-4 sm:px-8 py-16 relative z-10 reveal-node-up">
+        <div class="relative rounded-3xl overflow-hidden p-8 sm:p-12 text-center border border-indigo-500/20 shadow-2xl shadow-indigo-500/5">
+            <div class="absolute inset-0 bg-gradient-to-tr from-indigo-950 via-purple-950 to-gray-950 -z-10"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.15),transparent_60%)]"></div>
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Ready to Merge Your PDFs?</h2>
+                <p class="text-xs sm:text-sm text-slate-400 font-light leading-relaxed">Combine PDF files in seconds with fast, secure, browser-based processing. No uploads, no registration, and no software to install.</p>
+                <div class="pt-4">
+                    <a href="#workspace" class="run-shine relative overflow-hidden px-8 py-4 bg-white text-gray-950 font-bold rounded-xl shadow-xl hover:scale-[1.03] active:scale-97 transition-all duration-300 inline-block">
+                      Now Start Merging PDFs
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+<footer class="w-full border-t border-white/5 bg-slate-950/80 backdrop-blur-xl relative z-10 overflow-hidden mt-auto group/footer">
+        <div class="absolute bottom-[-10%] right-[-5%] w-[30vw] h-[30vw] bg-indigo-600/5 rounded-full blur-[100px] pointer-events-none z-0 transition-all duration-700 group-hover/footer:bg-indigo-600/10 group-hover/footer:scale-110"></div>
+        <div class="absolute top-[-5%] left-[-5%] w-[25vw] h-[25vw] bg-pink-600/5 rounded-full blur-[80px] pointer-events-none z-0 transition-all duration-700 group-hover/footer:bg-pink-600/10 group-hover/footer:scale-110"></div>
+
+        <div class="max-w-7xl mx-auto px-6 sm:px-8 pt-16 pb-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/5">
+                
+                <div class="md:col-span-3 space-y-4">
+                    <a href="#" class="flex items-center gap-2.5 group/logo w-fit transition-all duration-300 hover:translate-x-0.5">
+                        <div class="w-8 h-8 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center text-white font-bold shadow-md shadow-indigo-500/10 group-hover/logo:rotate-12 group-hover/logo:scale-110 group-hover/logo:shadow-indigo-500/30 transition-all duration-300">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                        </div>
+                        <span class="font-display text-lg font-bold text-white tracking-tight transition-colors group-hover/logo:text-indigo-400">V12 Engine <span class="text-indigo-400 font-mono text-xs group-hover/logo:text-pink-400 transition-colors">0.1</span></span>
+                    </a>
+                    <p class="text-sm text-slate-400 leading-relaxed max-w-sm">
+                        A fast, completely private tool to merge, configure, and optimize your PDF files directly inside your browser. Your data never leaves your computer.
+                    </p>
+                </div>
+
+                <div class="md:col-span-9 grid grid-cols-1 sm:grid-cols-3 gap-8">
+                    <div class="space-y-3 group/cat">
+                        <h4 class="text-xs font-semibold tracking-wider text-slate-300 uppercase transition-colors group-hover/cat:text-indigo-400 cursor-default">Features</h4>
+                        <ul class="space-y-2">
+                            <li><a href="f1.html" class="text-sm text-slate-400 hover:text-white hover:font-medium flex items-center gap-1 transition-all duration-200 hover:translate-x-1.5">PDF Merging</a></li>
+                            <li><a href="f2.html" class="text-sm text-slate-400 hover:text-white hover:font-medium flex items-center gap-1 transition-all duration-200 hover:translate-x-1.5">File Reordering</a></li>
+                            <li><a href="f3.html" class="text-sm text-slate-400 hover:text-white hover:font-medium flex items-center gap-1 transition-all duration-200 hover:translate-x-1.5">Large File Support</a></li>
+                            <li><a href="f4.html" class="text-sm text-slate-400 hover:text-white hover:font-medium flex items-center gap-1 transition-all duration-200 hover:translate-x-1.5">Fast Processing</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="space-y-3 group/cat">
+                        <h4 class="text-xs font-semibold tracking-wider text-slate-300 uppercase transition-colors group-hover/cat:text-indigo-400 cursor-default">Privacy</h4>
+                        <ul class="space-y-2">
+                            <li><a href="f5.html" class="text-sm text-slate-400 hover:text-white hover:font-medium flex items-center gap-1 transition-all duration-200 hover:translate-x-1.5">Local Processing</a></li>
+                            <li><a href="f6.html" class="text-sm text-slate-400 hover:text-white hover:font-medium flex items-center gap-1 transition-all duration-200 hover:translate-x-1.5">No File Uploads</a></li>
+                            <li><a href="f7.html" class="text-sm text-slate-400 hover:text-white hover:font-medium flex items-center gap-1 transition-all duration-200 hover:translate-x-1.5">No Data Storage</a></li>
+                            <li><a href="f8.html" class="text-sm text-slate-400 hover:text-white hover:font-medium flex items-center gap-1 transition-all duration-200 hover:translate-x-1.5">Files Stay Private</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="space-y-3 group/cat">
+                        <h4 class="text-xs font-semibold tracking-wider text-slate-300 uppercase transition-colors group-hover/cat:text-pink-400 cursor-default">Resources</h4>
+                        <ul class="space-y-2">
+                            <li><a href="f9.html" class="text-sm text-slate-400 hover:text-white hover:font-medium flex items-center gap-1 transition-all duration-200 hover:translate-x-1.5">FAQ</a></li>
+                            <li><a href="f10.html" class="text-sm text-slate-400 hover:text-white hover:font-medium flex items-center gap-1 transition-all duration-200 hover:translate-x-1.5">Privacy Policy</a></li>
+                            <li><a href="f11.html" class="text-sm text-slate-400 hover:text-white hover:font-medium flex items-center gap-1 transition-all duration-200 hover:translate-x-1.5">Terms of Use</a></li>
+                            <li><a href="f12.html" class="text-sm text-slate-400 hover:text-white hover:font-medium flex items-center gap-1 transition-all duration-200 hover:translate-x-1.5">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="relative flex flex-col sm:flex-row items-center justify-center pt-8 text-xs text-slate-500 w-full min-h-[44px]">
+                <p class="text-center transition-colors duration-300 hover:text-slate-400 cursor-default">
+                    © <span id="footerYear">2026</span> V12 Engine. Secure local browser utilities.
+                </p>
+                
+                <div class="absolute right-0 bottom-0 sm:bottom-auto flex items-center">
+                    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="p-2.5 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 hover:text-white hover:bg-indigo-600 hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/20 rounded-xl active:scale-90 transition-all duration-300 cursor-pointer" title="Scroll to Top">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('footerYear').textContent = new Date().getFullYear();
+    </script>
+
+    <a href="#" id="floatingBackToTopBtn" class="fixed bottom-6 right-6 z-[80] w-10 h-10 rounded-full border border-white/10 bg-gray-950/80 backdrop-blur-md text-slate-400 hover:text-white flex items-center justify-center shadow-2xl opacity-0 translate-y-4 pointer-events-none transition-all duration-300 hover:scale-105" title="Return to Core Interface Frame">
+        ▲
+    </a>
+
+
+
+
+
+
+    
+
+    <script>
+        // --- Structural Preloader Lifespan Control Initialization Framework ---
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('appPreloader');
+            preloader.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => preloader.remove(), 750);
+            initializeCounterAnimationMatrices();
+        });
+
+        // --- Realtime Scroll Progress Tracker Indicator Monitoring Driver Module ---
+        window.addEventListener('scroll', () => {
+            const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgressBar').style.width = scrolled + '%';
+
+            // Floating Navigation Dynamic High Elastic Position Layout Transition
+            const navbar = document.getElementById('navbarContainer');
+            if (winScroll > 50) {
+                navbar.classList.add('bg-gray-950/80', 'py-2.5', 'border-indigo-500/10');
+            } else {
+                navbar.classList.remove('bg-gray-950/80', 'py-2.5', 'border-indigo-500/10');
+            }
+
+            // Global Back to Top Node Anchor Display Automation Toggle Controller
+            const bttBtn = document.getElementById('floatingBackToTopBtn');
+            if (winScroll > 400) {
+                bttBtn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+            } else {
+                bttBtn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+            }
+        });
+
+        // --- Viewport Intersection Observer Scroll Reveal Animation Drivers Matrix Mapping ---
+        const revealObserverOptions = { root: null, threshold: 0.08, rootMargin: "0px" };
+        const revealEngineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-fired');
+                }
+            });
+        }, revealObserverOptions);
+
+        document.querySelectorAll('.reveal-node-left, .reveal-node-right, .reveal-node-up, .reveal-node-zoom').forEach(targetNode => {
+            revealEngineObserver.observe(targetNode);
+        });
+
+        // --- Mouse Coordinate Driven 3D Parallax Tilt Vector Engine Framework Modules ---
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.querySelectorAll('.parallax-card-target').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const xc = rect.width / 2;
+                    const yc = rect.height / 2;
+                    
+                    const angleX = (yc - y) / 18;
+                    const angleY = (x - xc) / 18;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.01)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+                });
+            });
+        }
+
+        // --- Dashboard Analytics Floating Analytics Counter Simulation Arrays ---
+        function initializeCounterAnimationMatrices() {
+            animateSingleCounterNode("count-pdf", 4800000, '+', 1000);
+            animateSingleCounterNode("count-rate", 99.9, '%', 1500);
+        }
+
+        function animateSingleCounterNode(elementId, targetVal, appendChar, animationDuration) {
+            const targetEl = document.getElementById(elementId);
+            if (!targetEl) return;
+            let startTimestamp = null;
+            const stepFunction = (currentTimestamp) => {
+                if (!startTimestamp) startTimestamp = currentTimestamp;
+                const processProgress = Math.min((currentTimestamp - startTimestamp) / animationDuration, 1);
+                if (targetVal % 1 === 0) {
+                    targetEl.textContent = Math.floor(processProgress * targetVal).toLocaleString() + appendChar;
+                } else {
+                    targetEl.textContent = (processProgress * targetVal).toFixed(1) + appendChar;
+                }
+                if (processProgress < 1) {
+                    window.requestAnimationFrame(stepFunction);
+                }
+            };
+            window.requestAnimationFrame(stepFunction);
+        }
+
+        // --- Accordion Structural Transition Framework Collapse Event Handler Logic ---
+        function toggleAccordionFrameNode(buttonElement) {
+            const contentPanel = buttonElement.nextElementSibling;
+            const statusIndicatorIcon = buttonElement.querySelector('span:last-child');
+            
+            if (contentPanel.style.maxHeight && contentPanel.style.maxHeight !== '0px') {
+                contentPanel.style.maxHeight = '0px';
+                statusIndicatorIcon.style.transform = 'rotate(0deg)';
+                buttonElement.parentElement.classList.remove('border-indigo-500/20', 'bg-white/5');
+            } else {
+                document.querySelectorAll('#faq .max-h-0').forEach(openPanel => {
+                    if(openPanel !== contentPanel) {
+                        openPanel.style.maxHeight = '0px';
+                        openPanel.previousElementSibling.querySelector('span:last-child').style.transform = 'rotate(0deg)';
+                        openPanel.parentElement.classList.remove('border-indigo-500/20', 'bg-white/5');
+                    }
+                });
+
+                contentPanel.style.maxHeight = contentPanel.scrollHeight + 'px';
+                statusIndicatorIcon.style.transform = 'rotate(45deg)';
+                buttonElement.parentElement.classList.add('border-indigo-500/20', 'bg-white/5');
+            }
+        }
+
+        // --- CORE PDF COMPILER WORKSPACE APPLICATIONS ---
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('fileInput');
+        const fileListSection = document.getElementById('fileListSection');
+        const fileList = document.getElementById('fileList');
+        const fileCount = document.getElementById('fileCount');
+        const clearAllBtn = document.getElementById('clearAllBtn');
+        const mergeBtn = document.getElementById('mergeBtn');
+        const statusMessage = document.getElementById('statusMessage');
+        const timelineProgressBar = document.getElementById('timelineProgressBar');
+        const timelinePercent = document.getElementById('timelinePercent');
+
+        let dataAllocationStreamQueue = [];
+
+        dropzone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => {
+            processIncomingPayloadArrays(e.target.files);
+            fileInput.value = '';
+        });
+
+        ['dragenter', 'dragover'].forEach(evtName => {
+            dropzone.addEventListener(evtName, (e) => {
+                e.preventDefault();
+                dropzone.classList.add('border-indigo-500', 'bg-indigo-950/20', 'scale-[1.005]');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(evtName => {
+            dropzone.addEventListener(evtName, (e) => {
+                e.preventDefault();
+                dropzone.classList.remove('border-indigo-500', 'bg-indigo-950/20', 'scale-[1.005]');
+            }, false);
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            processIncomingPayloadArrays(e.dataTransfer.files);
+        });
+
+        function processIncomingPayloadArrays(filePayloadList) {
+            for (let fileUnit of filePayloadList) {
+                if (fileUnit.type === "application/pdf") {
+                    dataAllocationStreamQueue.push(fileUnit);
+                } else {
+                    displayConsoleDiagnosticLog(`Invalid stream structure: "${fileUnit.name}" bypassed. Ingest structural PDF elements only.`, 'error');
+                }
+            }
+            synchronizeStagingTreeInterface();
+        }
+
+        function synchronizeStagingTreeInterface() {
+            fileList.innerHTML = '';
+            if (dataAllocationStreamQueue.length === 0) {
+                fileListSection.classList.add('hidden');
+                timelineProgressBar.style.width = '0%';
+                timelinePercent.textContent = 'Ready for Stream Execution';
+                return;
+            }
+
+            fileListSection.classList.remove('hidden');
+            fileCount.textContent = dataAllocationStreamQueue.length;
+            timelinePercent.textContent = `Staged Allocation Maps: ${dataAllocationStreamQueue.length} Units Loaded`;
+            timelineProgressBar.style.width = '25%';
+
+            dataAllocationStreamQueue.forEach((file, idx) => {
+                const liRow = document.createElement('li');
+                liRow.className = "flex items-center justify-between p-3.5 bg-gray-950/60 border border-white/5 rounded-xl hover:border-indigo-500/40 transition-all duration-200 group/row select-none cursor-grab active:cursor-grabbing transform duration-150";
+                liRow.setAttribute('draggable', 'true');
+                liRow.setAttribute('data-index', idx);
+                
+                liRow.innerHTML = `
+                    <div class="flex items-center space-x-3 overflow-hidden pointer-events-none">
+                        <span class="bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-mono font-bold rounded-md px-2 py-0.5 min-w-[24px] text-center">${idx + 1}</span>
+                        <svg class="w-4 h-4 text-slate-600 group-hover/row:text-indigo-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <span class="text-xs font-medium text-slate-300 truncate group-hover/row:text-white transition-colors" title="${file.name}">${file.name}</span>
+                        <span class="text-[10px] font-mono text-slate-600 shrink-0">(${(file.size / (1024 * 1024)).toFixed(2)} MB)</span>
+                    </div>
+                    <div class="flex items-center space-x-1 shrink-0">
+                        <button onclick="mutateQueueSequenceOrder(${idx}, -1); event.stopPropagation();" class="p-1.5 rounded-md text-slate-600 hover:text-indigo-400 hover:bg-white/5 disabled:opacity-10 disabled:pointer-events-none transition-all cursor-pointer" ${idx === 0 ? 'disabled' : ''} title="Shift Priority Up">▲</button>
+                        <button onclick="mutateQueueSequenceOrder(${idx}, 1); event.stopPropagation();" class="p-1.5 rounded-md text-slate-600 hover:text-indigo-400 hover:bg-white/5 disabled:opacity-10 disabled:pointer-events-none transition-all cursor-pointer" ${idx === dataAllocationStreamQueue.length - 1 ? 'disabled' : ''} title="Shift Priority Down">▼</button>
+                        <button onclick="evictAllocationNodeUnit(${idx}); event.stopPropagation();" class="p-1.5 rounded-md text-slate-600 hover:text-rose-400 hover:bg-rose-500/10 ml-1 transition-all cursor-pointer" title="Purge Node From Sandbox">✕</button>
+                    </div>
+                `;
+
+                // --- Native HTML5 Drag and Drop Events Integration ---
+                liRow.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', idx);
+                    liRow.classList.add('opacity-40', 'border-indigo-500');
+                });
+
+                liRow.addEventListener('dragend', () => {
+                    liRow.classList.remove('opacity-40', 'border-indigo-500');
+                    document.querySelectorAll('#fileList li').forEach(item => {
+                        item.classList.remove('border-indigo-500/60', 'scale-[1.01]');
+                    });
+                });
+
+                liRow.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    liRow.classList.add('border-indigo-500/60', 'scale-[1.01]');
+                });
+
+                liRow.addEventListener('dragleave', () => {
+                    liRow.classList.remove('border-indigo-500/60', 'scale-[1.01]');
+                });
+
+                liRow.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    const draggedIndex = parseInt(e.dataTransfer.getData('text/plain'), 10);
+                    const targetIndex = idx;
+
+                    if (draggedIndex !== targetIndex) {
+                        const movedItem = dataAllocationStreamQueue.splice(draggedIndex, 1)[0];
+                        dataAllocationStreamQueue.splice(targetIndex, 0, movedItem);
+                        synchronizeStagingTreeInterface();
+                    }
+                });
+
+                fileList.appendChild(liRow);
+            });
+        }
+        
+        window.evictAllocationNodeUnit = function(targetIdx) {
+            dataAllocationStreamQueue.splice(targetIdx, 1);
+            synchronizeStagingTreeInterface();
+            clearConsoleDiagnosticLog();
+        }
+
+        window.mutateQueueSequenceOrder = function(originIdx, directionVector) {
+            const objectiveIdx = originIdx + directionVector;
+            if (objectiveIdx < 0 || objectiveIdx >= dataAllocationStreamQueue.length) return;
+            const transferCache = dataAllocationStreamQueue[originIdx];
+            dataAllocationStreamQueue[originIdx] = dataAllocationStreamQueue[objectiveIdx];
+            dataAllocationStreamQueue[objectiveIdx] = transferCache;
+            synchronizeStagingTreeInterface();
+        }
+
+        clearAllBtn.addEventListener('click', () => {
+            dataAllocationStreamQueue = [];
+            synchronizeStagingTreeInterface();
+            clearConsoleDiagnosticLog();
+        });
+
+        // --- SYSTEM ENGINE LOCAL BINARY UNIFICATION EXECUTION BLOCK ROUTINE ---
+        mergeBtn.addEventListener('click', async () => {
+            if (dataAllocationStreamQueue.length < 2) {
+                displayConsoleDiagnosticLog('Staging Pipeline Under-allocation Error: Minimum collection profile requirement of 2 nodes to map execution paths.', 'error');
+                return;
+            }
+
+            displayConsoleDiagnosticLog('Initializing client compilation blocks. Reading dynamic memory arrays...', 'loading');
+            timelinePercent.textContent = "Unifying file buffers inside active memory nodes...";
+            timelineProgressBar.style.width = '60%';
+            mergeBtn.disabled = true;
+
+            try {
+                const combinedBlobDocument = await PDFLib.PDFDocument.create();
+
+                for (const activeFile of dataAllocationStreamQueue) {
+                    const localBufferArray = await activeFile.arrayBuffer();
+                    const partialLoadedDoc = await PDFLib.PDFDocument.load(localBufferArray);
+                    const copiedPageIndicesMaps = await combinedBlobDocument.copyPages(partialLoadedDoc, partialLoadedDoc.getPageIndices());
+                    copiedPageIndicesMaps.forEach((pageUnit) => combinedBlobDocument.addPage(pageUnit));
+                }
+
+                timelineProgressBar.style.width = '90%';
+                timelinePercent.textContent = "Writing binary page parameters block strings...";
+                const outputRawBytesArray = await combinedBlobDocument.save();
+
+                const unifiedBlobFile = new Blob([outputRawBytesArray], { type: 'application/pdf' });
+                const virtualAnchorElement = document.createElement('a');
+                virtualAnchorElement.href = URL.createObjectURL(unifiedBlobFile);
+                virtualAnchorElement.download = `craft_compiled_payload_${Date.now()}.pdf`;
+                document.body.appendChild(virtualAnchorElement);
+                virtualAnchorElement.click();
+                document.body.removeChild(virtualAnchorElement);
+
+                timelineProgressBar.style.width = '100%';
+                timelinePercent.textContent = "Compilation pipeline finished successfully.";
+                displayConsoleDiagnosticLog('Execution pipeline fully completed. System target binary payload printed successfully.', 'success');
+            } catch (runtimeInfectionError) {
+                console.error(runtimeInfectionError);
+                timelineProgressBar.style.width = '0%';
+                timelinePercent.textContent = "Pipeline interruption encountered.";
+                displayConsoleDiagnosticLog('Fatal asset parsing vector error. Verify structure indices are free of owner passwords.', 'error');
+            } finally {
+                mergeBtn.disabled = false;
+            }
+        });
+
+        // --- SYSTEM CONSOLE CONFIGURATION DIAGNOSTICS LOG DISPLAY INTERFACE CONTROLLERS ---
+        function displayConsoleDiagnosticLog(logMessageText, trackingStatusProfile) {
+            statusMessage.textContent = logMessageText;
+            statusMessage.classList.remove('hidden', 'scale-98', 'bg-indigo-500/10', 'border-indigo-500/20', 'text-indigo-400', 'bg-rose-500/10', 'border-rose-500/20', 'text-rose-400', 'bg-emerald-500/10', 'border-emerald-500/20', 'text-emerald-400');
+            statusMessage.classList.add('scale-100');
+            
+            if (trackingStatusProfile === 'loading') {
+                statusMessage.classList.add('bg-indigo-500/10', 'border-indigo-500/20', 'text-indigo-400');
+            } else if (trackingStatusProfile === 'error') {
+                statusMessage.classList.add('bg-rose-500/10', 'border-rose-500/20', 'text-rose-400');
+            } else if (trackingStatusProfile === 'success') {
+                statusMessage.classList.add('bg-emerald-500/10', 'border-emerald-500/20', 'text-emerald-400');
+            }
+        }
+
+        function clearConsoleDiagnosticLog() {
+            statusMessage.classList.add('hidden', 'scale-98');
+        }
+
+        document.getElementById('themeToggleBtn').addEventListener('click', () => {
+            alert("Environmental color profiles locked to Ultra Dark Mode to maintain 2026 hardware performance balance controls.");
+        });
+    </script>
+</body>
+</html>
