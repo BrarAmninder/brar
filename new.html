@@ -597,7 +597,7 @@
             <div class="message-icon" aria-hidden="true">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v12H9l-5 3V5Z"/></svg>
             </div>
-            <textarea id="msg-input" rows="1" maxlength="500" placeholder="Enter your secret message…" autocomplete="off" spellcheck="true" aria-label="Message to encrypt"></textarea>
+    <textarea id="msg-input" rows="1" placeholder="Enter your secret message…" autocomplete="off" spellcheck="true" aria-label="Message to encrypt"></textarea>
             <div class="compose-toolbar">
               <button class="toolbar-btn" id="img-attach-btn" type="button">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
@@ -605,7 +605,7 @@
               </button>
               <span id="img-count-label" style="font-size:11.5px;color:var(--text-muted);font-family:var(--mono);display:none"></span>
             </div>
-            <div class="char-count" id="char-count">0/500</div>
+            <div class="char-count" id="char-count">0</div>
           </div>
           <input type="file" id="img-file-input" accept="image/*" multiple style="display:none">
           <div class="img-preview-strip" id="img-preview-strip"></div>
@@ -631,7 +631,7 @@
               <label class="option-pill"><input type="radio" name="expiry" value="1h"><span data-i18n="expiry1h">After reading or 1 hour</span></label>
             </div>
             <div class="password-section">
-              <div class="password-toggle" onclick="togglePasswordSection()">
+              <div class="password-toggle" onclick="togglePasswordSection(event)">
                 <div class="password-toggle-box" id="pw-toggle-box">
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>
                 </div>
@@ -644,7 +644,7 @@
                   <button class="pw-type-btn" id="btn-type-pin" data-i18n="pwTypePin" onclick="setPwType('pin')">🔢 4-digit PIN</button>
                 </div>
                 <div id="pw-password-wrap" class="pw-input-wrap">
-                  <input class="pw-input" id="pw-password-input" type="password" placeholder="Enter a password…" data-i18n="pwPlaceholder" autocomplete="new-password" maxlength="128">
+                  <input class="pw-input" id="pw-password-input" type="password" placeholder="Enter a password…" data-i18n="pwPlaceholder" autocomplete="new-password" maxlength="128" onkeydown="if(event.key==='Enter'){event.preventDefault();closePasswordPanel()}">
                   <button class="pw-eye" type="button" onclick="togglePwEye()" tabindex="-1">
                     <svg id="pw-eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
                   </button>
@@ -654,7 +654,7 @@
                     <input class="pin-box" id="pin-0" type="number" min="0" max="9" maxlength="1" placeholder="·" oninput="pinMove(this,0)">
                     <input class="pin-box" id="pin-1" type="number" min="0" max="9" maxlength="1" placeholder="·" oninput="pinMove(this,1)">
                     <input class="pin-box" id="pin-2" type="number" min="0" max="9" maxlength="1" placeholder="·" oninput="pinMove(this,2)">
-                    <input class="pin-box" id="pin-3" type="number" min="0" max="9" maxlength="1" placeholder="·" oninput="pinMove(this,3)">
+                    <input class="pin-box" id="pin-3" type="number" min="0" max="9" maxlength="1" placeholder="·" oninput="pinMove(this,3)" onkeydown="if(event.key==='Enter'){event.preventDefault();closePasswordPanel()}">
                   </div>
                 </div>
                 <p class="pw-hint" id="pw-hint" data-i18n="pwHintPw">Share this password with the recipient separately — do not include it in the message.</p>
@@ -1162,6 +1162,11 @@ const composeError = document.getElementById('compose-error');
 let generatedLink = '';
 let currentFragRaw = '';
 
+function restoreCreateButton() {
+  createBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> <span data-i18n="createBtn">${t('createBtn')}</span>`;
+  createBtn.disabled = false;
+}
+
 // ═══════════════════════════════════════════════
 //  IMAGE ATTACHMENTS
 // ═══════════════════════════════════════════════
@@ -1278,11 +1283,8 @@ function renderImagePreviews() {
 
 msgInput.addEventListener('input', () => {
   const len = msgInput.value.length;
-  charCount.textContent = `${len}/500`;
+  charCount.textContent = len.toLocaleString();
   charCount.className = 'char-count';
-  if (len >= 450) charCount.classList.add('warn');
-  const preview = document.getElementById('message-preview');
-  if (preview) preview.textContent = msgInput.value.trim() || 'This message will self-destruct after being viewed.';
   if (composeError.textContent) composeError.textContent = '';
 });
 
@@ -1354,11 +1356,11 @@ async function createLink() {
       expiryMode === '24h' ? 'expires after reading · 24h max' : 'expires after reading';
     resultCard.style.display = 'block';
     resultCard.scrollIntoView({behavior:'smooth',block:'nearest'});
-    createBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> <span data-i18n="createBtn">${t('createBtn')}</span>`;
-    createBtn.disabled = false;
+    restoreCreateButton();
   } catch(err) {
-    composeError.textContent = 'Encryption failed.';
-    createBtn.disabled = false;
+    console.error('Secure link creation failed:', err);
+    composeError.textContent = 'Could not create the secure link. Please try again.';
+    restoreCreateButton();
   }
 }
 
@@ -1384,7 +1386,7 @@ function resetCompose() {
   renderImagePreviews();
   document.querySelector('input[name="expiry"][value="read-once"]').checked = true;
   expirySelect.value = 'read-once';
-  charCount.textContent = '0/500';
+  charCount.textContent = '0';
   const preview = document.getElementById('message-preview');
   if (preview) preview.textContent = 'This message will self-destruct after being viewed.';
   // Reset password section
@@ -1443,16 +1445,46 @@ document.addEventListener('contextmenu',(e)=>{ if(document.getElementById('state
 let pwEnabled = false;
 let pwType = 'password'; // 'password' | 'pin'
 
-function togglePasswordSection() {
-  pwEnabled = !pwEnabled;
+function togglePasswordSection(event) {
   const box = document.getElementById('pw-toggle-box');
   const fields = document.getElementById('pw-fields');
+  const panelOpen = fields.classList.contains('visible');
+  const clickedCheckbox = event && event.target.closest('.password-toggle-box');
+
+  // With protection already enabled, clicking the label reopens its editor.
+  // Clicking the checked box itself still turns protection off.
+  if (pwEnabled && !panelOpen && !clickedCheckbox) {
+    fields.classList.add('visible');
+    setTimeout(() => document.getElementById(pwType === 'pin' ? 'pin-0' : 'pw-password-input').focus(), 50);
+    return;
+  }
+
+  pwEnabled = !pwEnabled;
   box.classList.toggle('checked', pwEnabled);
   fields.classList.toggle('visible', pwEnabled);
   if (pwEnabled) {
-    setTimeout(() => document.getElementById('pw-password-input').focus(), 50);
+    setTimeout(() => {
+      if (!fields.classList.contains('visible')) return;
+      document.getElementById(pwType === 'pin' ? 'pin-0' : 'pw-password-input').focus();
+    }, 50);
   }
 }
+
+function closePasswordPanel() {
+  const fields = document.getElementById('pw-fields');
+  fields.classList.remove('visible');
+  if (fields.contains(document.activeElement)) document.activeElement.blur();
+}
+
+document.addEventListener('click', event => {
+  if (!event.target.closest('.password-section')) closePasswordPanel();
+});
+
+document.getElementById('pw-fields').addEventListener('focusout', event => {
+  if (!event.relatedTarget || !event.currentTarget.contains(event.relatedTarget)) {
+    closePasswordPanel();
+  }
+});
 
 function setPwType(type) {
   pwType = type;
@@ -1540,10 +1572,19 @@ async function submitPassword() {
   const btn = document.getElementById('pw-submit-btn');
   btn.disabled = true;
   btn.innerHTML = `<div class="spinner"></div> ${t('checking')}`;
-  const hash = await hashPassword(raw);
+  let hash;
+  try {
+    hash = await hashPassword(raw);
+  } catch (err) {
+    console.error('Password verification failed:', err);
+    btn.disabled = false;
+    btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg> <span data-i18n="unlockBtn">${t('unlockBtn')}</span>`;
+    showGateError('Could not verify the password. Please try again.');
+    return;
+  }
   if (hash === correctHash) {
     // Password correct — now proceed to open
-    proceedReveal();
+    await proceedReveal();
   } else {
     // Increment attempt count on the server so it persists across refreshes
     const burnId = getBurnId(currentFragRaw);
@@ -2654,3 +2695,4 @@ function applyTranslations() {
 </script>
 </body>
 </html>
+
