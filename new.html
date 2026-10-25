@@ -1045,173 +1045,6 @@
   @media(prefers-reduced-motion:reduce){
     .faq-item,.faq-chevron{transition:none!important}
   }
-  /* Interactive encrypted / opened message comparison */
-  .message-comparison{
-    width:100%;max-width:680px;margin:0 auto 48px;
-  }
-  .message-comparison-kicker{
-    margin:0 0 7px;text-align:center;color:#7651df;
-    font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
-  }
-  .message-comparison-title{
-    margin:0 0 7px;text-align:center;color:#171c30;
-    font-size:clamp(23px,3.4vw,29px);font-weight:820;line-height:1.14;
-    letter-spacing:-.045em;
-  }
-  .message-comparison-title span{color:#8054e9}
-  .message-comparison-subtitle{
-    max-width:48ch;margin:0 auto 18px;text-align:center;color:#778196;
-    font-size:12px;line-height:1.55;
-  }
-  .comparison-frame{
-    --compare-position:50%;
-    position:relative;isolation:isolate;width:100%;height:clamp(200px,24vw,270px);
-    overflow:hidden;border:1px solid rgba(74,91,145,.13);border-radius:24px;
-    background:#f3f2ff;
-    box-shadow:0 16px 38px rgba(71,77,131,.12);
-  }
-  .comparison-panel{
-    position:absolute;inset:0;display:grid;place-items:center;overflow:hidden;
-    padding:16px;
-  }
-  .comparison-panel--locked{
-    background:
-      radial-gradient(ellipse at 18% 20%,rgba(109,151,255,.19),transparent 38%),
-      linear-gradient(135deg,#eef4ff 0%,#f2eeff 52%,#f7f4ff 100%);
-  }
-  .comparison-panel--opened{
-    z-index:1;
-    background:
-      radial-gradient(ellipse at 82% 18%,rgba(235,126,201,.19),transparent 38%),
-      linear-gradient(135deg,#f0ecff 0%,#fff3fb 56%,#fff7f5 100%);
-    clip-path:inset(0 0 0 50%);
-  }
-  .comparison-demo-card{
-    width:min(100%,280px);padding:14px 16px 13px;
-    border:1px solid rgba(92,101,151,.13);border-radius:19px;
-    background:rgba(255,255,255,.88);box-shadow:0 12px 28px rgba(58,61,112,.11);
-    backdrop-filter:blur(12px);
-  }
-  .comparison-card-top{
-    display:flex;align-items:center;justify-content:space-between;gap:8px;
-    margin-bottom:12px;
-  }
-  .comparison-state{
-    display:inline-flex;align-items:center;gap:5px;padding:3px 7px;
-    border:1px solid rgba(121,82,245,.13);border-radius:999px;
-    background:#f3efff;color:#6f4bce;font-size:7.5px;font-weight:800;
-    letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;
-  }
-  .comparison-state-dot{width:6px;height:6px;border-radius:50%;background:#8b60ea}
-  .comparison-state--opened{background:#fff0f6;color:#c34f85;border-color:rgba(220,87,145,.15)}
-  .comparison-state--opened .comparison-state-dot{background:#e55e9b}
-  .comparison-lock-icon{
-    display:grid;width:26px;height:26px;flex:0 0 26px;place-items:center;
-    border-radius:9px;background:#edf1ff;color:#6862d9;
-  }
-  .comparison-lock-icon--opened{background:#fff0f6;color:#d95391}
-  .comparison-lock-icon svg{width:14px;height:14px}
-  .comparison-demo-title{
-    margin:0 0 4px;color:#283149;font-size:13px;font-weight:780;
-    letter-spacing:-.025em;
-  }
-  .comparison-demo-copy{margin:0;color:#778196;font-size:10px;line-height:1.5}
-  .comparison-private-message{
-    margin:10px 0 9px;padding:9px 10px;border:1px solid #e9eafa;
-    border-radius:10px;background:#f8f8ff;color:#4f5875;
-    font-family:var(--mono);font-size:9.5px;line-height:1.5;
-  }
-  .comparison-private-message--blurred{
-    color:#8189a1;filter:blur(4px);user-select:none;
-  }
-  .comparison-demo-foot{
-    display:flex;align-items:center;gap:7px;color:#858da1;
-    font-size:9px;line-height:1.4;
-  }
-  .comparison-demo-foot svg{width:13px;height:13px;flex:0 0 13px;color:#8a66e8}
-  .comparison-demo-foot--burned svg{color:#e05b91}
-  .comparison-divider{
-    position:absolute;top:0;bottom:0;left:var(--compare-position);z-index:2;
-    width:2px;transform:translateX(-50%);
-    background:linear-gradient(180deg,#8b5cf6,#e554a6);
-    box-shadow:0 0 15px rgba(133,81,223,.35);pointer-events:none;
-  }
-  .comparison-divider-knob{
-    position:absolute;top:50%;left:50%;display:grid;width:34px;height:34px;
-    place-items:center;transform:translate(-50%,-50%);border:3px solid #fff;
-    border-radius:50%;background:linear-gradient(135deg,#8054e9,#db57a5);
-    color:#fff;box-shadow:0 4px 12px rgba(69,44,126,.28);
-  }
-  .comparison-divider-knob svg{width:14px;height:14px}
-  .comparison-range{
-    position:absolute;inset:0;z-index:3;width:100%;height:100%;margin:0;
-    opacity:0;cursor:ew-resize;appearance:none;-webkit-appearance:none;
-    background:transparent;
-  }
-  .comparison-range::-webkit-slider-runnable-track{height:100%;background:transparent}
-  .comparison-range::-webkit-slider-thumb{
-    width:48px;height:100%;border:0;appearance:none;-webkit-appearance:none;
-    background:transparent;
-  }
-  .comparison-range::-moz-range-track{height:100%;background:transparent}
-  .comparison-range::-moz-range-thumb{
-    width:48px;height:100%;border:0;border-radius:0;background:transparent;
-  }
-  .comparison-frame:focus-within{
-    outline:3px solid rgba(121,82,245,.32);outline-offset:4px;
-  }
-  .comparison-instruction{
-    margin:12px 0 0;text-align:center;color:#858da1;font-size:10px;line-height:1.5;
-  }
-  html[data-theme="dark"] .message-comparison-kicker{color:#cbbcff}
-  html[data-theme="dark"] .message-comparison-title{color:var(--text)}
-  html[data-theme="dark"] .message-comparison-subtitle,
-  html[data-theme="dark"] .comparison-instruction{color:var(--text-dim)}
-  html[data-theme="dark"] .comparison-frame{
-    border-color:var(--border-bright);background:var(--bg-2);
-    box-shadow:0 16px 38px rgba(0,0,0,.25);
-  }
-  html[data-theme="dark"] .comparison-panel--locked{
-    background:
-      radial-gradient(ellipse at 18% 20%,rgba(109,151,255,.15),transparent 38%),
-      linear-gradient(135deg,#171f32 0%,#211e36 55%,#1b2032 100%);
-  }
-  html[data-theme="dark"] .comparison-panel--opened{
-    background:
-      radial-gradient(ellipse at 82% 18%,rgba(235,126,201,.15),transparent 38%),
-      linear-gradient(135deg,#211e36 0%,#302033 56%,#28202c 100%);
-  }
-  html[data-theme="dark"] .comparison-demo-card{
-    border-color:var(--border-bright);background:rgba(21,27,38,.9);
-    box-shadow:0 12px 28px rgba(0,0,0,.25);
-  }
-  html[data-theme="dark"] .comparison-state{background:rgba(161,138,255,.14);border-color:rgba(177,151,255,.22);color:#d2c5ff}
-  html[data-theme="dark"] .comparison-state--opened{background:rgba(229,94,155,.13);border-color:rgba(229,94,155,.22);color:#ffafd0}
-  html[data-theme="dark"] .comparison-demo-title{color:var(--text)}
-  html[data-theme="dark"] .comparison-demo-copy,
-  html[data-theme="dark"] .comparison-demo-foot{color:var(--text-dim)}
-  html[data-theme="dark"] .comparison-private-message{background:var(--bg-3);border-color:var(--border);color:var(--text-dim)}
-  html[data-theme="dark"] .comparison-lock-icon{background:rgba(161,138,255,.14);color:#c9baff}
-  html[data-theme="dark"] .comparison-lock-icon--opened{background:rgba(229,94,155,.14);color:#ffafd0}
-  @media(max-width:680px){
-    .message-comparison{margin:0 auto 36px}
-    .comparison-frame{height:210px;border-radius:15px}
-    .comparison-panel{padding:11px}
-    .comparison-demo-card{width:min(100%,240px);padding:12px 13px 11px}
-    .comparison-card-top{margin-bottom:9px}
-    .comparison-demo-title{font-size:12px}
-    .comparison-demo-copy{font-size:9.5px}
-    .comparison-private-message{margin:9px 0 8px;font-size:9px}
-  }
-  @media(max-width:360px){
-    .comparison-frame{height:195px}
-    .comparison-demo-card{padding:10px 11px 10px}
-    .comparison-state{font-size:6.5px}
-    .comparison-demo-title{font-size:11.5px}
-  }
-  @media(prefers-reduced-motion:reduce){
-    .comparison-divider,.comparison-divider-knob{transition:none!important}
-  }
   /* Screenshot-matched footer */
   .footer{
     display:block;align-self:center;width:min(100%,800px);max-width:800px;
@@ -1835,55 +1668,6 @@
       </details>
     </div>
   </div>
-</section>
-
-<section class="message-comparison" id="message-comparison" aria-labelledby="message-comparison-title">
-  <p class="message-comparison-kicker">One-time privacy</p>
-  <h2 class="message-comparison-title" id="message-comparison-title">From locked to <span>gone.</span></h2>
-  <p class="message-comparison-subtitle">Drag the slider to see what happens before and after someone opens a GhostLink message.</p>
-  <div class="comparison-frame" id="message-comparison-frame">
-    <div class="comparison-panel comparison-panel--locked">
-      <div class="comparison-demo-card">
-        <div class="comparison-card-top">
-          <span class="comparison-state"><span class="comparison-state-dot"></span>Encrypted · unopened</span>
-          <span class="comparison-lock-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/><path d="M12 14v3"/></svg>
-          </span>
-        </div>
-        <h3 class="comparison-demo-title">Your message stays private</h3>
-        <p class="comparison-demo-copy">It is encrypted in your browser before the link is shared.</p>
-        <div class="comparison-private-message comparison-private-message--blurred">Meet me at 10:30. I’ll send the details privately.</div>
-        <div class="comparison-demo-foot">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 22 1.5-.7C18.4 19 21 15.4 21 10V5l-9-3-9 3v5c0 5.4 2.6 9 7.5 11.3L12 22Z"/><path d="m9 12 2 2 4-4"/></svg>
-          Only the recipient can read it
-        </div>
-      </div>
-    </div>
-    <div class="comparison-panel comparison-panel--opened" id="message-comparison-opened">
-      <div class="comparison-demo-card">
-        <div class="comparison-card-top">
-          <span class="comparison-state comparison-state--opened"><span class="comparison-state-dot"></span>Opened · one time</span>
-          <span class="comparison-lock-icon comparison-lock-icon--opened">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6"/><path d="M12 22a10 10 0 1 0-10-10"/></svg>
-          </span>
-        </div>
-        <h3 class="comparison-demo-title">Read once, then it’s gone</h3>
-        <p class="comparison-demo-copy">The recipient sees the message, then the link is permanently disabled.</p>
-        <div class="comparison-private-message">Meet me at 10:30. I’ll send the details privately.</div>
-        <div class="comparison-demo-foot comparison-demo-foot--burned">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M9.9 5.2A10.9 10.9 0 0 1 12 5c5 0 8.3 4.6 9 6-.3.7-1.2 2-2.7 3.2M6.2 6.2C3.9 7.7 2.5 10 2 11c.7 1.4 4 6 10 6 1 0 1.9-.2 2.7-.5"/></svg>
-          This one-time link can’t be opened again
-        </div>
-      </div>
-    </div>
-    <div class="comparison-divider" id="message-comparison-divider" aria-hidden="true">
-      <span class="comparison-divider-knob">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M3 12h18"/></svg>
-      </span>
-    </div>
-    <input class="comparison-range" id="message-comparison-range" type="range" min="0" max="100" value="50" aria-label="Compare the encrypted message with the opened message" aria-valuetext="50 percent">
-  </div>
-  <p class="comparison-instruction">Drag the handle, or focus the slider and use the arrow keys.</p>
 </section>
 
 <footer class="footer">
@@ -2552,7 +2336,6 @@ function goHome() {
   document.getElementById('view-reveal').classList.remove('active');
   document.getElementById('how-section').style.display = 'block';
   document.getElementById('faq').style.display = 'block';
-  document.getElementById('message-comparison').style.display = 'block';
   document.querySelector('.top-nav').style.display = '';
   resetCompose();
   resetMessagePlaceholderRotation();
@@ -2990,7 +2773,6 @@ async function proceedReveal() {
       new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
     showState('decrypted');
     document.getElementById('how-section').style.display = 'none';
-    document.getElementById('message-comparison').style.display = 'none';
     window.history.replaceState(null, '', window.location.pathname);
     pendingParsed = null;
   } catch(err) {
@@ -4098,33 +3880,6 @@ function resetMessagePlaceholderRotation() {
 // ═══════════════════════════════════════════════
 //  INIT  — check server FIRST, then show state
 // ═══════════════════════════════════════════════
-const messageComparisonRange = document.getElementById('message-comparison-range');
-const messageComparisonFrame = document.getElementById('message-comparison-frame');
-const messageComparisonOpened = document.getElementById('message-comparison-opened');
-const messageComparisonDivider = document.getElementById('message-comparison-divider');
-if (messageComparisonRange && messageComparisonFrame && messageComparisonOpened && messageComparisonDivider) {
-  const updateMessageComparison = () => {
-    const position = Math.max(0, Math.min(100, Number(messageComparisonRange.value) || 0));
-    messageComparisonFrame.style.setProperty('--compare-position', `${position}%`);
-    messageComparisonOpened.style.clipPath = `inset(0 0 0 ${position}%)`;
-    messageComparisonRange.setAttribute('aria-valuetext', `${position} percent`);
-  };
-  const moveMessageComparisonToPointer = clientX => {
-    const rect = messageComparisonFrame.getBoundingClientRect();
-    if (!rect.width) return;
-    const position = Math.round(Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100)));
-    messageComparisonRange.value = String(position);
-    updateMessageComparison();
-  };
-  messageComparisonFrame.addEventListener('pointermove', event => {
-    if (event.pointerType === 'mouse' || event.pointerType === 'pen') {
-      moveMessageComparisonToPointer(event.clientX);
-    }
-  });
-  messageComparisonRange.addEventListener('input', updateMessageComparison);
-  updateMessageComparison();
-}
-
 (function init() {
   initMessagePlaceholderRotation();
   const frag = window.location.hash;
@@ -4139,10 +3894,8 @@ if (messageComparisonRange && messageComparisonFrame && messageComparisonOpened 
   document.getElementById('view-reveal').classList.add('active');
   document.getElementById('how-section').style.display = 'none';
   document.getElementById('faq').style.display = 'none';
-  document.getElementById('message-comparison').style.display = 'none';
   initReveal();
 })();
 </script>
 </body>
 </html>
-
