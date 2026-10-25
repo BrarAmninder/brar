@@ -554,44 +554,7 @@
   .hero-kicker{
     background:#f8f6ff;border-color:rgba(143,84,227,.14);
   }
-  .hero-art{isolation:isolate}
-  .ghost-buddy{
-    position:absolute;z-index:3;top:163px;left:190px;width:64px;height:74px;
-    animation:ghostFloat 3.8s ease-in-out infinite;pointer-events:none;
-  }
-  .ghost-buddy svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 7px 10px rgba(100,72,166,.14))}
-  .ghost-body{fill:url(#buddyGhostGradient);stroke:rgba(255,255,255,.78);stroke-width:1.8;stroke-linejoin:round}
-  .ghost-eye{fill:#35254f}
-  .ghost-cheek{fill:#ffabd3;opacity:.95}
-  .ghost-wink,.ghost-smile{fill:none;stroke:#35254f;stroke-width:2.2;stroke-linecap:round}
-  .ghost-wave{
-    fill:none;stroke:#f4eaff;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;
-    transform-box:fill-box;transform-origin:0% 90%;animation:ghostWave 2.8s ease-in-out infinite;
-  }
   .hero-caption{letter-spacing:0}
-  @keyframes ghostFloat{
-    0%,100%{transform:translateY(0) rotate(3deg)}
-    50%{transform:translateY(-5px) rotate(-3deg)}
-  }
-  @keyframes ghostWave{
-    0%,100%{transform:rotate(0)}
-    50%{transform:rotate(-13deg)}
-  }
-  @media(min-width:901px){
-    .ghost-buddy{top:163px;left:190px}
-    .hero-caption{
-      display:block;position:absolute;top:203px;left:7px;width:142px;margin:0;
-      padding:7px 10px;border:1px solid rgba(143,84,227,.13);border-radius:12px 12px 12px 4px;
-      background:rgba(255,255,255,.94);box-shadow:0 7px 18px rgba(55,47,113,.07);
-      color:#8066b7;font-size:9px;line-height:1.4;text-align:center;
-    }
-  }
-  @media(max-width:900px){
-    .ghost-buddy{top:52%;left:auto;right:2%;width:56px;height:66px}
-  }
-  @media(max-width:680px){
-    .ghost-buddy{display:none}
-  }
   .theme-toggle{
     width:34px;height:34px;flex:0 0 34px;margin-left:12px;
     display:grid;place-items:center;border:1px solid rgba(43,48,75,.13);
@@ -1396,26 +1359,6 @@
             <p id="message-preview">This message will self-destruct after being viewed.</p>
           </div>
         </div>
-        <div class="ghost-buddy" aria-hidden="true">
-          <svg viewBox="0 0 72 84" fill="none">
-            <defs>
-              <linearGradient id="buddyGhostGradient" x1="12" y1="13" x2="60" y2="70" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#5d5aef"/>
-                <stop offset=".55" stop-color="#8550ed"/>
-                <stop offset="1" stop-color="#c14de5"/>
-              </linearGradient>
-            </defs>
-            <ellipse cx="36" cy="72" rx="18" ry="3.5" fill="#7952f5" opacity=".1"/>
-            <path class="ghost-body" d="M12 58V35a24 24 0 0 1 48 0v23c-4-3.8-8-3.8-12 0s-8 3.8-12 0-8-3.8-12 0-8 3.8-12 0-8-3.8-12 0Z"/>
-            <path class="ghost-wave" d="M59 45c7 0 9-6 5-10m0 0v-5m1 5 4-3"/>
-            <path class="ghost-wink" d="M25.5 35q2.5-3 5 0"/>
-            <circle class="ghost-eye" cx="44" cy="35" r="2.5"/>
-            <circle cx="44.8" cy="34.2" r=".7" fill="#fff"/>
-            <ellipse class="ghost-cheek" cx="23" cy="43" rx="3" ry="1.8"/>
-            <ellipse class="ghost-cheek" cx="50" cy="43" rx="3" ry="1.8"/>
-            <path class="ghost-smile" d="M33 45q3 3.5 6 0"/>
-          </svg>
-        </div>
         <svg class="preview-arrow" viewBox="0 0 70 85" fill="none" aria-hidden="true"><path d="M61 4C61 35 44 48 12 67" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="4 5"/><path d="m13 57-2 11 11-1" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <div class="link-preview">
           <span class="link-preview-icon">
@@ -1427,7 +1370,7 @@
           </span>
           <span class="preview-sparkle">✦</span>
         </div>
-        <div class="hero-caption">I saw nothing. I was floating.</div>
+        <div class="hero-caption">One link. One view. Gone for good.</div>
       </aside>
     </div>
 
