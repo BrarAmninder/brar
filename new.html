@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fbfcff" id="theme-color-meta">
 <title>GhostLink — Encrypted one-time messages</title>
 <style>
   :root {
@@ -116,8 +117,30 @@
   .password-toggle-box svg{display:none}
   .password-toggle-box.checked svg{display:block}
   .password-toggle-label{font-size:13px;color:var(--text-dim)}
-  .password-fields{margin-top:10px;display:none;flex-direction:column;gap:8px}
+  .password-fields{
+    display:none;flex-direction:column;gap:8px;
+    margin-bottom:12px;margin-top:4px;
+    background:var(--bg-2);
+    border:1px solid rgba(110,118,229,0.35);
+    border-radius:var(--radius-lg);
+    padding:14px 14px 12px;
+    position:relative;
+    animation:pwSlideUp 0.2s ease;
+  }
+  .password-fields::after{
+    content:'';
+    position:absolute;
+    bottom:-7px;
+    left:24px;
+    width:12px;height:12px;
+    background:var(--bg-2);
+    border-right:1px solid rgba(110,118,229,0.35);
+    border-bottom:1px solid rgba(110,118,229,0.35);
+    transform:rotate(45deg);
+  }
+  @keyframes pwSlideUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
   .password-fields.visible{display:flex}
+  .img-count-badge{display:flex;align-items:center;gap:6px;margin-bottom:4px;margin-top:-2px}
   .pw-type-row{display:flex;gap:6px}
   .pw-type-btn{flex:1;padding:7px 10px;background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);font-size:12.5px;color:var(--text-dim);cursor:pointer;transition:all 0.12s;font-family:var(--sans)}
   .pw-type-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
@@ -158,6 +181,7 @@
   .img-thumb-remove:hover{background:var(--red-bg);border-color:rgba(248,81,73,.4);color:var(--red)}
   .img-size-warn{font-size:11.5px;color:var(--amber);font-family:var(--mono);display:flex;align-items:center;gap:5px;margin-bottom:.5rem}
   /* ── Language switcher ── */
+  .header-right-controls{display:flex;align-items:center;gap:6px;margin-left:auto}
   .lang-switcher{position:relative;display:flex;align-items:center}
   .lang-btn{display:flex;align-items:center;gap:6px;background:var(--bg-2);border:1px solid var(--border);border-radius:20px;padding:4px 11px 4px 9px;font-size:12px;color:var(--text-dim);cursor:pointer;transition:border-color .12s,color .12s,background .12s;font-family:var(--sans);font-weight:500;outline:none;user-select:none;white-space:nowrap}
   .lang-btn:hover{border-color:var(--border-bright);color:var(--text);background:var(--bg-3)}
@@ -171,8 +195,22 @@
   .lang-option:hover{background:var(--bg-3);color:var(--text)}
   .lang-option.active{color:var(--accent);font-weight:600}
   .lang-option-flag{font-size:15px}
+  /* ── Mobile: lang dropdown opens DOWNWARD, fixed so it's never clipped ── */
+  @media(max-width:680px){
+    .lang-switcher{position:static}
+    .lang-dropdown{
+      position:fixed;
+      top:auto;
+      bottom:auto;
+      right:16px;
+      max-height:70vh;
+      overflow-y:auto;
+      z-index:9999;
+    }
+    .lang-switcher.open .lang-chevron{transform:rotate(180deg)}
+  }
+  html{overflow-x:hidden}
   @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
-
   /* GhostLink landing-page redesign */
   :root{
     --bg:#f7f8ff;--bg-2:#fff;--bg-3:#f7f5ff;--bg-4:#f0edff;
@@ -199,11 +237,10 @@
   }
   .logo{gap:10px}
   .logo-icon{
-    width:34px;height:34px;border:0;border-radius:12px;
-    background:linear-gradient(140deg,#8a55f7,#c34de5);
-    box-shadow:0 5px 14px rgba(136,78,236,.25);
+    width:38px;height:42px;border:0;border-radius:0;
+    background:transparent;box-shadow:none;
   }
-  .logo-icon svg{width:18px;height:18px}
+  .logo-icon svg{width:38px;height:42px}
   .logo-name{font-size:18px;font-weight:750;letter-spacing:-.045em;color:#151a2d}
   .logo-name span{color:#8a4fe9}
   .top-nav{display:flex;align-items:center;gap:28px;margin-left:auto}
@@ -211,9 +248,12 @@
     color:#667086;text-decoration:none;font-size:13px;font-weight:550;
     transition:color .18s ease,transform .18s ease;white-space:nowrap;
   }
-  .top-nav a:hover{color:var(--accent);transform:translateY(-1px)}
-  .top-nav a.active{color:#824ee8;position:relative}
-  .top-nav a.active::after{content:"";position:absolute;left:0;right:0;bottom:-9px;height:2px;border-radius:2px;background:#9b53e8}
+  .top-nav a:not(.nav-cta){position:relative}
+  .top-nav a:not(.nav-cta)::after{content:"";position:absolute;left:0;right:0;bottom:-9px;height:2px;border-radius:2px;background:#9b53e8;opacity:0;transition:opacity .18s ease}
+  .top-nav a:not(.nav-cta):hover{color:var(--accent);transform:translateY(-1px)}
+  .top-nav a:not(.nav-cta):hover::after{opacity:1}
+  .top-nav a.active{color:#824ee8}
+  .top-nav a.active::after{opacity:1}
   .top-nav .nav-cta{
     display:inline-flex;align-items:center;justify-content:center;gap:8px;
     color:white;background:linear-gradient(115deg,#7554f6,#bd4fe4);
@@ -274,16 +314,17 @@
   }
   .expiry-control .select-chevron{position:absolute;right:8px;pointer-events:none;color:#838da1}
   .options-row{display:none}
-  .password-section{position:relative;flex:1;margin:0}
+  .password-section{position:static;flex:none;margin:0;padding:0}
   .password-toggle{gap:5px;width:auto;white-space:nowrap}
   .password-toggle-box{width:14px;height:14px;border-color:#aeb6c5;border-radius:4px}
   .password-toggle-box.checked{background:var(--accent);border-color:var(--accent)}
   .password-key-icon{color:#8b94a7}
   .password-toggle-label{font-size:11.5px;color:#657087}
   .password-fields{
-    position:absolute;left:-12px;top:calc(100% + 14px);z-index:5;width:min(320px,80vw);
-    padding:14px;background:#fff;border:1px solid var(--border);border-radius:14px;
-    box-shadow:0 14px 34px rgba(31,36,73,.14);
+    position:static;left:auto;top:auto;z-index:auto;
+    width:100%;margin-top:8px;
+    padding:12px 14px;background:#f9f8ff;border:1px solid rgba(121,82,245,.15);border-radius:12px;
+    box-shadow:none;
   }
   .pw-type-btn,.pw-input,.pin-box{background:#fbfaff;color:var(--text);border-color:var(--border)}
   .pw-hint{font-family:inherit;color:#778096}
@@ -309,7 +350,7 @@
     position:relative;z-index:1;width:min(345px,92%);display:flex;align-items:flex-start;gap:13px;
     padding:17px 18px;background:rgba(255,255,255,.91);border:1px solid rgba(50,58,92,.07);
     border-radius:16px;box-shadow:0 14px 35px rgba(55,47,113,.1);backdrop-filter:blur(12px);
-    transform:translate(15px,-15px);animation:floatCard 5s ease-in-out infinite;
+    transform:translate(15px,-15px);animation:none;
   }
   .preview-icon{width:34px;height:34px;flex:0 0 34px;display:grid;place-items:center;color:#914fe3;background:#f8efff;border-radius:10px}
   .preview-copy{flex:1;min-width:0}
@@ -321,14 +362,13 @@
     position:relative;z-index:1;width:min(305px,88%);min-height:49px;padding:0 17px;
     display:flex;align-items:center;gap:10px;border:1px solid rgba(50,58,92,.06);
     border-radius:999px;background:rgba(255,255,255,.97);box-shadow:0 12px 28px rgba(55,47,113,.1);
-    color:#31374a;font-size:11.5px;transform:translate(10px,-1px);animation:floatCard 5s ease-in-out 1.2s infinite;
+    color:#31374a;font-size:11.5px;transform:translate(10px,-1px);animation:none;
   }
   .link-preview-icon{display:grid;place-items:center;width:21px;height:21px;border-radius:50%;background:#f5eaff;color:#954ce1}
   .link-preview strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;font-size:11px}
   .link-preview-copy{color:#9ba3b4}
   .preview-sparkle{position:absolute;right:-6px;top:-12px;color:#bd55ea;font-size:24px}
   .hero-caption{position:relative;z-index:1;margin-top:24px;color:#939aab;font-size:11px;letter-spacing:.04em}
-  @keyframes floatCard{0%,100%{translate:0 0}50%{translate:0 -7px}}
   .hero-trustbar{display:flex;flex-wrap:wrap;gap:12px;margin:42px 0 18px}
   .trust-item{
     min-width:138px;min-height:62px;display:flex;align-items:center;gap:10px;
@@ -339,6 +379,12 @@
   .trust-item strong{font-size:11.5px;color:#333a50;font-weight:700}
   .trust-icon{width:23px;height:23px;display:grid;place-items:center;flex:0 0 23px;color:#9250e7}
   .trust-icon svg{width:17px;height:17px}
+  .trust-item:nth-child(1) .trust-icon{color:#4384ed;background:#e8f1ff;border:1px solid rgba(67,132,237,.12);border-radius:9px}
+  .trust-item:nth-child(2) .trust-icon{color:#a148df;background:#f3e8ff;border:1px solid rgba(161,72,223,.12);border-radius:9px}
+  .trust-item:nth-child(3) .trust-icon{color:#17b68e;background:#e3f8f1;border:1px solid rgba(23,182,142,.12);border-radius:9px}
+  .trust-item:nth-child(4) .trust-icon{color:#eb5b89;background:#fdeaf0;border:1px solid rgba(235,91,137,.12);border-radius:9px}
+  .trust-icon{transition:transform .18s ease,box-shadow .18s ease}
+  .trust-item:hover .trust-icon{transform:translateY(-1px) scale(1.05);box-shadow:0 4px 10px rgba(74,77,125,.12)}
   .how-section{width:100%;max-width:1200px;margin:72px auto 0;padding-bottom:0}
   .how-section-title{font-family:inherit;color:#21283b;font-size:25px;font-weight:750;letter-spacing:-.035em;text-transform:none;margin-bottom:18px}
   .steps-grid{gap:13px;background:transparent;border:0;border-radius:0;overflow:visible}
@@ -379,8 +425,7 @@
     .top-nav{order:3;width:100%;justify-content:space-between;gap:9px;padding:5px 0 0}
     .top-nav a{font-size:11px}
     .top-nav .nav-cta{padding:8px 12px}
-    .top-nav a.active::after{bottom:-6px}
-    .lang-switcher{margin-left:auto}
+    .top-nav a:not(.nav-cta)::after{bottom:-6px}
     .main{padding-top:37px}
     .hero-layout{grid-template-columns:1fr;gap:20px}
     .hero-column{max-width:none}
@@ -393,7 +438,6 @@
     textarea{min-height:60px;padding-left:27px}
     .compose-toolbar{left:27px;top:auto;bottom:0}
     .composer-actions{flex-wrap:wrap;gap:9px}
-    .password-section{flex:1}
     .btn-primary{margin-left:auto}
     .hero-art{min-height:295px;margin-top:4px}
     .preview-card{transform:translate(0,-6px)}
@@ -427,12 +471,11 @@
     .header,.main,.how-section,.faq-section,.footer{max-width:800px}
     .header{height:49px;min-height:49px;padding:0;border:0;gap:0}
     .logo{gap:8px}
-    .logo-icon{width:28px;height:28px;border-radius:10px}
-    .logo-icon svg{width:18px;height:18px}
+    .logo-icon{width:38px;height:42px;border-radius:0}
     .logo-name{font-size:15.5px}
     .top-nav{width:497px;flex:none;gap:0;justify-content:space-between;margin-left:auto;margin-right:0}
     .top-nav a{font-size:10.5px}
-    .top-nav a.active::after{bottom:-7px}
+    .top-nav a:not(.nav-cta)::after{bottom:-7px}
     .top-nav .nav-cta{gap:6px;padding:7px 8.5px;font-size:10.5px}
     .main{padding:40px 0 0}
     .hero-layout{grid-template-columns:390px 240px;column-gap:155px;row-gap:0;align-items:start}
@@ -452,11 +495,6 @@
     .toolbar-btn{padding:2px 4px;font-size:10px}
     .img-preview-strip:empty{display:none;margin:0}
     .composer-actions{height:29px;gap:5px;margin-top:0;padding-top:0;border:0}
-    .password-section{order:1;flex:0 0 auto}
-    .password-toggle{gap:2px}
-    .password-toggle-box{width:11px;height:11px}
-    .password-key-icon{width:12px;height:12px}
-    .password-toggle-label{font-size:9.5px}
     .composer-actions .expiry-control{order:2;flex:0 0 80px;width:80px;min-width:80px;height:27px;gap:4px;padding:4px 20px 4px 7px;border-radius:9px}
     .expiry-control>svg:first-child{width:12px;height:12px}
     .expiry-control select{font-size:10px}
@@ -478,30 +516,909 @@
     .hero-caption{display:none}
     .hero-trustbar{width:390px;flex-wrap:nowrap;gap:12px;margin:32px 0 0}
     .trust-item{flex:1 1 0;min-width:0;min-height:41px;padding:5px 7px;gap:6px;border-radius:8px;font-size:10px;line-height:1.18}
+    .trust-item:nth-child(4) strong{white-space:nowrap}
     .trust-item strong{font-size:10px}
-    .trust-icon{width:16px;height:16px;flex-basis:16px}
+    .trust-icon{width:22px;height:22px;flex-basis:22px;border-radius:8px}
     .trust-icon svg{width:14px;height:14px}
     .how-section{margin:68px auto 0}
     .faq-section{margin:66px auto 54px}
     .footer{display:flex;align-items:center;gap:12px;margin:0 auto}
-    .footer .lang-switcher{margin-left:auto;flex:0 0 auto}
   }
+  /* Clean GhostLink mascot: no aura, no sparkles, just clear expressive motion. */
+  .logo-icon{position:relative;isolation:isolate;overflow:visible}
+  .logo-icon:before,.logo-icon:after{content:none!important;display:none!important}
+  .logo-icon svg{width:48px;height:44px;overflow:visible}
+  .logo-ghost{display:block;overflow:visible;transform-origin:50% 85%;animation:ghost-float 3.2s ease-in-out infinite;filter:none;cursor:pointer;will-change:transform}
+  .logo-ghost .ghost-eye{transform-box:fill-box;transform-origin:center;transition:transform .18s ease;animation:ghost-blink 5.2s infinite}
+  .logo-ghost .ghost-mouth{opacity:0;transform:scale(.55);transform-origin:center;transition:opacity .18s ease,transform .18s cubic-bezier(.2,.8,.2,1)}
+  .logo-ghost .ghost-cheek{transition:opacity .18s ease}
+  .logo-ghost .ghost-face{transform-box:fill-box;transform-origin:center;transform:translateY(1.2px);transition:transform .25s ease}
+  .logo-ghost .ghost-wave{transform-box:fill-box;transform-origin:18% 82%;opacity:0;transition:opacity .15s ease}
+  .logo-ghost .ghost-arm{stroke:url(#ghostBrandGradient);stroke-width:6.3;stroke-linecap:round;stroke-linejoin:round;fill:none;transform:translateY(-3px)}
+  .logo-icon:hover .ghost-wave,.logo-icon.is-greeting .ghost-wave{opacity:1;animation:ghost-wave .38s ease-in-out infinite alternate}
+  .logo-icon:hover .ghost-face,.logo-icon.is-greeting .ghost-face{animation:ghost-look 1.25s ease-in-out infinite alternate}
+  .logo-icon:hover .ghost-cheek,.logo:focus-visible .ghost-cheek,.logo-ghost.is-happy .ghost-cheek{opacity:.82}
+  .logo-icon:hover .logo-ghost,.logo:focus-visible .logo-ghost{animation:ghost-hop .62s cubic-bezier(.25,.8,.3,1) both}
+  .logo-icon:hover .ghost-eye,.logo:focus-visible .ghost-eye{transform:translateY(-.5px) scaleY(.78);animation:none}
+  .logo-icon:hover .ghost-mouth,.logo:focus-visible .ghost-mouth,.logo-ghost.is-happy .ghost-mouth{opacity:1;transform:scale(1)}
+  .logo-ghost.is-happy{animation:ghost-happy .72s cubic-bezier(.2,.8,.25,1) both}
+  .logo-ghost.is-happy .ghost-eye{transform:translateY(-.5px) scaleY(.72);animation:none}
+  @keyframes ghost-blink{0%,43%,47%,100%{transform:scaleY(1)}45%{transform:scaleY(.12)}}
+  @keyframes ghost-float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-2.5px) rotate(1.5deg)}}
+  @keyframes ghost-hop{0%{transform:translateY(0) rotate(0) scale(1)}28%{transform:translateY(-9px) rotate(-7deg) scale(1.04,.96)}55%{transform:translateY(1px) rotate(5deg) scale(.97,1.04)}76%{transform:translateY(-3px) rotate(-2deg) scale(1.01,.99)}100%{transform:translateY(0) rotate(0) scale(1)}}
+  @keyframes ghost-happy{0%{transform:translateY(0) rotate(0) scale(1)}22%{transform:translateY(-12px) rotate(-9deg) scale(1.06,.94)}48%{transform:translateY(0) rotate(7deg) scale(.94,1.08)}68%{transform:translateY(-5px) rotate(-4deg) scale(1.02,.98)}100%{transform:translateY(0) rotate(0) scale(1)}}
+  @keyframes ghost-look{0%{transform:translateX(-1.1px) rotate(-3deg)}48%{transform:translateX(1.1px) rotate(3deg)}100%{transform:translateX(-.5px) rotate(-1deg)}}
+  @keyframes ghost-wave{0%{transform:rotate(-30deg) scale(1)}100%{transform:rotate(30deg) scale(1.04)}}
+  .hero-kicker{
+    background:#f8f6ff;border-color:rgba(143,84,227,.14);
+  }
+  .hero-art{isolation:isolate}
+  .ghost-buddy{
+    position:absolute;z-index:3;top:163px;left:190px;width:64px;height:74px;
+    animation:ghostFloat 3.8s ease-in-out infinite;pointer-events:none;
+  }
+  .ghost-buddy svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 7px 10px rgba(100,72,166,.14))}
+  .ghost-body{fill:url(#buddyGhostGradient);stroke:rgba(255,255,255,.78);stroke-width:1.8;stroke-linejoin:round}
+  .ghost-eye{fill:#35254f}
+  .ghost-cheek{fill:#ffabd3;opacity:.95}
+  .ghost-wink,.ghost-smile{fill:none;stroke:#35254f;stroke-width:2.2;stroke-linecap:round}
+  .ghost-wave{
+    fill:none;stroke:#f4eaff;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;
+    transform-box:fill-box;transform-origin:0% 90%;animation:ghostWave 2.8s ease-in-out infinite;
+  }
+  .hero-caption{letter-spacing:0}
+  @keyframes ghostFloat{
+    0%,100%{transform:translateY(0) rotate(3deg)}
+    50%{transform:translateY(-5px) rotate(-3deg)}
+  }
+  @keyframes ghostWave{
+    0%,100%{transform:rotate(0)}
+    50%{transform:rotate(-13deg)}
+  }
+  @media(min-width:901px){
+    .ghost-buddy{top:163px;left:190px}
+    .hero-caption{
+      display:block;position:absolute;top:203px;left:7px;width:142px;margin:0;
+      padding:7px 10px;border:1px solid rgba(143,84,227,.13);border-radius:12px 12px 12px 4px;
+      background:rgba(255,255,255,.94);box-shadow:0 7px 18px rgba(55,47,113,.07);
+      color:#8066b7;font-size:9px;line-height:1.4;text-align:center;
+    }
+  }
+  @media(max-width:900px){
+    .ghost-buddy{top:52%;left:auto;right:2%;width:56px;height:66px}
+  }
+  @media(max-width:680px){
+    .ghost-buddy{display:none}
+  }
+  .theme-toggle{
+    width:34px;height:34px;flex:0 0 34px;margin-left:12px;
+    display:grid;place-items:center;border:1px solid rgba(43,48,75,.13);
+    border-radius:11px;background:rgba(255,255,255,.86);color:#626c82;
+    box-shadow:0 2px 8px rgba(25,35,70,.045);cursor:pointer;
+    transition:background .18s ease,color .18s ease,border-color .18s ease,box-shadow .18s ease;
+  }
+  .theme-toggle:hover{background:#f5f1ff;color:#7952f5;border-color:rgba(121,82,245,.3)}
+  .theme-toggle:focus-visible{outline:3px solid rgba(121,82,245,.25);outline-offset:2px}
+  .theme-toggle svg{width:17px;height:17px}
+  .theme-icon-sun{display:none}
+  .trust-item,.step-cell,.faq-item{
+    transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+  }
+  .trust-item:hover,.step-cell:hover,.faq-item:hover{
+    transform:translateY(-2px);border-color:rgba(121,82,245,.22);
+    box-shadow:0 11px 26px rgba(46,43,92,.075);
+  }
+  @media(max-width:680px){
+    .header-right-controls{order:1;margin-left:auto}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .theme-toggle,.trust-item,.step-cell,.faq-item{transition:none!important}
+    .trust-item:hover,.step-cell:hover,.faq-item:hover{transform:none}
+  }
+  html[data-theme="dark"]{
+    color-scheme:dark;
+    --bg:#0d1117;--bg-2:#151b26;--bg-3:#1b2332;--bg-4:#242d3e;
+    --border:rgba(197,205,225,.13);--border-bright:rgba(197,205,225,.24);
+    --text:#eef1f8;--text-dim:#b2bad0;--text-muted:#8490a7;
+    --accent:#a18aff;--accent-glow:rgba(161,138,255,.18);--accent-2:#c179ed;
+    --green:#4ac99a;--green-bg:rgba(74,201,154,.12);
+    --red:#ff7c91;--red-bg:rgba(255,124,145,.12);
+    --amber:#f0bd64;--amber-bg:rgba(240,189,100,.12);
+  }
+  html[data-theme="dark"] body{
+    color:var(--text);
+    background:
+      radial-gradient(ellipse at 82% 39%,rgba(121,82,245,.17),transparent 37%),
+      radial-gradient(ellipse at 13% 34%,rgba(88,94,175,.12),transparent 35%),
+      linear-gradient(180deg,#0d1117,#101522 58%,#0d1117);
+  }
+  html[data-theme="dark"] .header{border-bottom-color:rgba(197,205,225,.1)}
+  html[data-theme="dark"] .logo-name{color:var(--text)}
+  html[data-theme="dark"] .logo-name span{color:#b69cff}
+  html[data-theme="dark"] .top-nav a:not(.nav-cta){color:#aab3c8}
+  html[data-theme="dark"] .top-nav a:not(.nav-cta):hover::after{background:#aa8dff}
+  html[data-theme="dark"] .top-nav a.active{color:#c1adff}
+  html[data-theme="dark"] .top-nav a.active::after{background:#aa8dff}
+  html[data-theme="dark"] .lang-btn{
+    color:var(--text-dim);background:var(--bg-2);border-color:var(--border);box-shadow:none;
+  }
+  html[data-theme="dark"] .lang-btn:hover{color:var(--text);background:var(--bg-3)}
+  html[data-theme="dark"] .lang-dropdown{background:var(--bg-2);border-color:var(--border-bright)}
+  html[data-theme="dark"] .lang-option{color:var(--text-dim)}
+  html[data-theme="dark"] .lang-option:hover{background:var(--bg-3);color:var(--text)}
+  html[data-theme="dark"] .theme-toggle{
+    color:#d4c9ff;background:rgba(27,35,50,.88);border-color:var(--border-bright);box-shadow:none;
+  }
+  html[data-theme="dark"] .theme-toggle:hover{color:#fff;background:#242d3e;border-color:rgba(177,151,255,.5)}
+  html[data-theme="dark"] .theme-icon-moon{display:none}
+  html[data-theme="dark"] .theme-icon-sun{display:block}
+  html[data-theme="dark"] .hero-kicker{
+    color:#cbbcff;background:rgba(124,99,199,.16);border-color:rgba(177,151,255,.24);
+  }
+  html[data-theme="dark"] .hero-kicker span{background:#b69cff;box-shadow:0 0 0 4px rgba(182,156,255,.12)}
+  html[data-theme="dark"] .compose-heading,
+  html[data-theme="dark"] .how-section-title,
+  html[data-theme="dark"] .faq-title{color:var(--text)}
+  html[data-theme="dark"] .compose-sub{color:var(--text-dim)}
+  html[data-theme="dark"] .compose-card{
+    background:rgba(21,27,38,.94);border-color:var(--border);
+    box-shadow:0 16px 38px rgba(0,0,0,.22),0 2px 5px rgba(0,0,0,.15);
+  }
+  html[data-theme="dark"] .compose-card:focus-within{
+    border-color:rgba(177,151,255,.52);box-shadow:0 16px 38px rgba(0,0,0,.24),0 0 0 4px rgba(161,138,255,.1);
+  }
+  html[data-theme="dark"] .message-icon,
+  html[data-theme="dark"] .char-count,
+  html[data-theme="dark"] .toolbar-btn{color:var(--text-muted)}
+  html[data-theme="dark"] textarea{color:var(--text)}
+  html[data-theme="dark"] textarea::placeholder{color:#79849a}
+  html[data-theme="dark"] .toolbar-btn:hover{color:#d4c9ff;background:rgba(161,138,255,.1)}
+  html[data-theme="dark"] .composer-actions{border-top-color:var(--border)}
+  html[data-theme="dark"] .expiry-control{
+    color:var(--text-muted);background:var(--bg-2);border-color:var(--border);
+  }
+  html[data-theme="dark"] .expiry-control select{color:var(--text-dim)}
+  html[data-theme="dark"] .password-toggle-box{border-color:var(--border-bright)}
+  html[data-theme="dark"] .password-toggle-label{color:var(--text-dim)}
+  html[data-theme="dark"] .password-key-icon{color:var(--text-muted)}
+  html[data-theme="dark"] .password-fields{
+    background:var(--bg-3);border-color:rgba(110,118,229,0.4);box-shadow:none;
+  }
+  html[data-theme="dark"] .password-fields::after{
+    background:var(--bg-3);border-color:rgba(110,118,229,0.4);
+  }
+  html[data-theme="dark"] .pw-type-btn,
+  html[data-theme="dark"] .pw-input,
+  html[data-theme="dark"] .pin-box,
+  html[data-theme="dark"] .pw-gate-input,
+  html[data-theme="dark"] .pw-gate-pin-box{
+    color:var(--text);background:var(--bg-3);border-color:var(--border-bright);
+  }
+  html[data-theme="dark"] .pw-type-btn.active{color:#d4c9ff;background:var(--accent-glow);border-color:var(--accent)}
+  html[data-theme="dark"] .pw-input::placeholder{color:var(--text-muted)}
+  html[data-theme="dark"] .pw-hint{color:var(--text-muted)}
+  html[data-theme="dark"] .result-card{background:var(--bg-2);border-color:var(--border)}
+  html[data-theme="dark"] .link-box,
+  html[data-theme="dark"] .info-chip{color:var(--text-dim);background:var(--bg-3);border-color:var(--border)}
+  html[data-theme="dark"] .link-text strong{color:var(--text)}
+  html[data-theme="dark"] .hero-kicker,
+  html[data-theme="dark"] .preview-card,
+  html[data-theme="dark"] .link-preview,
+  html[data-theme="dark"] .trust-item,
+  html[data-theme="dark"] .step-cell,
+  html[data-theme="dark"] .faq-item,
+  html[data-theme="dark"] .how-section .notice{
+    background-color:var(--bg-2);border-color:var(--border);
+  }
+  html[data-theme="dark"] .hero-art .orb-one{opacity:.42}
+  html[data-theme="dark"] .hero-art .orb-two{opacity:.34}
+  html[data-theme="dark"] .preview-card,
+  html[data-theme="dark"] .link-preview{
+    color:var(--text);box-shadow:0 14px 35px rgba(0,0,0,.28);
+  }
+  html[data-theme="dark"] .preview-icon,
+  html[data-theme="dark"] .link-preview-icon{
+    color:#dbcfff;background:rgba(161,138,255,.16);
+  }
+  html[data-theme="dark"] .preview-heading{color:var(--text)}
+  html[data-theme="dark"] .preview-copy p{color:var(--text-muted)}
+  html[data-theme="dark"] .preview-arrow{color:#b69cff}
+  html[data-theme="dark"] .link-preview strong{color:#e4ddff}
+  html[data-theme="dark"] .link-preview-copy{color:#b5a4e8}
+  html[data-theme="dark"] .preview-sparkle{color:#bd9cff}
+  html[data-theme="dark"] .hero-caption{color:var(--text-muted)}
+  html[data-theme="dark"] .trust-item{color:var(--text-dim)}
+  html[data-theme="dark"] .trust-item strong,
+  html[data-theme="dark"] .step-label{color:var(--text)}
+  html[data-theme="dark"] .trust-icon,
+  html[data-theme="dark"] .step-num{color:#b69cff}
+  html[data-theme="dark"] .trust-item:nth-child(1) .trust-icon{color:#8bb9ff;background:rgba(67,132,237,.16);border-color:rgba(113,166,255,.22)}
+  html[data-theme="dark"] .trust-item:nth-child(2) .trust-icon{color:#d0a0ff;background:rgba(161,72,223,.16);border-color:rgba(192,132,255,.22)}
+  html[data-theme="dark"] .trust-item:nth-child(3) .trust-icon{color:#68dfbd;background:rgba(23,182,142,.15);border-color:rgba(80,220,179,.2)}
+  html[data-theme="dark"] .trust-item:nth-child(4) .trust-icon{color:#ff9fbd;background:rgba(235,91,137,.15);border-color:rgba(255,132,170,.2)}
+  html[data-theme="dark"] .step-detail,
+  html[data-theme="dark"] .faq-item p{color:var(--text-dim)}
+  html[data-theme="dark"] .faq-item h3{color:var(--text)}
+  html[data-theme="dark"] .how-section .notice{color:var(--text-dim)}
+  html[data-theme="dark"] .footer{border-top-color:var(--border)}
+  html[data-theme="dark"] .footer-left,
+  html[data-theme="dark"] .footer-right,
+  html[data-theme="dark"] .footer-right a{color:var(--text-muted)}
+  html[data-theme="dark"] .footer-right a:hover{color:#cbbcff}
+  html[data-theme="dark"] .message-display{background:var(--bg-2);border-color:var(--border)}
+  html[data-theme="dark"] .msg-header,
+  html[data-theme="dark"] .msg-footer{background:var(--bg-3);border-color:var(--border)}
+  html[data-theme="dark"] .msg-body{color:var(--text)}
+  html[data-theme="dark"] .reveal-warning{color:var(--text-muted)}
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .logo-ghost,.logo-icon:hover .logo-ghost,.logo-ghost.is-happy,.logo-icon:before,.logo-icon:after,.logo-ghost .ghost-eye,.logo-icon:hover .ghost-face,.logo-icon:hover .ghost-wave{animation:none!important;transform:none!important}
+    .logo-icon:before{opacity:.4}
+  }
+  /* Composer layout: attachment and password stay on one row; expiry is compact. */
+  .message-area-wrapper{margin-bottom:0!important}
+  .compose-toolbar{position:relative!important;left:auto!important;top:auto!important;bottom:auto!important;opacity:1!important;pointer-events:auto!important;display:flex!important;flex-direction:row!important;align-items:center!important;flex-wrap:nowrap!important;gap:14px!important;margin:8px 0 0 27px!important;padding-top:10px!important;border-top:1px solid rgba(45,55,86,.10)!important;z-index:2}
+  .compose-toolbar .toolbar-btn{white-space:nowrap!important}
+  .composer-actions{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:10px!important;height:auto!important;margin-top:8px!important;padding-top:0!important;border-top:0!important}
+  .composer-actions .expiry-control{order:0!important;align-self:flex-start!important;flex:0 0 auto!important;width:fit-content!important;min-width:0!important;max-width:160px!important;height:28px!important;gap:4px!important;padding:4px 22px 4px 7px!important;border-radius:8px!important}
+  .composer-actions .expiry-control>svg:first-child{width:12px!important;height:12px!important}
+  .composer-actions .expiry-control select{width:auto!important;max-width:115px!important;font-size:10.5px!important}
+  .composer-actions .btn-primary{order:1!important;flex:0 0 auto!important;width:100%!important;min-width:0!important;height:auto!important;margin:0!important;padding:12px 18px!important;font-size:14px!important}
+  @media(max-width:480px){.compose-toolbar{margin-left:27px!important;gap:12px!important}.composer-actions{flex-wrap:nowrap!important}.composer-actions .expiry-control{max-width:150px!important}.composer-actions .expiry-control select{max-width:105px!important}}
+  /* Plain inline expiry selector placed before Attach Image. */
+  .compose-toolbar .expiry-control{display:inline-flex!important;align-items:center!important;gap:4px!important;flex:0 0 auto!important;width:auto!important;min-width:0!important;max-width:none!important;height:auto!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:var(--text-muted)!important;box-shadow:none!important;margin:0 2px 0 0!important}
+  .compose-toolbar .expiry-control>svg:first-child{width:13px!important;height:13px!important;flex-shrink:0!important}
+  .compose-toolbar .expiry-control .select-chevron{position:static!important;width:10px!important;height:10px!important;flex-shrink:0!important}
+  .compose-toolbar .expiry-control select{width:auto!important;min-width:0!important;max-width:none!important;padding:0!important;border:0!important;background:transparent!important;color:inherit!important;font-size:11px!important;font-weight:600!important}
+  .composer-actions .expiry-control{display:none!important}
+  @media(max-width:480px){.compose-toolbar{margin-left:0!important;gap:10px!important}.compose-toolbar .expiry-control select{font-size:10px!important}.compose-toolbar .toolbar-btn{font-size:10px!important}}
+/* Matched Box Background & Border (Like Screenshot) */
+.clean-verify-card {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  background: rgba(110, 118, 229, 0.07); /* Soft purple tint matching your screenshot */
+  border: 1px solid rgba(110, 118, 229, 0.22);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  box-shadow: 0 4px 12px rgba(110, 118, 229, 0.08);
+}
+/* Background Soft Glow Aura */
+.clean-verify-aura {
+  position: absolute;
+  inset: -3px;
+  border-radius: 21px;
+  background: var(--accent-glow);
+  opacity: 0.4;
+  animation: cleanAuraPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  z-index: 0;
+}
+/* Compact Inner Rotating Gradient Ring */
+.clean-verify-spinner {
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--accent);
+  border-right-color: var(--accent-2);
+  animation: cleanSpin 0.8s cubic-bezier(0.55, 0.15, 0.45, 0.85) infinite;
+  z-index: 1;
+}
+/* Center Icon */
+.clean-verify-icon {
+  position: relative;
+  z-index: 2;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Keyframes */
+@keyframes cleanSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes cleanAuraPulse {
+  0%, 100% { opacity: 0.2; transform: scale(0.97); }
+  50% { opacity: 0.6; transform: scale(1.04); }
+}
+  /* How it works — four-step card layout */
+  .how-section{
+    width:100%;max-width:800px;margin:68px auto 0;padding:0 0 6px;
+  }
+  .how-section-title{
+    display:table;margin:0 auto 8px;padding:5px 11px;
+    border:1px solid rgba(121,82,245,.1);border-radius:999px;
+    background:#f0edff;color:#7952d8;font-family:inherit;
+    font-size:9px;font-weight:750;letter-spacing:.09em;text-transform:uppercase;
+  }
+  .how-section-heading{
+    margin:0 0 6px;text-align:center;color:#171c30;
+    font-size:clamp(23px,3vw,27px);font-weight:800;line-height:1.15;
+    letter-spacing:-.045em;
+  }
+  .how-highlight{
+    color:#8054e9;
+  }
+  .how-section-subtitle{
+    max-width:55ch;margin:0 auto 17px;text-align:center;
+    color:#788196;font-size:11.5px;line-height:1.5;
+  }
+  .how-section .steps-grid{
+    display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:25px;
+    overflow:visible;border:0;border-radius:0;background:transparent;
+  }
+  .how-section .step-cell{
+    position:relative;display:flex;min-width:0;min-height:151px;
+    flex-direction:column;align-items:flex-start;gap:7px;
+    padding:9px 12px 12px;border:1px solid rgba(70,86,130,.1);
+    border-radius:12px;box-shadow:0 3px 10px rgba(46,43,92,.025);
+    transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+  }
+  .how-section .step-cell:nth-child(1){background:#f7faff;border-color:#e4ebf7}
+  .how-section .step-cell:nth-child(2){background:#fbf8ff;border-color:#eee4f7}
+  .how-section .step-cell:nth-child(3){background:#f5fcfa;border-color:#e0f0eb}
+  .how-section .step-cell:nth-child(4){background:#fff8fa;border-color:#f4e6eb}
+  .how-section .step-cell:hover{
+    transform:translateY(-2px);box-shadow:0 8px 18px rgba(46,43,92,.07);
+  }
+  .how-section .step-num{
+    position:absolute;top:9px;left:10px;z-index:1;
+    display:grid;width:20px;height:20px;place-items:center;border-radius:50%;
+    color:#fff;font-family:inherit;font-size:10px;font-weight:750;letter-spacing:0;
+  }
+  .how-section .step-cell:nth-child(1) .step-num{background:#4384ed}
+  .how-section .step-cell:nth-child(2) .step-num{background:#a148df}
+  .how-section .step-cell:nth-child(3) .step-num{background:#18b894}
+  .how-section .step-cell:nth-child(4) .step-num{background:#ed5b89}
+  .how-section .step-icon{
+    position:relative;display:grid;width:47px;height:47px;place-items:center;
+    align-self:center;margin:8px auto 2px;border-radius:15px;
+  }
+  .how-section .step-icon svg{width:24px;height:24px}
+  .how-section .step-cell:nth-child(1) .step-icon{background:#e8f1ff;color:#4384ed}
+  .how-section .step-cell:nth-child(2) .step-icon{background:#f3e8ff;color:#a148df}
+  .how-section .step-cell:nth-child(3) .step-icon{background:#e3f8f1;color:#17b68e}
+  .how-section .step-cell:nth-child(4) .step-icon{background:#fdeaf0;color:#eb5b89}
+  .how-section .step-icon-plus{
+    position:absolute;right:-3px;bottom:-2px;display:grid;width:15px;height:15px;
+    place-items:center;border:2px solid #f7faff;border-radius:50%;
+    background:#4384ed;color:#fff;font-size:12px;font-weight:700;line-height:1;
+  }
+  .how-section .step-label{
+    color:#252b3d;font-size:11.5px;font-weight:750;line-height:1.3;
+  }
+  .how-section .step-detail{
+    color:#778196;font-size:9.5px;line-height:1.48;
+  }
+  .how-section .step-cell:not(:last-child)::after{
+    content:"→";position:absolute;top:50%;right:-25px;z-index:2;
+    width:24px;transform:translateY(-50%);color:#9aa4b5;
+    font-size:17px;font-weight:400;text-align:center;pointer-events:none;
+  }
+  html[data-theme="dark"] .how-section-title{
+    color:#cbbcff;background:rgba(124,99,199,.16);border-color:rgba(177,151,255,.24);
+  }
+  html[data-theme="dark"] .how-section-heading{color:var(--text)}
+  html[data-theme="dark"] .how-section-subtitle{color:var(--text-dim)}
+  html[data-theme="dark"] .how-section .step-cell:nth-child(1){background:rgba(67,132,237,.08);border-color:rgba(120,165,238,.18)}
+  html[data-theme="dark"] .how-section .step-cell:nth-child(2){background:rgba(161,72,223,.08);border-color:rgba(190,130,229,.18)}
+  html[data-theme="dark"] .how-section .step-cell:nth-child(3){background:rgba(24,184,148,.08);border-color:rgba(89,203,176,.18)}
+  html[data-theme="dark"] .how-section .step-cell:nth-child(4){background:rgba(237,91,137,.08);border-color:rgba(237,131,163,.18)}
+  html[data-theme="dark"] .how-section .step-label{color:var(--text)}
+  html[data-theme="dark"] .how-section .step-detail{color:var(--text-dim)}
+  @media(max-width:680px){
+    .how-section{margin-top:55px}
+    .how-section .steps-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+    .how-section .step-cell{min-height:145px;padding:9px 12px 12px}
+    .how-section .step-cell::after{display:none}
+    .how-section-subtitle{max-width:44ch;margin-bottom:15px}
+  }
+  @media(max-width:380px){
+    .how-section .step-cell{min-height:153px;padding:9px 10px 11px}
+    .how-section .step-label{font-size:11px}
+    .how-section .step-detail{font-size:9px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .how-section .step-cell{transition:none!important}
+    .how-section .step-cell:hover{transform:none}
+  }
+  /* FAQ — centered accordion with screenshot-inspired accents */
+  .faq-section{
+    width:100%;max-width:900px;margin:68px auto 48px;
+  }
+  .faq-kicker{
+    display:flex;align-items:center;justify-content:center;gap:12px;
+    margin:0 0 7px;color:#7651df;font-size:9px;font-weight:800;
+    letter-spacing:.12em;text-transform:uppercase;
+  }
+  .faq-kicker::before,.faq-kicker::after{
+    content:"";width:28px;height:1px;background:#c5b8f7;
+  }
+  .faq-title{
+    margin:0 0 6px;text-align:center;color:#171c30;
+    font-size:clamp(27px,4vw,34px);font-weight:820;line-height:1.1;
+    letter-spacing:-.05em;
+  }
+  .faq-title span{color:#8054e9}
+  .faq-subtitle{
+    margin:0 auto 17px;text-align:center;color:#778196;
+    font-size:12px;line-height:1.5;
+  }
+  .faq-layout{
+    display:grid;grid-template-columns:minmax(0,1fr);
+    justify-items:center;align-items:center;
+  }
+  .faq-art{
+    display:block;width:100%;max-width:145px;height:auto;overflow:visible;
+    justify-self:center;pointer-events:none;user-select:none;
+  }
+  .faq-list{
+    display:flex;width:100%;max-width:500px;flex-direction:column;gap:5px;
+    margin:0 auto;padding:9px;border:1px solid rgba(74,91,145,.07);
+    border-radius:21px;background:rgba(255,255,255,.68);
+    box-shadow:0 12px 34px rgba(71,77,131,.08);
+    backdrop-filter:blur(10px);
+  }
+  details.faq-item{
+    display:block;margin:0;padding:0;overflow:hidden;
+    border:1px solid #e7eaf2;border-radius:12px;
+    background:rgba(255,255,255,.92);
+    box-shadow:0 2px 7px rgba(41,54,91,.035);
+    transition:border-color .16s ease,box-shadow .16s ease;
+  }
+  details.faq-item:hover,details.faq-item[open]{
+    border-color:#d9d4f4;box-shadow:0 4px 12px rgba(75,70,135,.07);
+  }
+  .faq-item summary{
+    display:flex;min-height:39px;align-items:center;gap:11px;
+    padding:6px 11px;list-style:none;cursor:pointer;
+    color:#283149;font-size:11px;font-weight:650;line-height:1.35;
+    outline:none;
+  }
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::marker{content:""}
+  .faq-item summary:focus-visible{
+    outline:3px solid rgba(121,82,245,.2);outline-offset:-3px;border-radius:11px;
+  }
+  .faq-number{
+    display:grid;width:24px;height:24px;flex:0 0 24px;place-items:center;
+    border-radius:50%;font-size:12px;font-weight:800;
+  }
+  .faq-item:nth-child(1) .faq-number{background:#e7f0ff;color:#3e7ce5}
+  .faq-item:nth-child(2) .faq-number{background:#f0eaff;color:#8653dc}
+  .faq-item:nth-child(3) .faq-number{background:#def8ef;color:#15a981}
+  .faq-item:nth-child(4) .faq-number{background:#ffe7ef;color:#df4f81}
+  .faq-item:nth-child(5) .faq-number{background:#fff1cf;color:#ce9019}
+  .faq-question{flex:1}
+  .faq-chevron{
+    width:15px;height:15px;flex:0 0 15px;color:#78849a;
+    transition:transform .18s ease;
+  }
+  .faq-item[open] .faq-chevron{transform:rotate(180deg)}
+  .faq-item > p{
+    margin:0;padding:0 42px 12px 46px;color:#758096;
+    font-size:11px;line-height:1.55;
+  }
+  html[data-theme="dark"] .faq-kicker{color:#cbbcff}
+  html[data-theme="dark"] .faq-kicker::before,
+  html[data-theme="dark"] .faq-kicker::after{background:rgba(177,151,255,.45)}
+  html[data-theme="dark"] .faq-title{color:var(--text)}
+  html[data-theme="dark"] .faq-subtitle{color:var(--text-dim)}
+  html[data-theme="dark"] .faq-list{
+    background:rgba(21,27,38,.72);border-color:var(--border);
+    box-shadow:0 12px 34px rgba(0,0,0,.2);
+  }
+  html[data-theme="dark"] details.faq-item{
+    background:var(--bg-2);border-color:var(--border);
+  }
+  html[data-theme="dark"] details.faq-item:hover,
+  html[data-theme="dark"] details.faq-item[open]{border-color:rgba(177,151,255,.4)}
+  html[data-theme="dark"] .faq-item summary{color:var(--text)}
+  html[data-theme="dark"] .faq-item > p{color:var(--text-dim)}
+  html[data-theme="dark"] .faq-chevron{color:var(--text-muted)}
+  @media(max-width:680px){
+    .faq-section{margin:54px auto 38px}
+    .faq-layout{grid-template-columns:minmax(0,1fr)}
+    .faq-art{display:none}
+    .faq-list{max-width:500px;margin:0 auto;padding:7px;border-radius:18px}
+  }
+  @media(max-width:380px){
+    .faq-item summary{gap:8px;padding:6px 8px;font-size:10.5px}
+    .faq-item > p{padding:0 34px 11px 40px;font-size:10.5px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .faq-item,.faq-chevron{transition:none!important}
+  }
+  /* Interactive encrypted / opened message comparison */
+  .message-comparison{
+    width:100%;max-width:680px;margin:0 auto 48px;
+  }
+  .message-comparison-kicker{
+    margin:0 0 7px;text-align:center;color:#7651df;
+    font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  }
+  .message-comparison-title{
+    margin:0 0 7px;text-align:center;color:#171c30;
+    font-size:clamp(23px,3.4vw,29px);font-weight:820;line-height:1.14;
+    letter-spacing:-.045em;
+  }
+  .message-comparison-title span{color:#8054e9}
+  .message-comparison-subtitle{
+    max-width:48ch;margin:0 auto 18px;text-align:center;color:#778196;
+    font-size:12px;line-height:1.55;
+  }
+  .comparison-frame{
+    --compare-position:50%;
+    position:relative;isolation:isolate;width:100%;height:clamp(200px,24vw,270px);
+    overflow:hidden;border:1px solid rgba(74,91,145,.13);border-radius:24px;
+    background:#f3f2ff;
+    box-shadow:0 16px 38px rgba(71,77,131,.12);
+  }
+  .comparison-panel{
+    position:absolute;inset:0;display:grid;place-items:center;overflow:hidden;
+    padding:16px;
+  }
+  .comparison-panel--locked{
+    background:
+      radial-gradient(ellipse at 18% 20%,rgba(109,151,255,.19),transparent 38%),
+      linear-gradient(135deg,#eef4ff 0%,#f2eeff 52%,#f7f4ff 100%);
+  }
+  .comparison-panel--opened{
+    z-index:1;
+    background:
+      radial-gradient(ellipse at 82% 18%,rgba(235,126,201,.19),transparent 38%),
+      linear-gradient(135deg,#f0ecff 0%,#fff3fb 56%,#fff7f5 100%);
+    clip-path:inset(0 0 0 50%);
+  }
+  .comparison-demo-card{
+    width:min(100%,280px);height:200px;padding:14px 16px 13px;
+    border:1px solid rgba(92,101,151,.13);border-radius:19px;
+    background:rgba(255,255,255,.88);box-shadow:0 12px 28px rgba(58,61,112,.11);
+    backdrop-filter:blur(12px);
+  }
+  .comparison-card-top{
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+    margin-bottom:12px;
+  }
+  .comparison-state{
+    display:inline-flex;align-items:center;gap:5px;padding:3px 7px;
+    border:1px solid rgba(121,82,245,.13);border-radius:999px;
+    background:#f3efff;color:#6f4bce;font-size:7.5px;font-weight:800;
+    letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;
+  }
+  .comparison-state-dot{width:6px;height:6px;border-radius:50%;background:#8b60ea}
+  .comparison-state--opened{background:#fff0f6;color:#c34f85;border-color:rgba(220,87,145,.15)}
+  .comparison-state--opened .comparison-state-dot{background:#e55e9b}
+  .comparison-lock-icon{
+    display:grid;width:26px;height:26px;flex:0 0 26px;place-items:center;
+    border-radius:9px;background:#edf1ff;color:#6862d9;
+  }
+  .comparison-lock-icon--opened{background:#fff0f6;color:#d95391}
+  .comparison-lock-icon svg{width:14px;height:14px}
+  .comparison-demo-title{
+    margin:0 0 4px;color:#283149;font-size:13px;font-weight:780;
+    letter-spacing:-.025em;
+  }
+  .comparison-demo-copy{margin:0;color:#778196;font-size:10px;line-height:1.5}
+  .comparison-private-message{
+    margin:10px 0 9px;padding:9px 10px;border:1px solid #e9eafa;
+    border-radius:10px;background:#f8f8ff;color:#4f5875;
+    font-family:var(--mono);font-size:9.5px;line-height:1.5;
+  }
+  .comparison-private-message--blurred{
+    color:#8189a1;filter:blur(4px);user-select:none;
+  }
+  .comparison-demo-foot{
+    display:flex;align-items:center;gap:7px;color:#858da1;
+    font-size:9px;line-height:1.4;
+  }
+  .comparison-demo-foot svg{width:13px;height:13px;flex:0 0 13px;color:#8a66e8}
+  .comparison-demo-foot--burned svg{color:#e05b91}
+  .comparison-divider{
+    position:absolute;top:0;bottom:0;left:var(--compare-position);z-index:2;
+    width:2px;transform:translateX(-50%);
+    background:linear-gradient(180deg,#8b5cf6,#e554a6);
+    box-shadow:0 0 15px rgba(133,81,223,.35);pointer-events:none;
+  }
+  .comparison-divider-knob{
+    position:absolute;top:50%;left:50%;display:grid;width:34px;height:34px;
+    place-items:center;transform:translate(-50%,-50%);border:3px solid #fff;
+    border-radius:50%;background:linear-gradient(135deg,#8054e9,#db57a5);
+    color:#fff;box-shadow:0 4px 12px rgba(69,44,126,.28);
+  }
+  .comparison-divider-knob svg{width:14px;height:14px}
+  .comparison-range{
+    position:absolute;inset:0;z-index:3;width:100%;height:100%;margin:0;
+    opacity:0;cursor:ew-resize;appearance:none;-webkit-appearance:none;
+    background:transparent;
+  }
+  .comparison-range::-webkit-slider-runnable-track{height:100%;background:transparent}
+  .comparison-range::-webkit-slider-thumb{
+    width:48px;height:100%;border:0;appearance:none;-webkit-appearance:none;
+    background:transparent;
+  }
+  .comparison-range::-moz-range-track{height:100%;background:transparent}
+  .comparison-range::-moz-range-thumb{
+    width:48px;height:100%;border:0;border-radius:0;background:transparent;
+  }
+  .comparison-frame:focus-within{
+    outline:3px solid rgba(121,82,245,.32);outline-offset:4px;
+  }
+  .comparison-instruction{
+    margin:12px 0 0;text-align:center;color:#858da1;font-size:10px;line-height:1.5;
+  }
+  html[data-theme="dark"] .message-comparison-kicker{color:#cbbcff}
+  html[data-theme="dark"] .message-comparison-title{color:var(--text)}
+  html[data-theme="dark"] .message-comparison-subtitle,
+  html[data-theme="dark"] .comparison-instruction{color:var(--text-dim)}
+  html[data-theme="dark"] .comparison-frame{
+    border-color:var(--border-bright);background:var(--bg-2);
+    box-shadow:0 16px 38px rgba(0,0,0,.25);
+  }
+  html[data-theme="dark"] .comparison-panel--locked{
+    background:
+      radial-gradient(ellipse at 18% 20%,rgba(109,151,255,.15),transparent 38%),
+      linear-gradient(135deg,#171f32 0%,#211e36 55%,#1b2032 100%);
+  }
+  html[data-theme="dark"] .comparison-panel--opened{
+    background:
+      radial-gradient(ellipse at 82% 18%,rgba(235,126,201,.15),transparent 38%),
+      linear-gradient(135deg,#211e36 0%,#302033 56%,#28202c 100%);
+  }
+  html[data-theme="dark"] .comparison-demo-card{
+    border-color:var(--border-bright);background:rgba(21,27,38,.9);
+    box-shadow:0 12px 28px rgba(0,0,0,.25);
+  }
+  html[data-theme="dark"] .comparison-state{background:rgba(161,138,255,.14);border-color:rgba(177,151,255,.22);color:#d2c5ff}
+  html[data-theme="dark"] .comparison-state--opened{background:rgba(229,94,155,.13);border-color:rgba(229,94,155,.22);color:#ffafd0}
+  html[data-theme="dark"] .comparison-demo-title{color:var(--text)}
+  html[data-theme="dark"] .comparison-demo-copy,
+  html[data-theme="dark"] .comparison-demo-foot{color:var(--text-dim)}
+  html[data-theme="dark"] .comparison-private-message{background:var(--bg-3);border-color:var(--border);color:var(--text-dim)}
+  html[data-theme="dark"] .comparison-lock-icon{background:rgba(161,138,255,.14);color:#c9baff}
+  html[data-theme="dark"] .comparison-lock-icon--opened{background:rgba(229,94,155,.14);color:#ffafd0}
+  @media(max-width:680px){
+    .message-comparison{margin:0 auto 36px}
+    .comparison-frame{height:210px;border-radius:15px}
+    .comparison-panel{padding:11px}
+    .comparison-demo-card{width:min(100%,240px);height:180px;padding:12px 13px 11px}
+    .comparison-card-top{margin-bottom:7px}
+    .comparison-demo-title{font-size:12px}
+    .comparison-demo-title{margin-bottom:3px}
+    .comparison-demo-copy{font-size:9.5px}
+    .comparison-private-message{margin:7px 0 6px;padding:8px 10px;font-size:9px}
+  }
+  @media(max-width:360px){
+    .comparison-frame{height:195px}
+    .comparison-demo-card{height:172px;padding:10px 11px 10px}
+    .comparison-state{font-size:6.5px}
+    .comparison-demo-title{font-size:11.5px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .comparison-divider,.comparison-divider-knob{transition:none!important}
+  }
+  /* Get-started banner beneath the interactive comparison */
+  .get-started-cta{
+    position:relative;isolation:isolate;display:grid;
+    grid-template-columns:64px minmax(0,1fr) 76px;align-items:center;gap:22px;
+    width:min(100%,800px);min-height:174px;margin:-10px auto 52px;
+    padding:28px clamp(22px,4vw,42px);overflow:hidden;
+    border:1px solid rgba(255,255,255,.16);border-radius:22px;color:#fff;
+    background:linear-gradient(112deg,#7655f5 0%,#9850ec 54%,#bd4fe4 100%);
+    box-shadow:0 20px 44px rgba(129,78,234,.2);
+  }
+  .get-started-cta::before,.get-started-cta::after{
+    content:"";position:absolute;z-index:-1;border-radius:50%;pointer-events:none;
+  }
+  .get-started-cta::before{
+    width:190px;height:190px;right:-78px;top:-106px;
+    background:rgba(255,255,255,.08);
+  }
+  .get-started-cta::after{
+    width:250px;height:250px;left:38%;bottom:-220px;
+    background:rgba(189,79,228,.14);
+  }
+  .cta-icon{
+    display:grid;width:58px;height:58px;place-items:center;position:relative;
+    border:1px solid rgba(255,255,255,.2);border-radius:17px;
+    background:rgba(255,255,255,.12);color:#fff;
+    box-shadow:0 8px 22px rgba(27,35,126,.16);
+  }
+  .cta-icon svg{width:30px;height:30px}
+  .cta-icon-bolt{
+    position:absolute;right:-5px;bottom:-5px;display:grid;width:22px;height:22px;
+    place-items:center;border:2px solid #9850ec;border-radius:50%;
+    background:#fff;color:#914fe3;
+  }
+  .cta-icon-bolt svg{width:11px;height:11px}
+  .cta-copy{min-width:0}
+  .cta-title{
+    margin:0 0 6px;color:#fff;font-size:clamp(20px,2.7vw,25px);
+    font-weight:780;line-height:1.2;letter-spacing:-.035em;
+  }
+  .cta-description{
+    max-width:48ch;margin:0 0 16px;color:rgba(255,255,255,.82);
+    font-size:12px;line-height:1.55;
+  }
+  .cta-actions{display:flex;flex-wrap:wrap;align-items:center;gap:9px}
+  .cta-action{
+    display:inline-flex;min-height:36px;align-items:center;justify-content:center;
+    gap:8px;padding:8px 13px;border:1px solid transparent;border-radius:8px;
+    font:700 11px/1.2 var(--sans);text-decoration:none;white-space:nowrap;
+    transition:transform .16s ease,box-shadow .16s ease,background .16s ease;
+  }
+  .cta-action:hover{transform:translateY(-1px)}
+  .cta-action:focus-visible{outline:3px solid rgba(255,255,255,.72);outline-offset:3px}
+  .cta-action svg{width:13px;height:13px;flex:0 0 13px}
+  .cta-action--primary{background:#fff;color:#7952f5;box-shadow:0 5px 14px rgba(83,55,164,.17)}
+  .cta-action--primary:hover{background:#f8f4ff;box-shadow:0 8px 18px rgba(83,55,164,.24)}
+  .cta-action--secondary{
+    border-color:rgba(255,255,255,.24);background:rgba(255,255,255,.12);
+    color:#fff;
+  }
+  .cta-action--secondary:hover{background:rgba(255,255,255,.2)}
+  .cta-shield{
+    display:grid;place-items:center;width:66px;height:76px;justify-self:end;
+    color:rgba(255,255,255,.34);
+  }
+  .cta-shield svg{width:62px;height:68px}
+  @media(max-width:680px){
+    .get-started-cta{
+      grid-template-columns:46px minmax(0,1fr);gap:14px;
+      min-height:0;margin:-4px auto 38px;padding:22px 18px;border-radius:18px;
+    }
+    .cta-icon{width:44px;height:44px;border-radius:13px}
+    .cta-icon svg{width:24px;height:24px}
+    .cta-icon-bolt{width:19px;height:19px}
+    .cta-shield{position:absolute;right:13px;top:10px;width:42px;height:48px;opacity:.55}
+    .cta-shield svg{width:40px;height:44px}
+    .cta-title{max-width:24ch;padding-right:28px;font-size:21px}
+    .cta-description{font-size:11px;margin-bottom:13px}
+    .cta-actions{gap:7px}
+    .cta-action{min-height:34px;padding:7px 10px;font-size:10px}
+  }
+  @media(max-width:390px){
+    .get-started-cta{grid-template-columns:38px minmax(0,1fr);gap:11px;padding:19px 13px}
+    .cta-icon{width:38px;height:38px}
+    .cta-icon svg{width:21px;height:21px}
+    .cta-actions{align-items:stretch;flex-direction:column}
+    .cta-action{width:100%}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .cta-action{transition:none!important}
+    .cta-action:hover{transform:none}
+  }
+  /* Screenshot-matched footer */
+  .footer{
+    display:block;align-self:center;width:min(100%,800px);max-width:800px;
+    margin-inline:auto;padding:22px 0 28px;
+    border-top:1px solid rgba(43,48,75,.08);font-family:inherit;
+  }
+  .footer-content{
+    display:grid;
+    grid-template-columns:minmax(200px,1.25fr) minmax(84px,.6fr) minmax(84px,.62fr) minmax(185px,1.12fr);
+    width:100%;max-width:100%;margin-inline:auto;align-items:start;gap:22px;
+  }
+  .footer-brand{min-width:0}
+  .footer-brand-top{display:flex;align-items:center;gap:16px;min-height:60px}
+  .footer-mascot{
+    display:block;width:60px;height:60px;flex:0 0 60px;overflow:visible;
+    filter:drop-shadow(0 3px 4px rgba(104,78,202,.16));
+  }
+  .footer-brand-name{
+    color:#171c30;font-size:22px;font-weight:800;letter-spacing:-.055em;line-height:1.1;
+  }
+  .footer-brand-name span{color:#8550e8}
+  .footer-tagline{
+    margin:6px 0 0;color:#748096;font-size:10px;line-height:1.6;
+  }
+  .footer-socials{display:flex;align-items:center;gap:9px;margin:12px 0 0 76px}
+  .footer-social{
+    display:grid;width:24px;height:24px;place-items:center;border:1px solid #e6e9f1;
+    border-radius:50%;background:#fff;color:#606b83;
+  }
+  .footer-social svg{display:block;width:13px;height:13px}
+  .footer-column{display:flex;min-width:0;flex-direction:column;align-items:flex-start;gap:7px}
+  .footer-heading{
+    margin:0 0 3px;color:#252c40;font-size:11.5px;font-weight:750;line-height:1.4;
+  }
+  .footer-link{
+    color:#667187;font-size:10px;line-height:1.45;text-decoration:none;
+    white-space:nowrap;
+  }
+  a.footer-link:hover{color:#7952f5}
+  .footer-link-muted{cursor:default}
+  .footer-help{
+    display:grid;grid-template-columns:32px minmax(0,1fr);align-items:start;
+    gap:11px;padding:14px 16px;border:1px solid rgba(129,91,232,.08);
+    border-radius:16px;background:linear-gradient(135deg,#f4f0ff,#f0eaff);
+    box-shadow:0 4px 13px rgba(96,73,166,.055);
+  }
+  .footer-headset{width:32px;height:32px;color:#8352e8}
+  .footer-help-title{margin:1px 0 5px;color:#282e43;font-size:11.5px;font-weight:750}
+  .footer-help-copy{margin:0;color:#727b90;font-size:9.2px;line-height:1.55}
+  .footer-support-button{
+    display:inline-flex;align-items:center;justify-content:center;gap:5px;
+    margin-top:10px;padding:8px 14px;border:0;border-radius:999px;
+    background:linear-gradient(110deg,#7952f5,#a449e6);color:#fff;
+    box-shadow:0 4px 10px rgba(121,82,245,.2);
+    font-family:inherit;font-size:9.2px;font-weight:700;line-height:1.1;
+    text-decoration:none;white-space:nowrap;
+  }
+  .footer-support-button svg{width:10px;height:10px}
+  .footer-support-button:hover{box-shadow:0 6px 14px rgba(121,82,245,.28)}
+  html[data-theme="dark"] .footer{border-top-color:var(--border)}
+  html[data-theme="dark"] .footer-brand-name,
+  html[data-theme="dark"] .footer-heading,
+  html[data-theme="dark"] .footer-help-title{color:var(--text)}
+  html[data-theme="dark"] .footer-tagline,
+  html[data-theme="dark"] .footer-link,
+  html[data-theme="dark"] .footer-help-copy{color:var(--text-dim)}
+  html[data-theme="dark"] .footer-social{background:var(--bg-2);border-color:var(--border);color:var(--text-dim)}
+  html[data-theme="dark"] .footer-help{background:linear-gradient(135deg,rgba(121,82,245,.15),rgba(164,73,230,.12));border-color:var(--border)}
+  @media(max-width:680px){
+    .footer{padding:24px 0 30px}
+    .footer-content{grid-template-columns:repeat(2,minmax(0,1fr));width:100%;gap:22px 18px}
+    .footer-brand{grid-column:1/-1}
+    .footer-help{grid-column:1/-1;max-width:320px}
+    .footer-socials{margin:12px 0 0 76px}
+  }
+  @media(max-width:380px){
+    .footer-content{gap:19px 13px}
+    .footer-help{max-width:none}
+    .footer-link{font-size:9px}
+  }
+  #msg-input::placeholder{transition:opacity .18s ease}
+  #msg-input.placeholder-shifting::placeholder{opacity:0}
 </style>
+<script>
+  try {
+    if (localStorage.getItem('ghostlink-theme') === 'dark') {
+      document.documentElement.dataset.theme = 'dark';
+    }
+  } catch {}
+</script>
 </head>
 <body>
-
   <header class="header">
   <div class="logo" onclick="goHome()">
     <div class="logo-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:#fff">
-        <path d="M12 3a7 7 0 0 0-7 7v11l3.5-2 3.5 2 3.5-2 3.5 2V10a7 7 0 0 0-7-7Z" fill="currentColor" stroke="currentColor"/>
-        <circle cx="9" cy="10" r="1" fill="#8651ed" stroke="none"/><circle cx="15" cy="10" r="1" fill="#8651ed" stroke="none"/>
+      <svg class="logo-ghost" viewBox="0 0 43 40" fill="none" aria-hidden="true">
+        <g transform="translate(43 0) scale(-1 1)">
+        <defs>
+          <linearGradient id="ghostBrandGradient" x1="5" y1="2" x2="32" y2="38" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#5d5aef"/>
+            <stop offset=".55" stop-color="#8550ed"/>
+            <stop offset="1" stop-color="#c14de5"/>
+          </linearGradient>
+        </defs>
+        <path d="M5 16a13 13 0 1 1 26 0v17.5c0 1.4-1.7 2.1-2.7 1.1l-2-2a2 2 0 0 0-2.8 0l-1.4 1.4a2 2 0 0 1-2.8 0l-1.4-1.4a2 2 0 0 0-2.8 0l-2 2c-1 1-2.7.3-2.7-1.1Z" fill="url(#ghostBrandGradient)"/>
+        <g class="ghost-face">
+          <g class="ghost-eye">
+            <circle cx="14" cy="17" r="1.65" fill="#35254f"/>
+            <circle cx="22" cy="17" r="1.65" fill="#35254f"/>
+            <circle cx="14.5" cy="16.5" r=".48" fill="#fff" opacity=".9"/>
+            <circle cx="22.5" cy="16.5" r=".48" fill="#fff" opacity=".9"/>
+          </g>
+          <ellipse class="ghost-cheek" cx="10.8" cy="20.1" rx="1.6" ry=".85" fill="#ffb7e8" opacity=".0"/>
+          <ellipse class="ghost-cheek" cx="25.2" cy="20.1" rx="1.6" ry=".85" fill="#ffb7e8" opacity=".0"/>
+          <path class="ghost-mouth" d="M15.5 21.2Q18 24 20.5 21.2" stroke="#35254f" stroke-width="1.35" stroke-linecap="round" fill="none"/>
+        </g>
+        <g class="ghost-wave" stroke-linecap="round" stroke-linejoin="round">
+          <!-- A simple soft, rounded arm only: no hand or fingers. The arm uses the same gradient as the body. -->
+          <path class="ghost-arm" d="M27.1 27.7Q31.2 26.6 32.2 21.1"/>
+        </g>
+        </g>
       </svg>
     </div>
     <span class="logo-name">Ghost<span>Link</span></span>
   </div>
   <nav class="top-nav" aria-label="Main navigation">
-    <a class="active" href="#" onclick="document.getElementById('home').scrollIntoView({behavior:'smooth'});return false">Home</a>
+    <a href="#" onclick="document.getElementById('home').scrollIntoView({behavior:'smooth'});return false">Home</a>
     <a href="#" onclick="document.getElementById('how-section').scrollIntoView({behavior:'smooth'});return false">How It Works</a>
     <a href="#" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'});return false">Features</a>
     <a href="#" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'});return false">FAQ</a>
@@ -512,9 +1429,9 @@
   </nav>
   <div class="header-spacer"></div>
   <div class="header-badge" id="badge-encrypted">end-to-end encrypted</div>
-
-  <!-- Language Switcher -->
-  <div class="lang-switcher" id="lang-switcher">
+  <!-- Language + Theme grouped together on the right -->
+  <div class="header-right-controls">
+    <div class="lang-switcher" id="lang-switcher">
     <button class="lang-btn" onclick="toggleLangMenu()" aria-label="Select language" aria-expanded="false" id="lang-btn">
       <span class="lang-flag" id="lang-current-flag">🇬🇧</span>
       <span id="lang-current-label">EN</span>
@@ -577,11 +1494,13 @@
       <div class="lang-option" onclick="setLang('uz')" data-lang="uz" role="menuitem"><span class="lang-option-flag">🇺🇿</span> O'zbek</div>
     </div>
   </div>
-
+  <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode" aria-pressed="false">
+    <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.6 8.6 0 1 0 20.2 15.1Z"/></svg>
+    <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+  </button>
+</div>
 </header>
-
 <main class="main">
-
   <!-- Compose View -->
   <div class="view active" id="view-compose">
     <div class="hero-layout" id="home">
@@ -591,7 +1510,6 @@
           <h1 class="compose-heading" data-i18n="heading">Send a Message That <span class="gradient-text">Disappears</span></h1>
           <p class="compose-sub" data-i18n="sub">Type your message, get a unique single-use link, and share it securely. Once it’s viewed, it self-destructs instantly — no traces left behind.</p>
         </div>
-
         <div class="compose-card" id="compose-card">
           <div class="message-area-wrapper">
             <div class="message-icon" aria-hidden="true">
@@ -599,66 +1517,66 @@
             </div>
     <textarea id="msg-input" rows="1" placeholder="Enter your secret message…" autocomplete="off" spellcheck="true" aria-label="Message to encrypt"></textarea>
             <div class="compose-toolbar">
+            <div class="expiry-control">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <select id="expiry-select" aria-label="Link expiration">
+                <option value="read-once" data-i18n="expiryAfterRead">1 View</option>
+              </select>
+              <svg class="select-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
               <button class="toolbar-btn" id="img-attach-btn" type="button">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
                 <span data-i18n="attachImage">Attach image</span>
               </button>
-              <span id="img-count-label" style="font-size:11.5px;color:var(--text-muted);font-family:var(--mono);display:none"></span>
+              <div class="password-section" id="pw-section-toggle">
+                <div class="password-toggle" onclick="togglePasswordSection(event)">
+                  <div class="password-toggle-box" id="pw-toggle-box">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>
+                  </div>
+                  <svg class="password-key-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="15" r="4"/><path d="m10.85 12.15 7-7a2.12 2.12 0 0 1 3 3l-1.5 1.5 1.5 1.5-3 3-1.5-1.5-2 2"/></svg>
+                  <span class="password-toggle-label" data-i18n="pwToggle">Password Lock</span>
+                </div>
+              </div>
             </div>
             <div class="char-count" id="char-count">0</div>
           </div>
           <input type="file" id="img-file-input" accept="image/*" multiple style="display:none">
           <div class="img-preview-strip" id="img-preview-strip"></div>
+          <div id="img-count-label" style="display:none;align-items:center;gap:6px;margin-bottom:4px;margin-top:-4px">
+            <span style="display:inline-flex;align-items:center;gap:5px;background:var(--accent-glow);border:1px solid rgba(110,118,229,0.3);border-radius:20px;padding:3px 10px;font-size:11.5px;color:var(--accent);font-family:var(--mono);font-weight:600">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+              <span id="img-count-text"></span>
+            </span>
+          </div>
           <div id="img-size-warn" class="img-size-warn" style="display:none">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
             <span data-i18n="imgSizeWarn">Images are large — the link may be very long. Keep total images under 1 MB for best results.</span>
           </div>
-
           <div id="compose-error" class="inline-error" aria-live="polite"></div>
-          <div class="composer-actions">
-            <div class="expiry-control">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-              <select id="expiry-select" aria-label="Link expiration">
-                <option value="read-once" data-i18n="expiryAfterRead">1 View</option>
-                <option value="24h" data-i18n="expiry24h">After reading or 24 hours</option>
-                <option value="1h" data-i18n="expiry1h">After reading or 1 hour</option>
-              </select>
-              <svg class="select-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          <div id="pw-fields" class="password-fields">
+            <div class="pw-type-row">
+              <button class="pw-type-btn active" id="btn-type-password" data-i18n="pwTypePw" onclick="setPwType('password')">🔑 Password</button>
+              <button class="pw-type-btn" id="btn-type-pin" data-i18n="pwTypePin" onclick="setPwType('pin')">🔢 4-digit PIN</button>
             </div>
+            <div id="pw-password-wrap" class="pw-input-wrap">
+              <input class="pw-input" id="pw-password-input" type="password" placeholder="Enter a password…" data-i18n="pwPlaceholder" autocomplete="new-password" maxlength="128">
+              <button class="pw-eye" type="button" onclick="togglePwEye()" onmousedown="event.preventDefault()" tabindex="-1">
+                <svg id="pw-eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+            <div id="pw-pin-wrap" style="display:none">
+              <div class="pin-grid">
+                <input class="pin-box" id="pin-0" type="number" min="0" max="9" maxlength="1" placeholder="·" oninput="pinMove(this,0)">
+                <input class="pin-box" id="pin-1" type="number" min="0" max="9" maxlength="1" placeholder="·" oninput="pinMove(this,1)">
+                <input class="pin-box" id="pin-2" type="number" min="0" max="9" maxlength="1" placeholder="·" oninput="pinMove(this,2)">
+                <input class="pin-box" id="pin-3" type="number" min="0" max="9" maxlength="1" placeholder="·" oninput="pinMove(this,3)">
+              </div>
+            </div>
+            <p class="pw-hint" id="pw-hint" data-i18n="pwHintPw">Share this password with the recipient separately — do not include it in the message.</p>
+          </div>
+          <div class="composer-actions">
             <div class="options-row" role="radiogroup" aria-label="Expiry options">
               <label class="option-pill"><input type="radio" name="expiry" value="read-once" checked><span data-i18n="expiryAfterRead">After reading</span></label>
-              <label class="option-pill"><input type="radio" name="expiry" value="24h"><span data-i18n="expiry24h">After reading or 24 hours</span></label>
-              <label class="option-pill"><input type="radio" name="expiry" value="1h"><span data-i18n="expiry1h">After reading or 1 hour</span></label>
-            </div>
-            <div class="password-section">
-              <div class="password-toggle" onclick="togglePasswordSection(event)">
-                <div class="password-toggle-box" id="pw-toggle-box">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>
-                </div>
-                <svg class="password-key-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="15" r="4"/><path d="m10.85 12.15 7-7a2.12 2.12 0 0 1 3 3l-1.5 1.5 1.5 1.5-3 3-1.5-1.5-2 2"/></svg>
-                <span class="password-toggle-label" data-i18n="pwToggle">Password Lock</span>
-              </div>
-              <div class="password-fields" id="pw-fields">
-                <div class="pw-type-row">
-                  <button class="pw-type-btn active" id="btn-type-password" data-i18n="pwTypePw" onclick="setPwType('password')">🔑 Password</button>
-                  <button class="pw-type-btn" id="btn-type-pin" data-i18n="pwTypePin" onclick="setPwType('pin')">🔢 4-digit PIN</button>
-                </div>
-                <div id="pw-password-wrap" class="pw-input-wrap">
-                  <input class="pw-input" id="pw-password-input" type="password" placeholder="Enter a password…" data-i18n="pwPlaceholder" autocomplete="new-password" maxlength="128" onkeydown="if(event.key==='Enter'){event.preventDefault();closePasswordPanel()}">
-                  <button class="pw-eye" type="button" onclick="togglePwEye()" tabindex="-1">
-                    <svg id="pw-eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                  </button>
-                </div>
-                <div id="pw-pin-wrap" style="display:none">
-                  <div class="pin-grid">
-                    <input class="pin-box" id="pin-0" type="number" min="0" max="9" maxlength="1" placeholder="·" oninput="pinMove(this,0)">
-                    <input class="pin-box" id="pin-1" type="number" min="0" max="9" maxlength="1" placeholder="·" oninput="pinMove(this,1)">
-                    <input class="pin-box" id="pin-2" type="number" min="0" max="9" maxlength="1" placeholder="·" oninput="pinMove(this,2)">
-                    <input class="pin-box" id="pin-3" type="number" min="0" max="9" maxlength="1" placeholder="·" oninput="pinMove(this,3)" onkeydown="if(event.key==='Enter'){event.preventDefault();closePasswordPanel()}">
-                  </div>
-                </div>
-                <p class="pw-hint" id="pw-hint" data-i18n="pwHintPw">Share this password with the recipient separately — do not include it in the message.</p>
-              </div>
             </div>
             <button class="btn-primary" id="create-btn" onclick="createLink()">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
@@ -702,7 +1620,6 @@
           </div>
         </div>
       </div>
-
       <aside class="hero-art" aria-label="One-time message link preview">
         <div class="soft-orb orb-one"></div>
         <div class="soft-orb orb-two"></div>
@@ -715,6 +1632,26 @@
             <p id="message-preview">This message will self-destruct after being viewed.</p>
           </div>
         </div>
+        <div class="ghost-buddy" aria-hidden="true">
+          <svg viewBox="0 0 72 84" fill="none">
+            <defs>
+              <linearGradient id="buddyGhostGradient" x1="12" y1="13" x2="60" y2="70" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#5d5aef"/>
+                <stop offset=".55" stop-color="#8550ed"/>
+                <stop offset="1" stop-color="#c14de5"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="36" cy="72" rx="18" ry="3.5" fill="#7952f5" opacity=".1"/>
+            <path class="ghost-body" d="M12 58V35a24 24 0 0 1 48 0v23c-4-3.8-8-3.8-12 0s-8 3.8-12 0-8-3.8-12 0-8 3.8-12 0-8-3.8-12 0Z"/>
+            <path class="ghost-wave" d="M59 45c7 0 9-6 5-10m0 0v-5m1 5 4-3"/>
+            <path class="ghost-wink" d="M25.5 35q2.5-3 5 0"/>
+            <circle class="ghost-eye" cx="44" cy="35" r="2.5"/>
+            <circle cx="44.8" cy="34.2" r=".7" fill="#fff"/>
+            <ellipse class="ghost-cheek" cx="23" cy="43" rx="3" ry="1.8"/>
+            <ellipse class="ghost-cheek" cx="50" cy="43" rx="3" ry="1.8"/>
+            <path class="ghost-smile" d="M33 45q3 3.5 6 0"/>
+          </svg>
+        </div>
         <svg class="preview-arrow" viewBox="0 0 70 85" fill="none" aria-hidden="true"><path d="M61 4C61 35 44 48 12 67" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="4 5"/><path d="m13 57-2 11 11-1" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <div class="link-preview">
           <span class="link-preview-icon">
@@ -726,10 +1663,9 @@
           </span>
           <span class="preview-sparkle">✦</span>
         </div>
-        <div class="hero-caption">One link. One view. Gone for good.</div>
+        <div class="hero-caption">I saw nothing. I was floating.</div>
       </aside>
     </div>
-
     <div class="hero-trustbar" id="features">
       <div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span><span><strong>100%</strong><br>Private</span></div>
       <div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16M4 10h16M4 15h10M4 20h7"/><path d="m17 16 3 3-3 3"/></svg></span><span><strong>Zero</strong><br>Storage</span></div>
@@ -737,19 +1673,31 @@
       <div class="trust-item"><span class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 3 14h8l-1 8 11-12h-8l1-8Z"/></svg></span><span><strong>One-Time</strong><br>View</span></div>
     </div>
   </div>
-
   <!-- Reveal View -->
   <div class="view" id="view-reveal">
-
     <!-- Checking state -->
-    <div id="state-checking" class="reveal-outer" style="display:none">
+    <!-- <div id="state-checking" class="reveal-outer" style="display:none">
       <div class="reveal-icon-wrap ready">
         <div class="spinner" style="width:28px;height:28px;border-width:3px;border-top-color:#6E76E5;border-color:rgba(110,118,229,0.25)"></div>
       </div>
       <h1 class="reveal-title">Verifying link…</h1>
       <p class="reveal-body">Please wait while we check this link. This only takes a moment.</p>
+    </div> -->
+    <!-- Checking state -->
+<div id="state-checking" class="reveal-outer" style="display:none">
+  <div class="clean-verify-card">
+    <div class="clean-verify-aura"></div>
+    <div class="clean-verify-spinner"></div>
+    <div class="clean-verify-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        <path d="m9 12 2 2 4-4"/>
+      </svg>
     </div>
-
+  </div>
+  <h1 class="reveal-title">Verifying Link…</h1>
+  <p class="reveal-body">Please wait while we check this link. This only takes a moment.</p>
+</div>
     <!-- Password gate state -->
     <div id="state-pwgate" class="reveal-outer pw-gate" style="display:none">
       <div class="pw-gate-icon">
@@ -780,7 +1728,6 @@
         <span data-i18n="unlockBtn">Unlock message</span>
       </button>
     </div>
-
     <!-- Ready state -->
     <div id="state-ready" class="reveal-outer" style="display:none">
       <div class="reveal-icon-wrap ready">
@@ -797,11 +1744,9 @@
         <span data-i18n="openWarning">This action cannot be undone. The link will expire immediately.</span>
       </div>
     </div>
-
     <!-- Decrypted state -->
     <div id="state-decrypted" class="reveal-outer" style="display:none">
       <div class="message-display" role="region" aria-label="Decrypted message">
-
         <div class="msg-header">
           <div class="msg-header-left"><span class="msg-live-dot"></span>secure message — opened once</div>
         </div>
@@ -824,7 +1769,6 @@
         Send your own message
       </button>
     </div>
-
     <!-- Burned state -->
     <div id="state-burned" class="reveal-outer" style="display:none">
       <div class="reveal-icon-wrap burned">
@@ -837,7 +1781,6 @@
         <span data-i18n="sendNew">Send a new message</span>
       </button>
     </div>
-
     <!-- Invalid state -->
     <div id="state-invalid" class="reveal-outer" style="display:none">
       <div class="reveal-icon-wrap" style="border-color:rgba(88,96,105,0.4)">
@@ -850,7 +1793,6 @@
         <span data-i18n="goHomeBtn">Go home</span>
       </button>
     </div>
-
     <!-- Expired state -->
     <div id="state-expired" class="reveal-outer" style="display:none">
       <div class="reveal-icon-wrap expired">
@@ -863,7 +1805,6 @@
         <span data-i18n="goHomeBtn">Go home</span>
       </button>
     </div>
-
     <!-- DB Error state -->
     <div id="state-dberror" class="reveal-outer" style="display:none">
       <div class="reveal-icon-wrap" style="border-color:rgba(210,153,34,0.3);background:var(--amber-bg)">
@@ -871,225 +1812,473 @@
       </div>
       <h1 class="reveal-title" data-i18n="dberrorTitle">Something went wrong</h1>
       <p class="reveal-body" data-i18n="dberrorBody">We were unable to verify this link right now. For your security, messages cannot be opened until our service is reachable. Please try again in a moment.</p>
+      <p id="dberror-detail" style="font-size:12px;color:var(--text-muted);font-family:var(--mono);margin-top:-0.75rem;margin-bottom:1.25rem;max-width:38ch;text-align:center"></p>
       <button class="reveal-btn" onclick="retryInit()" style="background:var(--amber)">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
         <span data-i18n="retryBtn">Retry</span>
       </button>
     </div>
-
   </div>
 </main>
-
 <section class="how-section" id="how-section">
-  <p class="how-section-title">How it works</p>
+  <p class="how-section-title" data-i18n="howTitle">How it works</p>
+  <h2 class="how-section-heading" data-i18n="howHeadline">Share. <span class="how-highlight">Encrypt.</span> Forget.</h2>
+  <p class="how-section-subtitle" data-i18n="howSubtitle">Send your messages securely in just a few simple steps. Your data stays encrypted, and your link works only once.</p>
   <div class="steps-grid">
     <div class="step-cell">
-      <div class="step-num">01</div>
-      <div class="step-label">Write your message</div>
-      <div class="step-detail">Type what you want to send. Everything stays in your browser until you're ready.</div>
+      <div class="step-num">1</div>
+      <span class="step-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+        <span class="step-icon-plus">+</span>
+      </span>
+      <div class="step-label">Write Your Message</div>
+      <div class="step-detail">Type your message, add an optional password, and choose when the link expires.</div>
     </div>
     <div class="step-cell">
-      <div class="step-num">02</div>
-      <div class="step-label">Secured automatically</div>
-      <div class="step-detail">Your message is locked with strong encryption before it leaves your device. No one else can read it.</div>
+      <div class="step-num">2</div>
+      <span class="step-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/><path d="M12 14v3"/></svg>
+      </span>
+      <div class="step-label">We Encrypt It</div>
+      <div class="step-detail">Your message is encrypted in your browser before it leaves your device. It never reaches our servers in plain text.</div>
     </div>
     <div class="step-cell">
-      <div class="step-num">03</div>
-      <div class="step-label">Share the link</div>
-      <div class="step-detail">You get a private link to send. The contents of your message never travel through our servers.</div>
+      <div class="step-num">3</div>
+      <span class="step-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      </span>
+      <div class="step-label">Get Your Link</div>
+      <div class="step-detail">We create a secure, one-time link for you to share with your recipient.</div>
     </div>
     <div class="step-cell">
-      <div class="step-num">04</div>
-      <div class="step-label">Opens once, then gone</div>
-      <div class="step-detail">The moment the recipient opens it, the link is permanently disabled — on every device, everywhere.</div>
+      <div class="step-num">4</div>
+      <span class="step-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M10.6 10.6a2 2 0 0 0 2.8 2.8"/><path d="M9.9 5.2A10.9 10.9 0 0 1 12 5c5 0 8.3 4.6 9 6-.3.7-1.2 2-2.7 3.2M6.2 6.2C3.9 7.7 2.5 10 2 11c.7 1.4 4 6 10 6 1 0 1.9-.2 2.7-.5"/></svg>
+      </span>
+      <div class="step-label">They View It &amp; It’s Gone</div>
+      <div class="step-detail">After the recipient opens it, the message is permanently deleted and the link stops working.</div>
     </div>
-  </div>
-  <div class="notice" style="margin-top:1rem">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
-    <span><strong style="color:var(--text-dim)">No loopholes:</strong> Expiry is enforced on our servers, not in the browser. Clearing cache, switching devices, or using a different network cannot reopen a message that has already been read.</span>
   </div>
 </section>
-
 <section class="faq-section" id="faq" aria-labelledby="faq-title">
-  <h2 class="faq-title" id="faq-title">Questions, answered</h2>
-  <div class="faq-list">
-    <article class="faq-item">
-      <h3>Can anyone read my message before it is opened?</h3>
-      <p>Your message is encrypted in your browser before a link is created. Only someone with the link can try to open it.</p>
-    </article>
-    <article class="faq-item">
-      <h3>What happens after the first view?</h3>
-      <p>The link is marked as used and cannot be opened again. You can also choose a one-hour or 24-hour time limit.</p>
-    </article>
-    <article class="faq-item">
-      <h3>Can I add another layer of protection?</h3>
-      <p>Yes. Turn on Password Lock before creating the link, then share the password separately from the message link.</p>
-    </article>
+  <p class="faq-kicker">FAQ</p>
+  <h2 class="faq-title" id="faq-title">Got <span>Questions?</span></h2>
+  <p class="faq-subtitle">Here are the most common questions about GhostLink.</p>
+  <div class="faq-layout">
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary><span class="faq-number">1</span><span class="faq-question">Is my message really encrypted?</span><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <p>Yes. Your message is encrypted in your browser before it is sent, so the server does not receive it as readable text.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-number">2</span><span class="faq-question">Can I send images or files?</span><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <p>You can attach images to a message. Other file types aren’t supported yet.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-number">3</span><span class="faq-question">Is it really one-time only?</span><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <p>Yes. After the recipient opens the message, the link is permanently disabled. You can also set it to expire sooner.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-number">4</span><span class="faq-question">Can I add a password?</span><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <p>Yes. Turn on Password Lock before creating the link, then share the password with the recipient separately.</p>
+      </details>
+      <details class="faq-item">
+        <summary><span class="faq-number">5</span><span class="faq-question">What if I forget my password?</span><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <p>There’s no password reset. Ask the sender for the password; if it can’t be recovered, they’ll need to create and share a new message.</p>
+      </details>
+    </div>
   </div>
 </section>
-
+<section class="message-comparison" id="message-comparison" aria-labelledby="message-comparison-title">
+  <p class="message-comparison-kicker">One-time privacy</p>
+  <h2 class="message-comparison-title" id="message-comparison-title">From locked to <span>gone.</span></h2>
+  <p class="message-comparison-subtitle">Drag the slider to see what happens before and after someone opens a GhostLink message.</p>
+  <div class="comparison-frame" id="message-comparison-frame">
+    <div class="comparison-panel comparison-panel--locked">
+      <div class="comparison-demo-card">
+        <div class="comparison-card-top">
+          <span class="comparison-state"><span class="comparison-state-dot"></span>Encrypted · unopened</span>
+          <span class="comparison-lock-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3"/><path d="M12 14v3"/></svg>
+          </span>
+        </div>
+        <h3 class="comparison-demo-title">Your message stays private</h3>
+        <p class="comparison-demo-copy">It is encrypted in your browser before the link is shared.</p>
+        <div class="comparison-private-message comparison-private-message--blurred">Meet me at 10:30. I’ll send the details privately.</div>
+        <div class="comparison-demo-foot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 22 1.5-.7C18.4 19 21 15.4 21 10V5l-9-3-9 3v5c0 5.4 2.6 9 7.5 11.3L12 22Z"/><path d="m9 12 2 2 4-4"/></svg>
+          Only the recipient can read it
+        </div>
+      </div>
+    </div>
+    <div class="comparison-panel comparison-panel--opened" id="message-comparison-opened">
+      <div class="comparison-demo-card">
+        <div class="comparison-card-top">
+          <span class="comparison-state comparison-state--opened"><span class="comparison-state-dot"></span>Opened · one time</span>
+          <span class="comparison-lock-icon comparison-lock-icon--opened">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6"/><path d="M12 22a10 10 0 1 0-10-10"/></svg>
+          </span>
+        </div>
+        <h3 class="comparison-demo-title">Read once, then it’s gone</h3>
+        <p class="comparison-demo-copy">The recipient sees the message, then the link is permanently disabled.</p>
+        <div class="comparison-private-message">Meet me at 10:30. I’ll send the details privately.</div>
+        <div class="comparison-demo-foot comparison-demo-foot--burned">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M9.9 5.2A10.9 10.9 0 0 1 12 5c5 0 8.3 4.6 9 6-.3.7-1.2 2-2.7 3.2M6.2 6.2C3.9 7.7 2.5 10 2 11c.7 1.4 4 6 10 6 1 0 1.9-.2 2.7-.5"/></svg>
+          This one-time link can’t be opened again
+        </div>
+      </div>
+    </div>
+    <div class="comparison-divider" id="message-comparison-divider" aria-hidden="true">
+      <span class="comparison-divider-knob">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M3 12h18"/></svg>
+      </span>
+    </div>
+    <input class="comparison-range" id="message-comparison-range" type="range" min="0" max="100" value="50" aria-label="Compare the encrypted message with the opened message" aria-valuetext="50 percent">
+  </div>
+  <p class="comparison-instruction">Drag the handle, or focus the slider and use the arrow keys.</p>
+</section>
+<section class="get-started-cta" id="get-started-cta" aria-labelledby="cta-title">
+  <div class="cta-icon" aria-hidden="true">
+    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="5" y="5" width="22" height="22" rx="5"/>
+      <path d="M8 10h16M9 15h14M9 20h9"/>
+    </svg>
+    <span class="cta-icon-bolt">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M9.2 1.5 3.8 8h3.7l-.7 6.5L12.2 8H8.5l.7-6.5Z"/></svg>
+    </span>
+  </div>
+  <div class="cta-copy">
+    <h2 class="cta-title" id="cta-title">Ready to send something private?</h2>
+    <p class="cta-description">Create a one-time link in seconds. No account needed—once it’s opened, it can’t be used again.</p>
+    <div class="cta-actions">
+      <a class="cta-action cta-action--primary" href="#compose-card" onclick="document.getElementById('compose-card').scrollIntoView({behavior:'smooth',block:'center'});document.getElementById('msg-input').focus({preventScroll:true});return false">
+        Create a secure link
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg>
+      </a>
+      <a class="cta-action cta-action--secondary" href="#how-section" onclick="document.getElementById('how-section').scrollIntoView({behavior:'smooth'});return false">
+        How it works
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="cta-shield" aria-hidden="true">
+    <svg viewBox="0 0 64 72" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M32 5 54 14v17c0 15-9 26-22 34C19 57 10 46 10 31V14L32 5Z"/>
+      <path d="m22 34 7 7 14-15"/>
+    </svg>
+  </div>
+</section>
 <footer class="footer">
-  <div class="footer-left" data-i18n="footerLeft">ghostlink · server-enforced · end-to-end encrypted</div>
-  <div class="footer-right">
-    <a href="#" onclick="goHome();return false" data-i18n="footerNew">New message</a>
-    <a href="#" onclick="showAbout();return false" data-i18n="footerAbout">About</a>
+  <div class="footer-content">
+    <div class="footer-brand">
+      <div class="footer-brand-top">
+        <svg class="footer-mascot" viewBox="0 0 36 40" preserveAspectRatio="xMidYMid meet" fill="none" aria-hidden="true">
+          <defs><linearGradient id="footerGhostGradient" x1="5" y1="2" x2="32" y2="38" gradientUnits="userSpaceOnUse"><stop stop-color="#5d5aef"/><stop offset=".55" stop-color="#8550ed"/><stop offset="1" stop-color="#c14de5"/></linearGradient></defs>
+          <g transform="translate(36 0) scale(-1 1)">
+            <path d="M5 16a13 13 0 1 1 26 0v17.5c0 1.4-1.7 2.1-2.7 1.1l-2-2a2 2 0 0 0-2.8 0l-1.4 1.4a2 2 0 0 1-2.8 0l-1.4-1.4a2 2 0 0 0-2.8 0l-2 2c-1 1-2.7.3-2.7-1.1Z" fill="url(#footerGhostGradient)"/>
+            <g>
+              <circle cx="14" cy="17" r="1.65" fill="#35254f"/><circle cx="22" cy="17" r="1.65" fill="#35254f"/>
+              <circle cx="14.5" cy="16.5" r=".48" fill="#fff" opacity=".9"/><circle cx="22.5" cy="16.5" r=".48" fill="#fff" opacity=".9"/>
+              <ellipse cx="10.8" cy="20.1" rx="1.6" ry=".85" fill="#ffb7e8" opacity=".75"/><ellipse cx="25.2" cy="20.1" rx="1.6" ry=".85" fill="#ffb7e8" opacity=".75"/>
+              <path d="M15.5 21.2Q18 24 20.5 21.2" stroke="#35254f" stroke-width="1.35" stroke-linecap="round"/>
+            </g>
+          </g>
+        </svg>
+        <div>
+          <div class="footer-brand-name">Ghost<span>Link</span></div>
+          <p class="footer-tagline" data-i18n="footerTagline">Secure messages. One-time views.<br>No traces.</p>
+        </div>
+      </div>
+      <div class="footer-socials" aria-hidden="true">
+        <span class="footer-social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3L12 14.8 5.7 22H2.5l7.3-8.4L1.8 2h6.5l4.5 6.7L18.9 2Zm-1.1 18h1.7L7.3 3.9H5.5L17.8 20Z"/></svg></span>
+        <span class="footer-social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.7 5.1a18 18 0 0 0-4.4-1.4l-.5 1a16 16 0 0 0-5.6 0l-.5-1a18 18 0 0 0-4.4 1.4C1.5 9.2.7 13.2 1.1 17.2a18 18 0 0 0 5.4 2.7l1.2-2a11 11 0 0 1-1.9-.9l.5-.4a13 13 0 0 0 11.4 0l.5.4a11 11 0 0 1-1.9.9l1.2 2a18 18 0 0 0 5.4-2.7c.5-4.7-.8-8.7-3.2-12.1ZM8.5 14.8c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/></svg></span>
+        <span class="footer-social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z"/></svg></span>
+        <span class="footer-social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .8a11.2 11.2 0 0 0-3.5 21.8c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.4-4-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.6-2.8 5.6-5.4 5.9.4.3.8 1 .8 2v3c0 .3.2.7.8.6A11.2 11.2 0 0 0 12 .8Z"/></svg></span>
+      </div>
+    </div>
+    <nav class="footer-column" aria-label="Quick links">
+      <h2 class="footer-heading" data-i18n="footerQuickLinks">Quick Links</h2>
+      <a class="footer-link" href="#home" onclick="document.getElementById('home').scrollIntoView({behavior:'smooth'});return false" data-i18n="footerHome">Home</a>
+      <a class="footer-link" href="#how-section" onclick="document.getElementById('how-section').scrollIntoView({behavior:'smooth'});return false" data-i18n="footerHow">How It Works</a>
+      <a class="footer-link" href="#faq" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'});return false" data-i18n="footerFaq">FAQ</a>
+      <span class="footer-link footer-link-muted" data-i18n="footerPrivacy">Privacy Policy</span>
+      <span class="footer-link footer-link-muted" data-i18n="footerTerms">Terms of Service</span>
+    </nav>
+    <nav class="footer-column" aria-label="Support">
+      <h2 class="footer-heading" data-i18n="footerSupport">Support</h2>
+      <a class="footer-link" href="#faq" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'});return false" data-i18n="footerHelpCenter">Help Center</a>
+      <span class="footer-link footer-link-muted" data-i18n="footerContact">Contact Us</span>
+      <span class="footer-link footer-link-muted" data-i18n="footerReport">Report Abuse</span>
+      <span class="footer-link footer-link-muted" data-i18n="footerStatus">Status</span>
+    </nav>
+    <div class="footer-help">
+      <svg class="footer-headset" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17v-2a12 12 0 0 1 24 0v2"/><path d="M4 16h4v9H6a2 2 0 0 1-2-2v-7Zm24 0h-4v9h2a2 2 0 0 0 2-2v-7Z"/><path d="M24 25c-1.5 2-4 3-7 3"/></svg>
+      <div>
+        <p class="footer-help-title" data-i18n="footerNeedHelp">Need Help?</p>
+        <p class="footer-help-copy" data-i18n="footerHelpCopy">Our support team is here for you.</p>
+        <a class="footer-support-button" href="#faq" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'});return false"><span data-i18n="footerContactCta">Contact Support</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg></a>
+      </div>
+    </div>
   </div>
 </footer>
-
 <script>
-const languageSwitcher = document.getElementById('lang-switcher');
-const pageFooter = document.querySelector('.footer');
-if (languageSwitcher && pageFooter) pageFooter.appendChild(languageSwitcher);
-
+// lang-switcher stays in the header alongside the theme toggle
+const themeToggle = document.getElementById('theme-toggle');
+const themeColorMeta = document.getElementById('theme-color-meta');
+function setGhostLinkTheme(theme, persist = false) {
+  const activeTheme = theme === 'dark' ? 'dark' : 'light';
+  const isDark = activeTheme === 'dark';
+  document.documentElement.dataset.theme = activeTheme;
+  if (themeToggle) {
+    const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+    themeToggle.setAttribute('aria-pressed', String(isDark));
+    themeToggle.setAttribute('aria-label', label);
+    themeToggle.title = label;
+  }
+  if (themeColorMeta) themeColorMeta.content = isDark ? '#0d1117' : '#fbfcff';
+  if (persist) {
+    try { localStorage.setItem('ghostlink-theme', activeTheme); } catch {}
+  }
+}
+if (themeToggle) {
+  setGhostLinkTheme(document.documentElement.dataset.theme, false);
+  themeToggle.addEventListener('click', () => {
+    const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    setGhostLinkTheme(nextTheme, true);
+  });
+}
+// Friendly logo ghost: hop and smile whenever the user clicks it.
+const brandGhost = document.querySelector('.logo-ghost');
+const brandLogo = document.querySelector('.logo');
+if (brandGhost && brandLogo) {
+  const brandIcon = brandLogo.querySelector('.logo-icon');
+  let greetingTimer;
+  const greetGhost = () => {
+    if (!brandIcon) return;
+    brandIcon.classList.remove('is-greeting');
+    brandGhost.classList.remove('is-happy');
+    void brandGhost.getBoundingClientRect();
+    brandIcon.classList.add('is-greeting');
+    brandGhost.classList.add('is-happy');
+    window.clearTimeout(greetingTimer);
+    greetingTimer = window.setTimeout(() => {
+      brandIcon.classList.remove('is-greeting');
+      brandGhost.classList.remove('is-happy');
+    }, 2400);
+  };
+  brandLogo.addEventListener('click', greetGhost);
+  // Give the mascot a friendly one-time hello when the page first opens.
+  window.setTimeout(greetGhost, 900);
+}
 // ═══════════════════════════════════════════════
-//  SUPABASE CONFIG  (your real credentials)
+//  SUPABASE CONFIG
+//
+//  ⚠️  IMPORTANT — DO NOT put a real API key in this file.
+//  This file is served to every browser; any key here is public.
+//
+//  Two safe options:
+//    A) Self-host: add a tiny backend (Cloudflare Worker / Vercel Edge Function)
+//       that forwards Supabase calls from the server side, where the key is hidden.
+//    B) Use Supabase Row-Level-Security (RLS) so that only the burn operations
+//       you need are reachable by the anon key, then the risk of the anon key
+//       leaking is minimal (it can only do what RLS allows).
+//
+//  For local / dev use you can paste a key below, but strip it before committing
+//  or publishing the file.
 // ═══════════════════════════════════════════════
 const SUPABASE_URL = 'https://mcjrockqqwgdzpruyyph.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_GK_LjZa5ocjQ3HviIGiJbw_YveHEJn-';
+const SUPABASE_KEY = 'YOUR_SUPABASE_PUBLISHABLE_KEY';
+function _sbHeaders(extra = {}) {
+  const h = { 'Content-Type': 'application/json', ...extra };
+  h['apikey'] = SUPABASE_KEY;
+  h['Authorization'] = `Bearer ${SUPABASE_KEY}`;
+  return h;
+}
 const TABLE = 'burns';  // table name in your Supabase database
-
 // ═══════════════════════════════════════════════
 //  SUPABASE HELPERS  (direct REST API — no SDK needed)
 // ═══════════════════════════════════════════════
-
 // Upload encrypted image bytes to Supabase Storage bucket "ghostlink-images"
 // Returns the file path (= imgRef) stored in the URL fragment
 async function sbUploadImages(imgRef, encryptedBytes) {
   const res = await fetch(
-    `${SUPABASE_URL}/storage/v1/object/ghostlink/${imgRef}`,
+    `${SUPABASE_URL}/storage/v1/object/ghostlink/${encodeURIComponent(imgRef)}`,
     {
       method: 'POST',
-      headers: {
-        apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/octet-stream',
-        'x-upsert': 'true'
-      },
+      headers: { ..._sbHeaders(), 'Content-Type': 'application/octet-stream', 'x-upsert': 'true' },
       body: encryptedBytes
     }
   );
   if (!res.ok) throw new Error('img_upload_failed');
   return imgRef;
 }
-
 // Download encrypted image bytes from Supabase Storage
 async function sbDownloadImages(imgRef) {
   const res = await fetch(
-    `${SUPABASE_URL}/storage/v1/object/ghostlink/${imgRef}`,
-    { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+    `${SUPABASE_URL}/storage/v1/object/ghostlink/${encodeURIComponent(imgRef)}`,
+    { headers: _sbHeaders() }
   );
   if (!res.ok) throw new Error('img_download_failed');
   return new Uint8Array(await res.arrayBuffer());
 }
-
+async function sbDeleteImages(imgRef) {
+  const res = await fetch(
+    `${SUPABASE_URL}/storage/v1/object/ghostlink/${encodeURIComponent(imgRef)}`,
+    { method: 'DELETE', headers: _sbHeaders() }
+  );
+  if (!res.ok && res.status !== 404) throw new Error('img_delete_failed');
+}
 async function sbGet(burnId) {
   const res = await fetch(
     `${SUPABASE_URL}/rest/v1/${TABLE}?burn_id=eq.${encodeURIComponent(burnId)}&select=burn_id`,
-    { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+    { headers: _sbHeaders() }
   );
   if (!res.ok) throw new Error('db_read_failed');
   const rows = await res.json();
   return rows.length > 0; // true = already burned
 }
-
 async function sbSet(burnId) {
+  // We use "resolution=ignore-duplicates" so Supabase issues an
+  // INSERT … ON CONFLICT DO NOTHING internally.
+  // • 201 → we inserted the row — we are the first (and only) opener.
+  // • 200/204 with empty body → conflict ignored — someone else already
+  //   burned this link (race condition caught).
+  // • 409 → same as above on older Supabase versions.
   const res = await fetch(
     `${SUPABASE_URL}/rest/v1/${TABLE}`,
     {
       method: 'POST',
-      headers: {
-        apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json',
-        Prefer: 'return=minimal'
-      },
+      headers: { ..._sbHeaders(), Prefer: 'resolution=ignore-duplicates,return=representation' },
       body: JSON.stringify({ burn_id: burnId, burned_at: new Date().toISOString() })
     }
   );
-  // 201 = inserted, 409 = already exists (duplicate — still burned)
-  if (!res.ok && res.status !== 409) throw new Error('db_write_failed');
-  return true;
+  if (res.status === 201) {
+    // We won the race — row is freshly inserted.
+    return true;
+  }
+  if (res.status === 200 || res.status === 204 || res.status === 409) {
+    // Row already existed — another opener beat us.
+    // Signal this to the caller so it can show "already burned".
+    throw new Object({ alreadyBurned: true });
+  }
+  throw new Error('db_write_failed');
 }
-
 // ── Password attempt tracking (stored in Supabase table: pw_attempts) ──
 // Schema: burn_id text PK, attempts int default 0
 // RLS: insert/update/select with anon key (same policy as burns table)
-
 async function sbGetAttempts(burnId) {
   const res = await fetch(
     `${SUPABASE_URL}/rest/v1/pw_attempts?burn_id=eq.${encodeURIComponent(burnId)}&select=attempts`,
-    { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+    { headers: _sbHeaders() }
   );
   if (!res.ok) throw new Error('attempts_read_failed');
   const rows = await res.json();
   return rows.length > 0 ? rows[0].attempts : 0;
 }
-
 async function sbIncrementAttempt(burnId) {
-  // Upsert: insert with attempts=1, or increment existing row by 1
-  const res = await fetch(
+  // ── Preferred path: call a Postgres function that does an atomic
+  //    INSERT … ON CONFLICT DO UPDATE attempts = attempts + 1
+  //    and returns the new count.  Create the RPC in Supabase SQL editor:
+  //
+  //    CREATE OR REPLACE FUNCTION increment_attempt(p_burn_id text)
+  //    RETURNS int LANGUAGE plpgsql AS $$
+  //    DECLARE new_count int;
+  //    BEGIN
+  //      INSERT INTO pw_attempts(burn_id, attempts) VALUES(p_burn_id, 1)
+  //        ON CONFLICT (burn_id) DO UPDATE SET attempts = pw_attempts.attempts + 1;
+  //      SELECT attempts INTO new_count FROM pw_attempts WHERE burn_id = p_burn_id;
+  //      RETURN new_count;
+  //    END;$$;
+  //
+  try {
+    const rpcRes = await fetch(
+      `${SUPABASE_URL}/rest/v1/rpc/increment_attempt`,
+      {
+        method: 'POST',
+        headers: _sbHeaders(),
+        body: JSON.stringify({ p_burn_id: burnId })
+      }
+    );
+    if (rpcRes.ok) {
+      const count = await rpcRes.json();
+      if (typeof count === 'number') return count;
+    }
+  } catch(e) { /* fall through */ }
+  // ── Fallback: INSERT first (handles the no-row case atomically),
+  //    then PATCH only if the row already existed (status 409 / 200).
+  //    This is still slightly racy under extreme concurrency, but the RPC
+  //    above removes the race entirely once you add the Postgres function.
+  const insRes = await fetch(
     `${SUPABASE_URL}/rest/v1/pw_attempts`,
     {
       method: 'POST',
-      headers: {
-        apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json',
-        Prefer: 'resolution=merge-duplicates,return=representation'
-      },
-      // Insert attempts=1; on conflict (burn_id already exists) merge — but Supabase
-      // merge-duplicates replaces, so we use an RPC instead if available.
-      // Fallback: read current count, then patch.
+      headers: { ..._sbHeaders(), Prefer: 'return=representation' },
       body: JSON.stringify({ burn_id: burnId, attempts: 1 })
     }
   );
-  if (res.status === 201 || res.status === 200) {
-    const rows = await res.json();
-    // If merge returned the row, check if we need to patch (count was already >0)
-    if (rows && rows[0] && rows[0].attempts === 1) return 1; // freshly inserted
-    // Row existed but merge replaced with 1 — fix by patching the real value
+  if (insRes.status === 201) {
+    // Fresh row — count is exactly 1
+    return 1;
   }
-  // Fallback: read current, then PATCH with count+1
+  // Row already existed — read current value then PATCH to current+1
   const cur = await sbGetAttempts(burnId);
   const next = cur + 1;
   await fetch(
     `${SUPABASE_URL}/rest/v1/pw_attempts?burn_id=eq.${encodeURIComponent(burnId)}`,
     {
       method: 'PATCH',
-      headers: {
-        apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json',
-        Prefer: 'return=minimal'
-      },
+      headers: { ..._sbHeaders(), Prefer: 'return=minimal' },
       body: JSON.stringify({ attempts: next })
     }
   );
   return next;
 }
-
 async function sbDeleteAttempts(burnId) {
   // Clean up attempt row when link is burned (success or exhausted)
   await fetch(
     `${SUPABASE_URL}/rest/v1/pw_attempts?burn_id=eq.${encodeURIComponent(burnId)}`,
-    {
-      method: 'DELETE',
-      headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` }
-    }
+    { method: 'DELETE', headers: _sbHeaders() }
   );
 }
-
 // Derive a stable, short burn_id from the fragment
+async function sbRpc(name, args) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, {
+    method: 'POST', headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(args)
+  });
+  if (!res.ok) throw new Error(`backend_${name}_failed_${res.status}`);
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
+}
+async function sbSaveMessage(msgId, ciphertext, iv, createdAt, expiryMode) {
+  return sbRpc('gl_save_message', { p_msg_id: msgId, p_ciphertext: ciphertext, p_iv: iv, p_created_at: createdAt, p_expiry_mode: expiryMode });
+}
+async function sbFetchMessage(msgId) {
+  const rows = await sbRpc('gl_get_message', { p_msg_id: msgId });
+  if (!rows || !rows.length) throw new Error('message_missing_or_expired');
+  return rows[0];
+}
+async function sbClaimMessage(msgId) {
+  return sbRpc('gl_claim_message', { p_msg_id: msgId });
+}
+async function sbAtomicIncrementAttempt(msgId) {
+  const rows = await sbRpc('gl_increment_attempt', { p_msg_id: msgId });
+  // RPC returns array of rows e.g. [{attempts: 3}]
+  if (Array.isArray(rows) && rows.length > 0) return Number(rows[0].attempts);
+  if (rows && typeof rows.attempts !== 'undefined') return Number(rows.attempts);
+  throw new Error('increment_attempt_no_result');
+}
+async function sbDeleteMessage(msgId) {
+  return sbRpc('gl_delete_message', { p_msg_id: msgId });
+}
 function getBurnId(fragmentRaw) {
   // Use first 64 chars — unique per link, safe for DB primary key
   return fragmentRaw.substring(0, 64).replace(/[^a-zA-Z0-9_-]/g, 'X');
 }
-
 // ═══════════════════════════════════════════════
 //  CRYPTO HELPERS  (unchanged from original)
 // ═══════════════════════════════════════════════
 const VERSION = 'gl1';
-
 function bytesToBase64url(bytes) {
   let b = '';
   for (let i = 0; i < bytes.length; i++) b += String.fromCharCode(bytes[i]);
@@ -1116,30 +2305,38 @@ async function decryptMessage(ivB64, ctB64, key) {
   const plain = await crypto.subtle.decrypt({name:'AES-GCM',iv:base64urlToBytes(ivB64)},key,base64urlToBytes(ctB64));
   return new TextDecoder().decode(plain);
 }
+async function derivePasswordKey(rawPassword, saltB64) {
+  const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(rawPassword), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({ name: 'PBKDF2', salt: base64urlToBytes(saltB64), iterations: 310000, hash: 'SHA-256' }, material, { name: 'AES-GCM', length: 256 }, false, ['encrypt','decrypt']);
+}
+function buildFragmentV2(msgId, expiryMode, protection, material) {
+  return `${VERSION2}.${expiryMode}.${Math.floor(Date.now()/1000)}.${msgId}.${protection}.${material}`;
+}
+const VERSION2 = 'gl2';
 function buildFragment(keyB64, ivB64, ctB64, expiryMode, pwHash) {
   const base = `${VERSION}.${expiryMode}.${Math.floor(Date.now()/1000)}.${keyB64}.${ivB64}.${ctB64}`;
   return pwHash ? base + '~' + pwHash : base;
 }
 function parseFragment(frag) {
   if (!frag || frag.startsWith('#')) frag = frag ? frag.slice(1) : '';
-  // Split off password hash suffix if present
+  const v2 = frag.split('.');
+  if (v2[0] === VERSION2) {
+    if (v2.length !== 6) return null;
+    const [, expiryMode, createdAt, msgId, protection, material] = v2;
+    if (!['read-once','24h','1h'].includes(expiryMode) || !/^\d+$/.test(createdAt) || !/^[a-f0-9]{32}$/.test(msgId) || !['k','p','n'].includes(protection) || !material) return null;
+    return { version: VERSION2, expiryMode, createdAt: Number(createdAt), msgId, protection, material, pwHash: null, pwHashType: protection === 'n' ? 'pin' : 'password' };
+  }
   let pwHash = null, pwHashType = null;
   const tildeIdx = frag.indexOf('~');
   if (tildeIdx !== -1) {
-    pwHash = frag.substring(tildeIdx + 1);
-    frag = frag.substring(0, tildeIdx);
-    // hash is prefixed with 'P' (password) or 'N' (piN) to distinguish type
-    pwHashType = pwHash.startsWith('P') ? 'password' : 'pin';
-    pwHash = pwHash.substring(1);
+    pwHash = frag.substring(tildeIdx + 1); frag = frag.substring(0, tildeIdx);
+    pwHashType = pwHash.startsWith('P') ? 'password' : 'pin'; pwHash = pwHash.substring(1);
   }
   const parts = frag.split('.');
   if (parts.length < 6) return null;
   const [version, expiryMode, createdAt, keyB64, ivB64, ...ctParts] = parts;
   const ctB64 = ctParts.join('.');
-  if (version !== VERSION) return null;
-  if (!['read-once','24h','1h'].includes(expiryMode)) return null;
-  if (!/^\d+$/.test(createdAt)) return null;
-  if (!keyB64 || !ivB64 || !ctB64) return null;
+  if (version !== VERSION || !['read-once','24h','1h'].includes(expiryMode) || !/^\d+$/.test(createdAt) || !keyB64 || !ivB64 || !ctB64) return null;
   return { version, expiryMode, createdAt: Number(createdAt), keyB64, ivB64, ctB64, pwHash, pwHashType };
 }
 function isExpired(parsed) {
@@ -1148,7 +2345,6 @@ function isExpired(parsed) {
   if (parsed.expiryMode === '24h' && age > 86400) return true;
   return false;
 }
-
 // ═══════════════════════════════════════════════
 //  UI HELPERS
 // ═══════════════════════════════════════════════
@@ -1161,12 +2357,10 @@ const resultLinkDisplay = document.getElementById('result-link-display');
 const composeError = document.getElementById('compose-error');
 let generatedLink = '';
 let currentFragRaw = '';
-
 function restoreCreateButton() {
   createBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> <span data-i18n="createBtn">${t('createBtn')}</span>`;
   createBtn.disabled = false;
 }
-
 // ═══════════════════════════════════════════════
 //  IMAGE ATTACHMENTS
 // ═══════════════════════════════════════════════
@@ -1174,7 +2368,6 @@ let attachedImages = []; // [{name, dataUrl, size}]
 const MAX_IMG_DIMENSION = 1280; // px — resize larger images down
 const IMG_QUALITY = 0.75;       // JPEG quality for compression
 const WARN_TOTAL_BYTES = 5_000_000; // warn above 5 MB total
-
 // Wire up button → file input → handler
 const imgFileInput = document.getElementById('img-file-input');
 document.getElementById('img-attach-btn').addEventListener('click', () => {
@@ -1184,7 +2377,6 @@ document.getElementById('img-attach-btn').addEventListener('click', () => {
 imgFileInput.addEventListener('change', function() {
   if (this.files && this.files.length > 0) handleImageFiles(this.files);
 });
-
 // Compress + resize an image file → returns a data URL (JPEG)
 function compressImage(file) {
   return new Promise((resolve) => {
@@ -1214,35 +2406,28 @@ function compressImage(file) {
     reader.readAsDataURL(file);
   });
 }
-
 async function handleImageFiles(files) {
   const toProcess = Array.from(files).filter(f => f.type.startsWith('image/'));
   if (toProcess.length === 0) return;
-
   // Show loading state on button
   const btn = document.getElementById('img-attach-btn');
   const origHTML = btn.innerHTML;
   btn.disabled = true;
   btn.innerHTML = `<div class="spinner" style="width:12px;height:12px;border-width:2px"></div> Processing…`;
-
   // Compress all selected images in parallel
   const results = await Promise.all(toProcess.map(file =>
     compressImage(file).then(({ dataUrl, size }) => ({ name: file.name, dataUrl, size }))
   ));
-
   attachedImages.push(...results);
   renderImagePreviews();
-
   btn.disabled = false;
   btn.innerHTML = origHTML;
 }
-
 function renderImagePreviews() {
   const strip = document.getElementById('img-preview-strip');
   const countLabel = document.getElementById('img-count-label');
   const warn = document.getElementById('img-size-warn');
   const btn = document.getElementById('img-attach-btn');
-
   strip.innerHTML = '';
   attachedImages.forEach((img, i) => {
     const wrap = document.createElement('div');
@@ -1263,36 +2448,31 @@ function renderImagePreviews() {
     wrap.appendChild(rm);
     strip.appendChild(wrap);
   });
-
-  // Counter label
+  // Counter label — shown below strip as a pill badge
   if (attachedImages.length > 0) {
-    countLabel.style.display = '';
-    countLabel.textContent = attachedImages.length + ' image' + (attachedImages.length !== 1 ? 's' : '');
+    countLabel.style.display = 'flex';
+    const textSpan = document.getElementById('img-count-text');
+    if (textSpan) textSpan.textContent = attachedImages.length + ' image' + (attachedImages.length !== 1 ? 's' : '') + ' attached';
   } else {
     countLabel.style.display = 'none';
   }
-
   btn.disabled = false;
   btn.style.opacity = '';
   btn.style.cursor = '';
-
   // Size warning (based on actual compressed sizes)
   const totalBytes = attachedImages.reduce((s, img) => s + img.size, 0);
   warn.style.display = totalBytes > WARN_TOTAL_BYTES ? 'flex' : 'none';
 }
-
 msgInput.addEventListener('input', () => {
   const len = msgInput.value.length;
   charCount.textContent = len.toLocaleString();
   charCount.className = 'char-count';
   if (composeError.textContent) composeError.textContent = '';
 });
-
 expirySelect.addEventListener('change', () => {
   const selected = document.querySelector(`input[name="expiry"][value="${expirySelect.value}"]`);
   if (selected) selected.checked = true;
 });
-
 async function createLink() {
   const text = msgInput.value.trim();
   if (!text) {
@@ -1300,9 +2480,10 @@ async function createLink() {
     msgInput.focus(); return;
   }
   const expiryMode = document.querySelector('input[name="expiry"]:checked').value;
-  // Validate password if enabled
+  // Validate password if enabled and capture value for use in try block
+  let pwVal = null;
   if (pwEnabled) {
-    const pwVal = getPwValue();
+    pwVal = getPwValue();
     if (!pwVal) {
       composeError.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg> ${pwType === 'pin' ? t('enterPin') : t('enterPw')}`;
       if (pwType === 'pin') document.getElementById('pin-0').focus();
@@ -1311,59 +2492,48 @@ async function createLink() {
     }
   }
   createBtn.disabled = true;
+  composeError.textContent = '';
   createBtn.innerHTML = `<div class="spinner"></div> ${t('creatingLink')}`;
+  let imgRef = null;
   try {
-    const key = await generateKey();
-    const keyB64 = await exportKey(key);
-
-    // If there are images, encrypt them and upload to Supabase Storage
-    let imgRef = null;
-    if (attachedImages.length > 0) {
+    const protection = pwEnabled ? (pwType === 'pin' ? 'n' : 'p') : 'k';
+    let key, material;
+    if (pwEnabled) {
+      const salt = crypto.getRandomValues(new Uint8Array(16));
+      material = bytesToBase64url(salt);
+      key = await derivePasswordKey(pwVal, material);
+    } else {
+      key = await generateKey();
+      material = await exportKey(key);
+    }
+    if (attachedImages.length) {
       createBtn.innerHTML = `<div class="spinner"></div> Uploading ${attachedImages.length} image${attachedImages.length !== 1 ? 's' : ''}…`;
-      // Serialize images (name + dataUrl) → encrypt as binary blob
       const imgJson = JSON.stringify(attachedImages.map(img => ({ name: img.name, dataUrl: img.dataUrl })));
       const imgIv = crypto.getRandomValues(new Uint8Array(12));
-      const imgCt = new Uint8Array(await crypto.subtle.encrypt(
-        { name: 'AES-GCM', iv: imgIv }, key, new TextEncoder().encode(imgJson)
-      ));
-      // Pack: 12 bytes IV + ciphertext
-      const blob = new Uint8Array(12 + imgCt.length);
-      blob.set(imgIv, 0); blob.set(imgCt, 12);
-      // Short random ref (16 hex chars = 64-bit entropy) — safe as storage path
-      imgRef = Array.from(crypto.getRandomValues(new Uint8Array(8))).map(b => b.toString(16).padStart(2,'0')).join('');
+      const imgCt = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv: imgIv }, key, new TextEncoder().encode(imgJson)));
+      const blob = new Uint8Array(12 + imgCt.length); blob.set(imgIv, 0); blob.set(imgCt, 12);
+      imgRef = Array.from(crypto.getRandomValues(new Uint8Array(16))).map(b => b.toString(16).padStart(2,'0')).join('');
       await sbUploadImages(imgRef, blob);
-      createBtn.innerHTML = `<div class="spinner"></div> ${t('creatingLink')}`;
     }
-
-    // Text-only payload — stays short in the URL
     const payload = JSON.stringify({ v: 2, text, imgRef });
     const { iv, ct } = await encryptMessage(payload, key);
-    let pwHashFrag = null;
-    if (pwEnabled) {
-      const pwVal = getPwValue();
-      const hash = await hashPassword(pwVal);
-      const typePrefix = pwType === 'pin' ? 'N' : 'P';
-      pwHashFrag = typePrefix + hash;
-    }
-    const fragment = buildFragment(keyB64, iv, ct, expiryMode, pwHashFrag);
+    const msgId = Array.from(crypto.getRandomValues(new Uint8Array(16))).map(b => b.toString(16).padStart(2,'0')).join('');
+    const createdAt = Math.floor(Date.now()/1000);
+    await sbSaveMessage(msgId, ct, iv, createdAt, expiryMode);
+    const fragment = buildFragmentV2(msgId, expiryMode, protection, material);
     const linkUrl = new URL(window.location.href);
     linkUrl.search = ''; linkUrl.hash = fragment;
     generatedLink = linkUrl.href;
-    resultLinkDisplay.innerHTML = `<strong>${window.location.hostname + window.location.pathname}</strong><span style="color:var(--text-muted)">#…${ct.substring(0,12)}…</span>`;
+    resultLinkDisplay.innerHTML = `<strong>${window.location.hostname + window.location.pathname}</strong><span style="color:var(--text-muted)">#…${msgId.slice(0,8)}…</span>`;
     resultLinkDisplay.title = generatedLink;
-    document.getElementById('expiry-chip').textContent =
-      expiryMode === '1h' ? 'expires after reading · 1h max' :
-      expiryMode === '24h' ? 'expires after reading · 24h max' : 'expires after reading';
+    document.getElementById('expiry-chip').textContent = expiryMode === '1h' ? 'expires after reading · 1h max' : expiryMode === '24h' ? 'expires after reading · 24h max' : 'expires after reading';
     resultCard.style.display = 'block';
     resultCard.scrollIntoView({behavior:'smooth',block:'nearest'});
-    restoreCreateButton();
   } catch(err) {
     console.error('Secure link creation failed:', err);
-    composeError.textContent = 'Could not create the secure link. Please try again.';
-    restoreCreateButton();
-  }
+    composeError.textContent = /image|storage/i.test(String(err)) ? 'Could not upload the encrypted image. Check your Supabase Storage bucket and permissions, then try again.' : 'Could not create the secure link. Check your Supabase connection and SQL setup, then try again.';
+  } finally { restoreCreateButton(); }
 }
-
 async function copyLink() {
   if (!generatedLink) return;
   try {
@@ -1377,7 +2547,6 @@ async function copyLink() {
     }, 2500);
   } catch { window.prompt('Copy this link:', generatedLink); }
 }
-
 function resetCompose() {
   msgInput.value = '';
   charCount.textContent = '0'; charCount.className = 'char-count';
@@ -1395,10 +2564,11 @@ function resetCompose() {
   document.getElementById('pw-fields').classList.remove('visible');
   document.getElementById('pw-password-input').value = '';
   [0,1,2,3].forEach(i => { document.getElementById('pin-'+i).value=''; });
+  const lbl = document.querySelector('.password-toggle-label');
+  if (lbl) { lbl.style.color = ''; lbl.style.fontWeight = ''; lbl.removeAttribute('data-pw-set'); }
   setPwType('password');
   msgInput.focus();
 }
-
 // ═══════════════════════════════════════════════
 //  REVEAL  (server-side burn check + write)
 // ═══════════════════════════════════════════════
@@ -1407,50 +2577,45 @@ async function revealMessage() {
   pendingParsed = null;
   await proceedReveal();
 }
-
 function showState(name) {
   ['checking','ready','pwgate','decrypted','burned','invalid','expired','dberror'].forEach(s => {
     const el = document.getElementById('state-' + s);
     if (el) el.style.display = s === name ? 'flex' : 'none';
   });
 }
-
 function goHome() {
   window.history.replaceState(null, '', window.location.pathname);
   document.getElementById('view-compose').classList.add('active');
   document.getElementById('view-reveal').classList.remove('active');
   document.getElementById('how-section').style.display = 'block';
   document.getElementById('faq').style.display = 'block';
+  document.getElementById('message-comparison').style.display = 'block';
+  document.getElementById('get-started-cta').style.display = 'grid';
   document.querySelector('.top-nav').style.display = '';
   resetCompose();
+  resetMessagePlaceholderRotation();
 }
-
 function showAbout() {
   alert(t('aboutText'));
 }
-
 async function retryInit() {
   showState('checking');
   await initReveal();
 }
-
 // ═══════════════════════════════════════════════
 //  ANTI-SCREENSHOT
 // ═══════════════════════════════════════════════
 document.addEventListener('contextmenu',(e)=>{ if(document.getElementById('state-decrypted').style.display!=='none') e.preventDefault(); });
-
 // ═══════════════════════════════════════════════
 //  PASSWORD / PIN — COMPOSE SIDE
 // ═══════════════════════════════════════════════
 let pwEnabled = false;
 let pwType = 'password'; // 'password' | 'pin'
-
 function togglePasswordSection(event) {
   const box = document.getElementById('pw-toggle-box');
   const fields = document.getElementById('pw-fields');
   const panelOpen = fields.classList.contains('visible');
   const clickedCheckbox = event && event.target.closest('.password-toggle-box');
-
   // With protection already enabled, clicking the label reopens its editor.
   // Clicking the checked box itself still turns protection off.
   if (pwEnabled && !panelOpen && !clickedCheckbox) {
@@ -1458,34 +2623,67 @@ function togglePasswordSection(event) {
     setTimeout(() => document.getElementById(pwType === 'pin' ? 'pin-0' : 'pw-password-input').focus(), 50);
     return;
   }
-
   pwEnabled = !pwEnabled;
   box.classList.toggle('checked', pwEnabled);
   fields.classList.toggle('visible', pwEnabled);
   if (pwEnabled) {
     setTimeout(() => {
       if (!fields.classList.contains('visible')) return;
-      document.getElementById(pwType === 'pin' ? 'pin-0' : 'pw-password-input').focus();
+      const inputEl = document.getElementById(pwType === 'pin' ? 'pin-0' : 'pw-password-input');
+      inputEl.focus();
     }, 50);
+  } else {
+    // Clear password fields when disabled
+    document.getElementById('pw-password-input').value = '';
+    [0,1,2,3].forEach(i => { document.getElementById('pin-'+i).value = ''; });
+    // Reset label style
+    const lbl = document.querySelector('.password-toggle-label');
+    if (lbl) { lbl.style.color = ''; lbl.style.fontWeight = ''; lbl.removeAttribute('data-pw-set'); }
   }
 }
-
+// Auto-collapse password panel when user finishes entering password/PIN
+function collapsePwPanelIfFilled() {
+  if (!pwEnabled) return;
+  const filled = getPwValue();
+  if (filled) {
+    const fields = document.getElementById('pw-fields');
+    fields.classList.remove('visible');
+    // Update toggle label to show it's set
+    const lbl = document.querySelector('.password-toggle-label');
+    if (lbl) {
+      lbl.setAttribute('data-pw-set', 'true');
+      lbl.style.color = 'var(--accent)';
+      lbl.style.fontWeight = '600';
+    }
+    const box = document.getElementById('pw-toggle-box');
+    if (box) box.classList.add('checked');
+  }
+}
+// Collapse password panel only when focus truly leaves the entire panel
+document.addEventListener('DOMContentLoaded', function() {
+  const panel = document.getElementById('pw-fields');
+  if (panel) {
+    // focusout bubbles up from any child — check if new focus is still inside panel
+    panel.addEventListener('focusout', (e) => {
+      setTimeout(() => {
+        // relatedTarget = element receiving focus; if it's inside panel, don't collapse
+        if (panel.contains(document.activeElement)) return;
+        collapsePwPanelIfFilled();
+      }, 0);
+    });
+  }
+  // Enter key on password input also collapses
+  const pwIn = document.getElementById('pw-password-input');
+  if (pwIn) {
+    pwIn.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); collapsePwPanelIfFilled(); } });
+  }
+  // PIN last digit auto-collapse
+  const pin3 = document.getElementById('pin-3');
+  if (pin3) pin3.addEventListener('input', () => { if (pin3.value) setTimeout(collapsePwPanelIfFilled, 300); });
+});
 function closePasswordPanel() {
-  const fields = document.getElementById('pw-fields');
-  fields.classList.remove('visible');
-  if (fields.contains(document.activeElement)) document.activeElement.blur();
+  // No-op for inline layout — panel stays open until checkbox is unchecked
 }
-
-document.addEventListener('click', event => {
-  if (!event.target.closest('.password-section')) closePasswordPanel();
-});
-
-document.getElementById('pw-fields').addEventListener('focusout', event => {
-  if (!event.relatedTarget || !event.currentTarget.contains(event.relatedTarget)) {
-    closePasswordPanel();
-  }
-});
-
 function setPwType(type) {
   pwType = type;
   document.getElementById('btn-type-password').classList.toggle('active', type === 'password');
@@ -1496,7 +2694,6 @@ function setPwType(type) {
   if (type === 'pin') document.getElementById('pin-0').focus();
   else document.getElementById('pw-password-input').focus();
 }
-
 function togglePwEye() {
   const inp = document.getElementById('pw-password-input');
   const icon = document.getElementById('pw-eye-icon');
@@ -1505,14 +2702,14 @@ function togglePwEye() {
   icon.innerHTML = isText
     ? '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>'
     : '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>';
+  // Keep focus on the input so panel doesn't collapse
+  requestAnimationFrame(() => inp.focus());
 }
-
 function pinMove(el, idx) {
   const val = el.value.toString().slice(-1);
   el.value = val;
   if (val && idx < 3) document.getElementById('pin-' + (idx+1)).focus();
 }
-
 function getPwValue() {
   if (!pwEnabled) return null;
   if (pwType === 'pin') {
@@ -1522,22 +2719,35 @@ function getPwValue() {
   const v = document.getElementById('pw-password-input').value.trim();
   return v ? 'PW:' + v : null;
 }
-
 async function hashPassword(raw) {
   const enc = new TextEncoder().encode(raw);
   const buf = await crypto.subtle.digest('SHA-256', enc);
   return bytesToBase64url(new Uint8Array(buf));
 }
-
 // ═══════════════════════════════════════════════
 //  PASSWORD / PIN — RECIPIENT SIDE
+//
+//  ⚠️  Security note — browser-side password check:
+//  The SHA-256 hash of the password lives in the URL fragment.
+//  A determined user who opens DevTools can inspect `correctHash`
+//  and `pendingParsed` and skip the gate.  This is an inherent
+//  limitation of a 100% client-side architecture.
+//
+//  To eliminate this:  move the hash check and decryption key
+//  delivery to a server-side endpoint.  The recipient POSTs their
+//  password hash to your server; the server verifies it, marks the
+//  link burned, and returns the decryption key only on success.
+//  The key never travels in the URL.
+//
+//  The current implementation still prevents casual snooping and
+//  enforces the 5-attempt lockout server-side (via pw_attempts table).
 // ═══════════════════════════════════════════════
 let gateType = 'password'; // set when link is parsed
 let correctHash = '';      // expected hash from fragment
 let pwAttempts = 0;
 const MAX_ATTEMPTS = 5;
 let pendingParsed = null;  // parsed fragment held until password verified
-
+let pendingKey = null;
 function toggleGateEye() {
   const inp = document.getElementById('pw-gate-input');
   const icon = document.getElementById('pw-gate-eye-icon');
@@ -1547,13 +2757,11 @@ function toggleGateEye() {
     ? '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>'
     : '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>';
 }
-
 function gatePinMove(el, idx) {
   const val = el.value.toString().slice(-1);
   el.value = val;
   if (val && idx < 3) document.getElementById('gpin-' + (idx+1)).focus();
 }
-
 function getGatePwValue() {
   if (gateType === 'pin') {
     const digits = [0,1,2,3].map(i => document.getElementById('gpin-'+i).value).join('');
@@ -1561,7 +2769,6 @@ function getGatePwValue() {
   }
   return 'PW:' + document.getElementById('pw-gate-input').value.trim();
 }
-
 async function submitPassword() {
   if (pwAttempts >= MAX_ATTEMPTS) return;
   const raw = getGatePwValue();
@@ -1582,8 +2789,43 @@ async function submitPassword() {
     showGateError('Could not verify the password. Please try again.');
     return;
   }
+  if (pendingParsed && pendingParsed.version === VERSION2) {
+    try {
+      const rawPassword = getGatePwValue();
+      const derived = await derivePasswordKey(rawPassword, pendingParsed.material);
+      const row = await sbFetchMessage(pendingParsed.msgId);
+      await decryptMessage(row.iv, row.ciphertext, derived);
+      pendingKey = derived;
+      await proceedReveal();
+      return;
+    } catch (verifyErr) {
+      if (String(verifyErr).includes('backend_gl_get_message_failed') || String(verifyErr).includes('message_missing_or_expired')) {
+        btn.disabled = false; btn.innerHTML = `<span data-i18n="unlockBtn">${t('unlockBtn')}</span>`;
+        showGateError('The message is unavailable or the server cannot be reached. Please retry.'); return;
+      }
+      const burnId = pendingParsed.msgId;
+      try { pwAttempts = await sbAtomicIncrementAttempt(burnId); }
+      catch (e) { btn.disabled = false; btn.innerHTML = `<span data-i18n="unlockBtn">${t('unlockBtn')}</span>`; showGateError('Could not check this password because the server is unavailable. Please retry.'); return; }
+      const left = MAX_ATTEMPTS - pwAttempts;
+      if (left <= 0) {
+        // Too many wrong attempts — destroy the message permanently
+        btn.disabled = true;
+        btn.innerHTML = `<div class="spinner"></div> ${t('destroyingLink')}`;
+        try { await sbRpc('gl_claim_message', { p_msg_id: burnId }); } catch(e) {}
+        pendingParsed = null;
+        window.history.replaceState(null, '', window.location.pathname);
+        showState('burned');
+      } else {
+        btn.disabled = false; btn.innerHTML = `<span data-i18n="unlockBtn">${t('unlockBtn')}</span>`;
+        showGateError(gateType === 'pin' ? t('incorrectPin') : t('incorrectPw'));
+        document.getElementById('pw-attempts').textContent = t('attemptsLeft')(left);
+        if (gateType === 'pin') { [0,1,2,3].forEach(i => document.getElementById('gpin-'+i).value=''); document.getElementById('gpin-0').focus(); }
+        else { document.getElementById('pw-gate-input').value=''; document.getElementById('pw-gate-input').focus(); }
+      }
+      return;
+    }
+  }
   if (hash === correctHash) {
-    // Password correct — now proceed to open
     await proceedReveal();
   } else {
     // Increment attempt count on the server so it persists across refreshes
@@ -1613,12 +2855,10 @@ async function submitPassword() {
     }
   }
 }
-
 function showGateError(msg) {
   const el = document.getElementById('pw-gate-error');
   el.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg> ${msg}`;
 }
-
 async function showPasswordGate(parsed, type, hash) {
   pendingParsed = parsed;
   gateType = type;
@@ -1632,14 +2872,22 @@ async function showPasswordGate(parsed, type, hash) {
     ? t('pwGateBodyPin')
     : t('pwGateBodyPw');
   showState('pwgate');
-  // Load server-side attempt count so refreshes don't reset the counter
   try {
-    const burnId = getBurnId(currentFragRaw);
-    pwAttempts = await sbGetAttempts(burnId);
+    if (parsed.version === VERSION2) {
+      const row = await sbFetchMessage(parsed.msgId);
+      pwAttempts = parseInt(row.attempts, 10) || 0;
+    } else {
+      const burnId = getBurnId(currentFragRaw);
+      pwAttempts = await sbGetAttempts(burnId);
+    }
     if (pwAttempts >= MAX_ATTEMPTS) {
-      // Already exhausted — burn immediately
-      try { await sbSet(burnId); } catch(e) {}
-      await sbDeleteAttempts(burnId);
+      // Already exhausted — burn the message permanently
+      if (parsed.version === VERSION2) {
+        try { await sbRpc('gl_claim_message', { p_msg_id: parsed.msgId }); } catch(e) {}
+      } else {
+        try { await sbSet(getBurnId(currentFragRaw)); } catch(e) {}
+        try { await sbDeleteAttempts(getBurnId(currentFragRaw)); } catch(e) {}
+      }
       pendingParsed = null;
       window.history.replaceState(null, '', window.location.pathname);
       showState('burned'); return;
@@ -1656,33 +2904,32 @@ async function showPasswordGate(parsed, type, hash) {
     else document.getElementById('pw-gate-input').focus();
   }, 100);
 }
-
 // ═══════════════════════════════════════════════
 //  INIT  — check server FIRST, then show state
 // ═══════════════════════════════════════════════
 async function initReveal() {
   const fragRaw = window.location.hash.substring(1);
   const parsed = parseFragment(fragRaw);
-
   if (!parsed) { showState('invalid'); return; }
   if (isExpired(parsed)) { showState('expired'); return; }
-
   showState('checking');
-
   try {
+    if (parsed.version === VERSION2) {
+      const row = await sbFetchMessage(parsed.msgId);
+      if (row.burned_at) { showState('burned'); return; }
+      const age = Math.floor(Date.now()/1000) - Number(row.created_at || parsed.createdAt);
+      if ((parsed.expiryMode === '1h' && age > 3600) || (parsed.expiryMode === '24h' && age > 86400)) { showState('expired'); return; }
+      if (parsed.protection === 'p' || parsed.protection === 'n') showPasswordGate(parsed, parsed.protection === 'n' ? 'pin' : 'password', null);
+      else showState('ready');
+      return;
+    }
     const burned = await sbGet(getBurnId(fragRaw));
     if (burned) { showState('burned'); return; }
-    // If password protected, show gate — otherwise show ready
-    if (parsed.pwHash) {
-      showPasswordGate(parsed, parsed.pwHashType, parsed.pwHash);
-    } else {
-      showState('ready');
-    }
+    if (parsed.pwHash) showPasswordGate(parsed, parsed.pwHashType, parsed.pwHash); else showState('ready');
   } catch(err) {
     showState('dberror');
   }
 }
-
 // Called after password is verified (or skipped if no password)
 async function proceedReveal() {
   const parsed = pendingParsed || (() => {
@@ -1692,20 +2939,27 @@ async function proceedReveal() {
   })();
   const fragRaw = currentFragRaw;
   if (!parsed) { showState('invalid'); return; }
-
   const btn = pendingParsed
     ? document.getElementById('pw-submit-btn')
     : document.getElementById('reveal-btn');
   btn.disabled = true;
   btn.innerHTML = `<div class="spinner"></div> ${t('openingMsg')}`;
-
   try {
-    const burnId = getBurnId(fragRaw);
-    await sbSet(burnId);
-    try { await sbDeleteAttempts(burnId); } catch(e) {} // clean up attempt counter
-    const key = await importKey(parsed.keyB64);
-    const plaintext = await decryptMessage(parsed.ivB64, parsed.ctB64, key);
-    // Parse payload — v2 = text + imgRef, v1 = text + inline images (legacy), plain = old links
+    let key, plaintext;
+    if (parsed.version === VERSION2) {
+      key = pendingKey || (parsed.protection === 'k' ? await importKey(parsed.material) : null);
+      if (!key) throw new Error('password_required');
+      const claimRows = await sbRpc('gl_claim_message', { p_msg_id: parsed.msgId });
+      if (!claimRows || !claimRows[0] || !claimRows[0].claimed) { showState('burned'); return; }
+      plaintext = await decryptMessage(claimRows[0].iv, claimRows[0].ciphertext, key);
+      pendingKey = null;
+    } else {
+      const burnId = getBurnId(fragRaw);
+      await sbSet(burnId);
+      try { await sbDeleteAttempts(burnId); } catch(e) {}
+      key = await importKey(parsed.keyB64);
+      plaintext = await decryptMessage(parsed.ivB64, parsed.ctB64, key);
+    }
     let msgText = plaintext;
     let msgImages = [];
     try {
@@ -1713,7 +2967,6 @@ async function proceedReveal() {
       if (obj && obj.v === 2) {
         msgText = obj.text || '';
         if (obj.imgRef) {
-          // Fetch encrypted image blob from Supabase, decrypt it
           const blob = await sbDownloadImages(obj.imgRef);
           const iv = blob.slice(0, 12);
           const ct = blob.slice(12);
@@ -1721,6 +2974,7 @@ async function proceedReveal() {
             await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, ct)
           );
           msgImages = JSON.parse(imgJson);
+          try { await sbDeleteImages(obj.imgRef); } catch(e) {}
         }
       } else if (obj && obj.v === 1) {
         msgText = obj.text || ''; msgImages = obj.images || [];
@@ -1745,6 +2999,8 @@ async function proceedReveal() {
       new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
     showState('decrypted');
     document.getElementById('how-section').style.display = 'none';
+    document.getElementById('message-comparison').style.display = 'none';
+    document.getElementById('get-started-cta').style.display = 'none';
     window.history.replaceState(null, '', window.location.pathname);
     pendingParsed = null;
   } catch(err) {
@@ -1753,7 +3009,6 @@ async function proceedReveal() {
     showState('invalid');
   }
 }
-
 // ═══════════════════════════════════════════════
 //  LANGUAGE / i18n
 // ═══════════════════════════════════════════════
@@ -1803,11 +3058,19 @@ const LANGS = {
     footerLeft:'ghostlink · server-enforced · end-to-end encrypted',
     footerNew:'New message',
     footerAbout:'About',
+    footerTagline:'Secure messages. One-time views.<br>No traces.',
+    footerQuickLinks:'Quick Links', footerHome:'Home', footerHow:'How It Works', footerFaq:'FAQ',
+    footerPrivacy:'Privacy Policy', footerTerms:'Terms of Service', footerSupport:'Support',
+    footerHelpCenter:'Help Center', footerContact:'Contact Us', footerReport:'Report Abuse',
+    footerStatus:'Status', footerNeedHelp:'Need Help?',
+    footerHelpCopy:'Our support team is here for you.', footerContactCta:'Contact Support',
     howTitle:'How it works',
-    step1n:'01', step1l:'Write your message', step1d:'Type what you want to send. Everything stays in your browser until you\'re ready.',
-    step2n:'02', step2l:'Secured automatically', step2d:'Your message is locked with strong encryption before it leaves your device. No one else can read it.',
-    step3n:'03', step3l:'Share the link', step3d:'You get a private link to send. The contents of your message never travel through our servers.',
-    step4n:'04', step4l:'Opens once, then gone', step4d:'The moment the recipient opens it, the link is permanently disabled — on every device, everywhere.',
+    howHeadline:'Share. <span class="how-highlight">Encrypt.</span> Forget.',
+    howSubtitle:'Send your messages securely in just a few simple steps. Your data stays encrypted, and your link works only once.',
+    step1n:'1', step1l:'Write Your Message', step1d:'Type your message, add an optional password, and choose when the link expires.',
+    step2n:'2', step2l:'We Encrypt It', step2d:'Your message is encrypted in your browser before it leaves your device. It never reaches our servers in plain text.',
+    step3n:'3', step3l:'Get Your Link', step3d:'We create a secure, one-time link for you to share with your recipient.',
+    step4n:'4', step4l:'They View It & It’s Gone', step4d:'After the recipient opens it, the message is permanently deleted and the link stops working.',
     noLoophole:'<strong style="color:var(--text-dim)">No loopholes:</strong> Expiry is enforced on our servers, not just in the browser. Clearing cache, switching devices, or using a different network cannot reopen a message that has already been read.',
     aboutText:'GhostLink — Private one-time messages\n\n• Messages are secured in your browser before sending\n• Each link works once — after that, it expires permanently\n• Expiry is enforced on our servers, not just in the browser\n• Your message content never passes through our servers',
     attachImage:'Attach image',
@@ -2607,24 +3870,41 @@ const LANGS = {
   am: {flag:'🇪🇹',label:'AM',dir:'ltr',badge:'እስከ መጨረሻው የተመሰጠረ',newMsg:'አዲስ መልዕክት',heading:'የግል መልዕክት ይላኩ። አንድ ጊዜ ብቻ።',sub:'መልዕክትዎን ይጻፉ እና እኛ ደህንነቱ የተጠበቀ የአንድ ጊዜ ሊንክ እንፈጥራለን። ተቀባዩ አንድ ጊዜ ይከፍተዋል — ከዚያ በኋላ ሊንኩ ለዘላለም መስራት ያቆማል።',sectionLabel:'አዲስ መልዕክት',expiryLabel:'የሊንክ ማብቂያ ጊዜ',expiryAfterRead:'ከተነበበ በኋላ',expiry24h:'ከተነበበ በኋላ ወይም 24 ሰዓታት',expiry1h:'ከተነበበ በኋላ ወይም 1 ሰዓት',pwSectionLabel:'የይለፍ ቃል ጥበቃ',pwToggle:'ለመክፈት የይለፍ ቃል ያስፈልጋል',pwTypePw:'🔑 የይለፍ ቃል',pwTypePin:'🔢 የ 4 አሃዝ PIN',pwPlaceholder:'የይለፍ ቃል ያስገቡ…',pwHintPw:'ይህንን የይለፍ ቃል ለብቻው ያጋሩ — በመልዕክቱ ውስጥ አያካተቱት።',pwHintPin:'ይህንን PIN ለብቻው ያጋሩ — በመልዕክቱ ውስጥ አያካተቱት።',createBtn:'ደህንነቱ የተጠበቀ ሊንክ ፍጠር',pwGateTitle:'የይለፍ ቃል ያስፈልጋል',pwGateBodyPw:'ይህ መልዕክት የተጠበቀ ነው። ለመቀጠል የላኪውን የይለፍ ቃል ያስገቡ።',pwGateBodyPin:'ይህ መልዕክት የተጠበቀ ነው። ለመቀጠል የላኪውን 4 አሃዝ PIN ያስገቡ።',unlockBtn:'መልዕክቱን ክፈት',readyTitle:'የግል መልዕክት አለዎት',readyBody:'አንድ ሰው ደህንነቱ የተጠበቀ መልዕክት ልኮልዎታል። መክፈት የሚችሉት <strong>አንድ ጊዜ ብቻ</strong> ነው።',openBtn:'መልዕክት ክፈት',openWarning:'ይህ እርምጃ ሊመለስ አይችልም።',burnedTitle:'ይህ ሊንክ ቀደም ብሎ ጥቅም ላይ ውሏል',burnedBody:'ይህ መልዕክት ቀደም ብሎ የተከፈተ ሲሆን አሁን አይገኝም።',invalidTitle:'የማይታወቅ ሊንክ',invalidBody:'ይህ ሊንክ ትክክል አይመስልም።',expiredTitle:'የሊንኩ ጊዜ አልፏል',expiredBody:'በላኪው የተዋቀረው የጊዜ ገደብ አልፏል።',dberrorTitle:'ችግር ተፈጥሯል',dberrorBody:'በአሁኑ ጊዜ ሊንኩን ማረጋገጥ አልተቻለም።',decryptedNotice:'ይህ ሊንክ አሁን ለዘላለም ተሰናክሏል።',decryptedBurned:'የሊንኩ ጊዜ ስለአለፈ አሁን ማግኘት አይቻልም።',decryptedMsgHeader:'ደህንነቱ የተጠበቀ መልዕክት — አንድ ጊዜ የተከፈተ',goHome:'የራስዎን መልዕክት ይላኩ',sendNew:'አዲስ መልዕክት ላክ',goHomeBtn:'መነሻ ገጽ',retryBtn:'ድጋሚ ሞክር',footerLeft:'ghostlink · እስከ መጨረሻው የተመሰጠረ',footerNew:'አዲስ መልዕክት',footerAbout:'ስለ',howTitle:'እንዴት እንደሚሰራ',step1n:'01',step1l:'መልዕክትዎን ይጻፉ',step1d:'ሁሉንም ነገር በአሳሽዎ ውስጥ ይቆያል።',step2n:'02',step2l:'በራስ-ሰር የተጠበቀ',step2d:'ከመሳሪያዎ ከመውጣቱ በፊት ይመሰጠራል።',step3n:'03',step3l:'ሊንኩን ያጋሩ',step3d:'ይዘቱ በአገልጋዮቻችን በኩል አያልፍም።',step4n:'04',step4l:'አንድ ጊዜ ይከፈታል፣ ከዚያ ይጠፋል',step4d:'ከተከፈተ በኋላ ለዘላለም ይሰናከላል።',noLoophole:'<strong style="color:var(--text-dim)">ምንም ቀዳዳ የለም:</strong> ጊዜው ማብቃቱ በአገልጋዩ ላይ ይተገበራል።',aboutText:'GhostLink — የግል የአንድ ጊዜ መልዕክቶች',creatingLink:'ሊንክ እየተፈጠረ ነው…',openingMsg:'መልዕክት እየተከፈተ ነው…',destroyingLink:'ሊንክ እየተጠፋ ነው…',checking:'እየተረጋገጠ ነው…',enterMsg:'በመጀመሪያ መልዕክት ያስገቡ።',enterPw:'እባክዎን የይለፍ ቃል ያስገቡ።',enterPin:'እባክዎን 4 አሃዝ PIN ያስገቡ።',incorrectPw:'ትክክል ያልሆነ የይለፍ ቃል።',incorrectPin:'ትክክል ያልሆነ PIN።',attemptsLeft:n=>'የቀሩ ሙከራዎች '+n,enterAllDigits:'ሁሉንም 4 አሃዞች ያስገቡ።',enterPassword:'የይለፍ ቃል ያስገቡ።',attachImage:'ምስል አያይዝ',imgSizeWarn:'ጠቅላላ የምስሎች መጠን ትልቅ ነው። ከ5 MB በታች ያቆዩ።',},
   th: {flag:'🇹🇭',label:'TH',dir:'ltr',badge:'เข้ารหัสแบบ end-to-end',newMsg:'ข้อความใหม่',heading:'ส่งข้อความส่วนตัว 1 ครั้งเท่านั้น',sub:'เขียนข้อความของคุณแล้วเราจะสร้างลิงก์แบบใช้ครั้งเดียวที่ปลอดภัย ผู้รับเปิดอ่านหนึ่งครั้ง — หลังจากนั้นลิงก์จะหยุดทำงานตลอดไป ไม่ต้องมีบัญชี',sectionLabel:'ข้อความใหม่',expiryLabel:'ลิงก์หมดอายุ',expiryAfterRead:'หลังจากอ่าน',expiry24h:'หลังจากอ่านหรือ 24 ชั่วโมง',expiry1h:'หลังจากอ่านหรือ 1 ชั่วโมง',pwSectionLabel:'การป้องกันด้วยรหัสผ่าน',pwToggle:'ต้องใช้รหัสผ่านเพื่อเปิดข้อความนี้',pwTypePw:'🔑 รหัสผ่าน',pwTypePin:'🔢 PIN 4 หลัก',pwPlaceholder:'ป้อนรหัสผ่าน…',pwHintPw:'แชร์รหัสผ่านนี้กับผู้รับแยกต่างหาก — อย่าใส่ลงในข้อความ',pwHintPin:'แชร์ PIN นี้กับผู้รับแยกต่างหาก — อย่าใส่ลงในข้อความ',createBtn:'สร้างลิงก์ที่ปลอดภัย',pwGateTitle:'ต้องใช้รหัสผ่าน',pwGateBodyPw:'ข้อความนี้ได้รับการป้องกัน กรุณาป้อนรหัสผ่านที่ผู้ส่งให้ไว้เพื่อดำเนินการต่อ',pwGateBodyPin:'ข้อความนี้ได้รับการป้องกัน กรุณาป้อน PIN 4 หลักที่ผู้ส่งให้ไว้เพื่อดำเนินการต่อ',unlockBtn:'ปลดล็อกข้อความ',readyTitle:'คุณมีข้อความส่วนตัว',readyBody:'มีคนส่งข้อความที่ปลอดภัยให้คุณ คุณสามารถเปิดได้<strong>ครั้งเดียวเท่านั้น</strong> — หลังจากนั้นลิงก์นี้จะหยุดทำงานอย่างถาวร',openBtn:'เปิดข้อความ',openWarning:'การดำเนินการนี้ไม่สามารถย้อนกลับได้ ลิงก์จะหมดอายุทันที',burnedTitle:'ลิงก์นี้ถูกใช้งานไปแล้ว',burnedBody:'ข้อความนี้ถูกเปิดไปแล้วและไม่สามารถใช้งานได้อีก เพื่อความปลอดภัย แต่ละลิงก์สามารถใช้ได้เพียงครั้งเดียว',invalidTitle:'ไม่รู้จักลิงก์',invalidBody:'ลิงก์นี้ดูเหมือนจะไม่ถูกต้อง อาจถูกคัดลอกไม่ถูกต้องหรือถูกแก้ไข โปรดขอให้ผู้ส่งแชร์ใหม่อีกครั้ง',expiredTitle:'ลิงก์นี้หมดอายุแล้ว',expiredBody:'พ้นกำหนดเวลาที่ผู้ส่งตั้งไว้แล้ว ข้อความนี้ไม่สามารถใช้งานได้อีกต่อไป',dberrorTitle:'เกิดข้อผิดพลาดบางอย่าง',dberrorBody:'เราไม่สามารถตรวจสอบลิงก์นี้ได้ในขณะนี้ เพื่อความปลอดภัยของคุณ ข้อความจะไม่สามารถเปิดได้จนกว่าจะติดต่อบริการของเราได้ โปรดลองอีกครั้งในภายหลัง',decryptedNotice:'ลิงก์นี้ถูกปิดใช้งานอย่างถาวรแล้ว ใครก็ตามที่พยายามเปิดอีกครั้งจะเห็นว่าหมดอายุแล้ว',decryptedBurned:'ลิงก์นี้หมดอายุแล้วและไม่สามารถเข้าถึงได้อีกต่อไป',decryptedMsgHeader:'ข้อความปลอดภัย — เปิดแล้วหนึ่งครั้ง',goHome:'ส่งข้อความของคุณเอง',sendNew:'ส่งข้อความใหม่',goHomeBtn:'หน้าแรก',retryBtn:'ลองใหม่',footerLeft:'ghostlink · ควบคุมโดยเซิร์ฟเวอร์ · เข้ารหัสแบบ end-to-end',footerNew:'ข้อความใหม่',footerAbout:'เกี่ยวกับ',howTitle:'วิธีการทำงาน',step1n:'01',step1l:'เขียนข้อความของคุณ',step1d:'พิมพ์สิ่งที่คุณต้องการส่ง ทุกอย่างจะอยู่ในเบราว์เซอร์ของคุณจนกว่าคุณจะพร้อม',step2n:'02',step2l:'ปลอดภัยโดยอัตโนมัติ',step2d:'ข้อความของคุณถูกล็อกด้วยการเข้ารหัสที่แข็งแกร่งก่อนออกจากอุปกรณ์ ไม่มีใครสามารถอ่านได้',step3n:'03',step3l:'แชร์ลิงก์',step3d:'คุณจะได้รับลิงก์ส่วนตัวเพื่อส่ง เนื้อหาข้อความของคุณไม่เคยเดินทางผ่านเซิร์ฟเวอร์ของเรา',step4n:'04',step4l:'เปิดครั้งเดียวแล้วหายไป',step4d:'วินาทีที่ผู้รับเปิด ลิงก์จะถูกปิดใช้งานอย่างถาวร — บนทุกอุปกรณ์ ทุกที่',noLoophole:'<strong style="color:var(--text-dim)">ไม่มีช่องโหว่:</strong> การหมดอายุบังคับใช้บนเซิร์ฟเวอร์ของเรา ไม่ใช่แค่ในเบราว์เซอร์',aboutText:'GhostLink — ข้อความส่วนตัวแบบใช้ครั้งเดียว\n\nข้อความได้รับการปกป้องในเบราว์เซอร์ของคุณก่อนส่ง\nแต่ละลิงก์ใช้งานได้หนึ่งครั้ง — หลังจากนั้นจะหมดอายุถาวร\nการหมดอายุบังคับใช้บนเซิร์ฟเวอร์ของเรา\nเนื้อหาข้อความของคุณไม่เคยผ่านเซิร์ฟเวอร์ของเรา',creatingLink:'กำลังสร้างลิงก์…',openingMsg:'กำลังเปิดข้อความ…',destroyingLink:'กำลังทำลายลิงก์…',checking:'กำลังตรวจสอบ…',enterMsg:'กรุณากรอกข้อความก่อน',enterPw:'กรุณาป้อนรหัสผ่าน',enterPin:'กรุณาป้อน PIN 4 หลัก',incorrectPw:'รหัสผ่านไม่ถูกต้อง โปรดลองอีกครั้ง',incorrectPin:'PIN ไม่ถูกต้อง โปรดลองอีกครั้ง',attemptsLeft:n=>'เหลือ '+n+' ครั้ง',enterAllDigits:'กรุณากรอกตัวเลขทั้ง 4 หลัก',enterPassword:'กรุณาป้อนรหัสผ่าน',attachImage:'แนบรูปภาพ',imgSizeWarn:'ขนาดรูปภาพรวมมีขนาดใหญ่ โปรดเก็บไว้ต่ำกว่า 5 MB เพื่อไม่ให้เกินขีดจำกัดที่จัดเก็บฟรี',}
 };
-
 let currentLang = 'en';
-
 function t(key) {
   return (LANGS[currentLang] || LANGS.en)[key] || LANGS.en[key] || key;
 }
-
 function toggleLangMenu() {
   const sw = document.getElementById('lang-switcher');
   const btn = document.getElementById('lang-btn');
+  const dropdown = sw.querySelector('.lang-dropdown');
   const isOpen = sw.classList.toggle('open');
   btn.setAttribute('aria-expanded', isOpen);
   if (isOpen) {
+    // On mobile, use fixed positioning anchored to the button's screen position
+    if (window.innerWidth <= 680) {
+      const rect = btn.getBoundingClientRect();
+      dropdown.style.top = (rect.bottom + 6) + 'px';
+      dropdown.style.right = (window.innerWidth - rect.right) + 'px';
+      dropdown.style.left = 'auto';
+      // Ensure it doesn't overflow the bottom of the screen
+      const maxH = window.innerHeight - rect.bottom - 16;
+      dropdown.style.maxHeight = Math.min(maxH, window.innerHeight * 0.7) + 'px';
+    } else {
+      dropdown.style.top = '';
+      dropdown.style.right = '';
+      dropdown.style.left = '';
+      dropdown.style.maxHeight = '';
+    }
     const close = e => { if (!sw.contains(e.target)) { sw.classList.remove('open'); btn.setAttribute('aria-expanded','false'); document.removeEventListener('click', close); } };
     setTimeout(() => document.addEventListener('click', close), 0);
+  } else {
+    dropdown.style.top = '';
+    dropdown.style.right = '';
+    dropdown.style.left = '';
+    dropdown.style.maxHeight = '';
   }
 }
-
 function setLang(lang) {
   if (!LANGS[lang]) return;
   currentLang = lang;
@@ -2640,13 +3920,13 @@ function setLang(lang) {
   document.documentElement.dir = L.dir;
   // Update all UI strings
   applyTranslations();
+  refreshMessagePlaceholder();
 }
-
 function applyTranslations() {
-  const L = LANGS[currentLang];
+  const L = LANGS[currentLang] || LANGS.en;
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    const val = L[key];
+    const val = L[key] ?? LANGS.en[key];
     if (val === undefined) return;
     if (el.tagName === 'INPUT' && el.type !== 'radio' && el.type !== 'checkbox') {
       el.placeholder = val;
@@ -2664,24 +3944,189 @@ function applyTranslations() {
     const lbl = document.querySelector(`.step-cell:nth-child(${n}) .step-label`);
     const det = document.querySelector(`.step-cell:nth-child(${n}) .step-detail`);
     const s = String(n);
-    if (num) num.textContent = L['step'+s+'n'];
-    if (lbl) lbl.textContent = L['step'+s+'l'];
-    if (det) det.textContent = L['step'+s+'d'];
+    if (num) num.textContent = L['step'+s+'n'] ?? LANGS.en['step'+s+'n'];
+    if (lbl) lbl.textContent = L['step'+s+'l'] ?? LANGS.en['step'+s+'l'];
+    if (det) det.textContent = L['step'+s+'d'] ?? LANGS.en['step'+s+'d'];
   });
   // how-section title and notice
   const howTitle = document.querySelector('.how-section-title');
-  if (howTitle) howTitle.textContent = L.howTitle;
+  if (howTitle) howTitle.textContent = L.howTitle ?? LANGS.en.howTitle;
   const noLoophole = document.querySelector('.how-section .notice span');
   if (noLoophole) noLoophole.innerHTML = L.noLoophole;
 }
-
+const MESSAGE_PLACEHOLDER_PROMPTS = {
+  en: [
+    'Need to send a love letter? 💌',
+    'Need to share a login password? 🔐',
+    'Need to share an API key securely? 🔑',
+    'Need to send a secret message? 🤫',
+    'Need to share Wi-Fi details? 📶',
+    'Need to send a private note? 📝'
+  ],
+  es: [
+    '¿Necesitas enviar una carta de amor? 💌',
+    '¿Necesitas compartir una contraseña? 🔐',
+    '¿Necesitas compartir una clave API de forma segura? 🔑',
+    '¿Necesitas enviar un mensaje secreto? 🤫',
+    '¿Necesitas compartir los datos del Wi-Fi? 📶',
+    '¿Necesitas enviar una nota privada? 📝'
+  ],
+  fr: [
+    'Besoin d’envoyer une lettre d’amour ? 💌',
+    'Besoin de partager un mot de passe ? 🔐',
+    'Besoin de partager une clé API en toute sécurité ? 🔑',
+    'Besoin d’envoyer un message secret ? 🤫',
+    'Besoin de partager les infos du Wi-Fi ? 📶',
+    'Besoin d’envoyer une note privée ? 📝'
+  ],
+  de: [
+    'Einen Liebesbrief verschicken? 💌',
+    'Ein Passwort sicher teilen? 🔐',
+    'Einen API-Schlüssel sicher teilen? 🔑',
+    'Eine geheime Nachricht senden? 🤫',
+    'WLAN-Zugangsdaten teilen? 📶',
+    'Eine private Notiz senden? 📝'
+  ],
+  hi: [
+    'प्यार भरा पत्र भेजना है? 💌',
+    'लॉगिन पासवर्ड साझा करना है? 🔐',
+    'API key सुरक्षित रूप से साझा करना है? 🔑',
+    'गुप्त संदेश भेजना है? 🤫',
+    'Wi-Fi की जानकारी साझा करनी है? 📶',
+    'निजी नोट भेजना है? 📝'
+  ],
+  pt: [
+    'Precisa enviar uma carta de amor? 💌',
+    'Precisa compartilhar uma senha? 🔐',
+    'Precisa compartilhar uma chave de API com segurança? 🔑',
+    'Precisa enviar uma mensagem secreta? 🤫',
+    'Precisa compartilhar dados do Wi-Fi? 📶',
+    'Precisa enviar uma nota privada? 📝'
+  ],
+  it: [
+    'Vuoi inviare una lettera d’amore? 💌',
+    'Vuoi condividere una password? 🔐',
+    'Vuoi condividere una chiave API in sicurezza? 🔑',
+    'Vuoi inviare un messaggio segreto? 🤫',
+    'Vuoi condividere i dati del Wi-Fi? 📶',
+    'Vuoi inviare una nota privata? 📝'
+  ],
+  ja: [
+    'ラブレターを送りたい？ 💌',
+    'ログインパスワードを共有したい？ 🔐',
+    'APIキーを安全に共有したい？ 🔑',
+    '秘密のメッセージを送りたい？ 🤫',
+    'Wi-Fi情報を共有したい？ 📶',
+    'プライベートなメモを送りたい？ 📝'
+  ],
+  zh: [
+    '想发送一封情书吗？ 💌',
+    '想分享登录密码吗？ 🔐',
+    '想安全地分享 API 密钥吗？ 🔑',
+    '想发送一条秘密消息吗？ 🤫',
+    '想分享 Wi-Fi 信息吗？ 📶',
+    '想发送一条私人便笺吗？ 📝'
+  ],
+  ar: [
+    'هل تريد إرسال رسالة حب؟ 💌',
+    'هل تريد مشاركة كلمة مرور؟ 🔐',
+    'هل تريد مشاركة مفتاح API بأمان؟ 🔑',
+    'هل تريد إرسال رسالة سرية؟ 🤫',
+    'هل تريد مشاركة بيانات Wi-Fi؟ 📶',
+    'هل تريد إرسال ملاحظة خاصة؟ 📝'
+  ]
+};
+let messagePlaceholderTimer = null;
+let messagePlaceholderSwapTimer = null;
+let messagePlaceholderIndex = 0;
+let messagePlaceholderDismissed = false;
+let messagePlaceholderListenersAdded = false;
+function stopMessagePlaceholderRotation(dismiss = false) {
+  if (messagePlaceholderTimer) clearInterval(messagePlaceholderTimer);
+  if (messagePlaceholderSwapTimer) clearTimeout(messagePlaceholderSwapTimer);
+  messagePlaceholderTimer = null;
+  messagePlaceholderSwapTimer = null;
+  if (dismiss) messagePlaceholderDismissed = true;
+  const input = document.getElementById('msg-input');
+  if (input) input.classList.remove('placeholder-shifting');
+}
+function refreshMessagePlaceholder() {
+  const input = document.getElementById('msg-input');
+  if (!input) return;
+  stopMessagePlaceholderRotation();
+  const prompts = MESSAGE_PLACEHOLDER_PROMPTS[currentLang] || MESSAGE_PLACEHOLDER_PROMPTS.en;
+  messagePlaceholderIndex = 0;
+  if (!input.value) input.placeholder = prompts[0];
+  const composeView = document.getElementById('view-compose');
+  const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (input.value || messagePlaceholderDismissed || document.activeElement === input ||
+      !composeView?.classList.contains('active') || reducedMotion) return;
+  messagePlaceholderTimer = setInterval(() => {
+    if (messagePlaceholderDismissed || input.value || document.activeElement === input) {
+      stopMessagePlaceholderRotation(true);
+      return;
+    }
+    input.classList.add('placeholder-shifting');
+    messagePlaceholderSwapTimer = setTimeout(() => {
+      if (messagePlaceholderDismissed || input.value || document.activeElement === input) {
+        input.classList.remove('placeholder-shifting');
+        stopMessagePlaceholderRotation(true);
+        return;
+      }
+      messagePlaceholderIndex = (messagePlaceholderIndex + 1) % prompts.length;
+      input.placeholder = prompts[messagePlaceholderIndex];
+      requestAnimationFrame(() => input.classList.remove('placeholder-shifting'));
+    }, 180);
+  }, 3000);
+}
+function initMessagePlaceholderRotation() {
+  if (messagePlaceholderListenersAdded) return;
+  const input = document.getElementById('msg-input');
+  if (!input) return;
+  messagePlaceholderListenersAdded = true;
+  input.addEventListener('focus', () => stopMessagePlaceholderRotation(true));
+  input.addEventListener('input', () => stopMessagePlaceholderRotation(true));
+}
+function resetMessagePlaceholderRotation() {
+  messagePlaceholderDismissed = false;
+  messagePlaceholderIndex = 0;
+  refreshMessagePlaceholder();
+}
 // ═══════════════════════════════════════════════
 //  INIT  — check server FIRST, then show state
 // ═══════════════════════════════════════════════
+const messageComparisonRange = document.getElementById('message-comparison-range');
+const messageComparisonFrame = document.getElementById('message-comparison-frame');
+const messageComparisonOpened = document.getElementById('message-comparison-opened');
+const messageComparisonDivider = document.getElementById('message-comparison-divider');
+if (messageComparisonRange && messageComparisonFrame && messageComparisonOpened && messageComparisonDivider) {
+  const updateMessageComparison = () => {
+    const position = Math.max(0, Math.min(100, Number(messageComparisonRange.value) || 0));
+    messageComparisonFrame.style.setProperty('--compare-position', `${position}%`);
+    messageComparisonOpened.style.clipPath = `inset(0 0 0 ${position}%)`;
+    messageComparisonRange.setAttribute('aria-valuetext', `${position} percent`);
+  };
+  const moveMessageComparisonToPointer = clientX => {
+    const rect = messageComparisonFrame.getBoundingClientRect();
+    if (!rect.width) return;
+    const position = Math.round(Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100)));
+    messageComparisonRange.value = String(position);
+    updateMessageComparison();
+  };
+  messageComparisonFrame.addEventListener('pointermove', event => {
+    if (event.pointerType === 'mouse' || event.pointerType === 'pen') {
+      moveMessageComparisonToPointer(event.clientX);
+    }
+  });
+  messageComparisonRange.addEventListener('input', updateMessageComparison);
+  updateMessageComparison();
+}
 (function init() {
+  initMessagePlaceholderRotation();
   const frag = window.location.hash;
   if (!frag || frag === '#') {
     document.getElementById('view-compose').classList.add('active');
+    refreshMessagePlaceholder();
     return;
   }
   document.querySelector('.top-nav').style.display = 'none';
@@ -2690,6 +4135,8 @@ function applyTranslations() {
   document.getElementById('view-reveal').classList.add('active');
   document.getElementById('how-section').style.display = 'none';
   document.getElementById('faq').style.display = 'none';
+  document.getElementById('message-comparison').style.display = 'none';
+  document.getElementById('get-started-cta').style.display = 'none';
   initReveal();
 })();
 </script>
